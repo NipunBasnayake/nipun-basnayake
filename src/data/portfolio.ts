@@ -8,7 +8,7 @@ export const personalData = {
   location: "Negombo, Sri Lanka",
   email: "nipunsathsara1999@gmail.com",
   phone: "+94 77 880 6029",
-  education: "BSc in Information Technology | UCSC (Aug 2022 – Jul 2026)",
+  education: "BSc in Information Technology | UCSC (Aug 2022 â€“ Jul 2026)",
   bio: "Full Stack Software Engineer with hands-on experience designing, developing, and deploying scalable web applications using Java, Spring Boot, NestJS, Angular, React, and Node.js. Strong expertise in building RESTful APIs, implementing secure authentication (JWT, OAuth2), and developing responsive user-friendly interfaces. Experienced with relational & NoSQL databases, AWS cloud deployment, Docker, and CI/CD pipelines. Proven ability to write clean, maintainable code and collaborate effectively in Agile/Scrum teams.",
   socialLinks: {
     // CV shows these as labels (LinkedIn | GitHub | Portfolio) without URLs, keeping your existing URLs:
@@ -123,7 +123,7 @@ export const projectsData = [
   {
     title: "SeekJobsLK",
     description:
-      "Sri Lanka–focused job search platform to discover job opportunities. Implemented secure authentication and real-time updates, built a responsive accessible UI, and deployed on Vercel with a custom domain.",
+      "Sri Lankaâ€“focused job search platform to discover job opportunities. Implemented secure authentication and real-time updates, built a responsive accessible UI, and deployed on Vercel with a custom domain.",
     image: "/assets/images/projects/seekjobslk.webp",
     tags: ["React.js", "Firebase", "Supabase", "Vercel"],
     demoLink: "",
@@ -281,7 +281,7 @@ export const projectsData = [
 export const certificationsData = [
   // 2025
   {
-    title: "AI/ML Engineer – Stage 1",
+    title: "AI/ML Engineer â€“ Stage 1",
     issuer: "SLIIT",
     date: "2025",
     description: "",
@@ -289,7 +289,7 @@ export const certificationsData = [
     verificationLink: "",
   },
   {
-    title: "KodeKloud Engineer – Docker (Level 1)",
+    title: "KodeKloud Engineer â€“ Docker (Level 1)",
     issuer: "KodeKloud",
     date: "2025",
     description: "",
@@ -495,3 +495,4 @@ export const sectionsData = {
       "Have a project in mind or want to collaborate? Reach out using any of the methods below.",
   },
 };
+

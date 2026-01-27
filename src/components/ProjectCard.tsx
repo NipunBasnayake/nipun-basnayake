@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { projectsData } from "@/data/portfolio";
 import { getProjectSlug } from "@/lib/slugify";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -17,10 +20,15 @@ type ProjectCardProps = {
 export function ProjectCard({ project, variant = "default" }: ProjectCardProps) {
   const slug = getProjectSlug(project.title);
   const showViewButton = project.viewButton || variant === "featured";
+  const imageRatio = variant === "featured" ? "aspect-[16/10]" : "aspect-[4/3]";
+  const cardStyles =
+    variant === "featured"
+      ? "border-cyan-300/30 bg-gradient-to-br from-white/[0.05] via-black/60 to-fuchsia-500/10"
+      : undefined;
 
   return (
-    <GlowCard className="flex h-full flex-col gap-4">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10">
+    <GlowCard className={cn("flex h-full flex-col gap-4", cardStyles)}>
+      <div className={cn("relative w-full overflow-hidden rounded-2xl border border-white/10", imageRatio)}>
         <Link href={`/projects/${slug}`} className="block h-full w-full">
           <ImageWithFallback
             src={project.image}
@@ -71,3 +79,4 @@ export function ProjectCard({ project, variant = "default" }: ProjectCardProps) 
     </GlowCard>
   );
 }
+

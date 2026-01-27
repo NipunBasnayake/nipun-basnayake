@@ -29,11 +29,11 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: reduceMotion
     ? { duration: 0 }
-    : { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+    : { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 export function SkillsGrid() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section id="skills" className="py-20">
@@ -75,3 +75,4 @@ export function SkillsGrid() {
     </section>
   );
 }
+

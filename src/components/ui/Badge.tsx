@@ -1,7 +1,10 @@
+"use client";
+
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type BadgeProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 
@@ -17,3 +20,4 @@ export function Badge({ children, className }: BadgeProps) {
     </span>
   );
 }
+

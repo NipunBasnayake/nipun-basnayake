@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
@@ -27,3 +29,4 @@ export function SectionHeading({
     </div>
   );
 }
+

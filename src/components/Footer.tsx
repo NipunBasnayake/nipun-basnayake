@@ -85,8 +85,9 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/5 py-4 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} {personalData.fullName}. All rights reserved.
+        Â© {new Date().getFullYear()} {personalData.fullName}. All rights reserved.
       </div>
     </footer>
   );
 }
+

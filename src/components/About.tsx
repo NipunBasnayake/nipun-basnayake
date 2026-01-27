@@ -12,11 +12,11 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: reduceMotion
     ? { duration: 0 }
-    : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+    : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 export function About() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section id="about" className="py-20">
@@ -40,6 +40,7 @@ export function About() {
                       key={button.text}
                       href={button.link}
                       variant={button.type === "outline" ? "outline" : "primary"}
+                      download={button.id === "download-cv" ? "" : undefined}
                     >
                       {button.text}
                     </Button>
@@ -76,7 +77,7 @@ export function About() {
                 <div>
                   <h3 className="text-base font-semibold text-white">Experience</h3>
                   <p className="text-sm text-white/70">
-                    {personalData.experience}+ Years in full-stack engineering
+                    {personalData.experience} Years in full-stack engineering
                   </p>
                 </div>
               </div>
@@ -87,3 +88,4 @@ export function About() {
     </section>
   );
 }
+

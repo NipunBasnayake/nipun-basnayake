@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from "react";
 import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "outline" | "ghost";
@@ -10,14 +17,14 @@ type ButtonBaseProps = {
   href?: string;
   external?: boolean;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 type ButtonAsLink = ButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
 type ButtonAsButton = ButtonBaseProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
 
 type ButtonProps = ButtonAsLink | ButtonAsButton;
 
@@ -51,23 +58,27 @@ export function Button({
 
   if (href) {
     const isExternal = external ?? href.startsWith("http");
+    const anchorProps = props as AnchorHTMLAttributes<HTMLAnchorElement>;
+    const shouldRenderAnchor = isExternal || Boolean(anchorProps.download) || Boolean(anchorProps.target);
 
-    if (isExternal) {
+    if (shouldRenderAnchor) {
       return (
         <a
           className={classNames}
           href={href}
-          target={props.target ?? "_blank"}
-          rel={props.rel ?? "noreferrer"}
-          {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          target={isExternal ? anchorProps.target ?? "_blank" : anchorProps.target}
+          rel={isExternal ? anchorProps.rel ?? "noreferrer" : anchorProps.rel}
+          {...anchorProps}
         >
           {children}
         </a>
       );
     }
 
+    const { href: linkHref, ...linkProps } = anchorProps;
+
     return (
-      <Link className={classNames} href={href} {...(props as any)}>
+      <Link className={classNames} href={linkHref ?? href} {...linkProps}>
         {children}
       </Link>
     );
@@ -76,10 +87,11 @@ export function Button({
   return (
     <button
       className={classNames}
-      type={(props as React.ButtonHTMLAttributes<HTMLButtonElement>).type ?? "button"}
-      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      type={(props as ButtonHTMLAttributes<HTMLButtonElement>).type ?? "button"}
+      {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {children}
     </button>
   );
 }
+

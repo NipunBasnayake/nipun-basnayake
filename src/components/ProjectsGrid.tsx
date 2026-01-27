@@ -17,12 +17,12 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: reduceMotion
     ? { duration: 0 }
-    : { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+    : { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 export function ProjectsGrid({ variant = "home" }: ProjectsGridProps) {
   const [activeCategory, setActiveCategory] = useState("all");
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
 
   const orderedProjects = useMemo(
     () => [...projectsData].sort((a, b) => Number(b.featured) - Number(a.featured)),
@@ -55,6 +55,7 @@ export function ProjectsGrid({ variant = "home" }: ProjectsGridProps) {
                 key={category}
                 type="button"
                 onClick={() => setActiveCategory(category)}
+                aria-pressed={activeCategory === category}
                 className={cn(
                   "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition",
                   activeCategory === category
@@ -98,14 +99,21 @@ export function ProjectsGrid({ variant = "home" }: ProjectsGridProps) {
           </div>
         ) : (
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project, index) => (
-              <motion.div key={project.title} {...fadeUp(reduceMotion, index * 0.05)}>
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
+            {filteredProjects.length === 0 ? (
+              <div className="col-span-full rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-white/70">
+                No projects found for this category yet.
+              </div>
+            ) : (
+              filteredProjects.map((project, index) => (
+                <motion.div key={project.title} {...fadeUp(reduceMotion, index * 0.05)}>
+                  <ProjectCard project={project} />
+                </motion.div>
+              ))
+            )}
           </div>
         )}
       </div>
     </section>
   );
 }
+

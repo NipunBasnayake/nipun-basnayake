@@ -52,6 +52,7 @@ export function Navbar() {
           type="button"
           className="md:hidden"
           aria-label="Toggle navigation"
+          aria-controls="mobile-nav"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
         >
@@ -63,6 +64,7 @@ export function Navbar() {
         </button>
       </div>
       <div
+        id="mobile-nav"
         className={cn(
           "md:hidden",
           isOpen ? "max-h-96 border-t border-white/10" : "max-h-0 overflow-hidden"
@@ -87,3 +89,4 @@ export function Navbar() {
     </header>
   );
 }
+

@@ -34,8 +34,10 @@ export function ImageWithFallback({
   return (
     <Image
       {...props}
+      alt={props.alt}
       onError={() => setHasError(true)}
       className={cn("rounded-2xl", props.className)}
     />
   );
 }
+

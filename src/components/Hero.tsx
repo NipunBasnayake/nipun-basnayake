@@ -12,11 +12,11 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: reduceMotion
     ? { duration: 0 }
-    : { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] },
+    : { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 export function Hero() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section id="hero" className="relative overflow-hidden pb-20 pt-28">
@@ -85,7 +85,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-2">
               <Badge className="border-fuchsia-400/40 bg-fuchsia-400/10 text-fuchsia-100">
-                {personalData.experience}+ Years Experience
+                {personalData.experience} Years Experience
               </Badge>
             </div>
           </motion.div>
@@ -119,3 +119,4 @@ export function Hero() {
     </section>
   );
 }
+
