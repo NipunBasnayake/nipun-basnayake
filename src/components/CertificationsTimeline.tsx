@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { certificationsData, sectionsData } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -24,7 +25,7 @@ export function CertificationsTimeline({
   limit,
   showAllLink = false,
 }: CertificationsTimelineProps) {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
   const ordered = [...certificationsData].sort(
     (a, b) => Number(b.date) - Number(a.date)
   );

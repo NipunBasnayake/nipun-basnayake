@@ -2,19 +2,17 @@ export const personalData = {
   firstName: "Nipun",
   lastName: "Sathsara Basnayaka",
   fullName: "Nipun Sathsara Basnayaka",
-  age: 25, // (Age is not explicitly stated in the CV, keeping your original value)
-  illustration: "/assets/images/photos/profile_Illustration.png",
-  profilePic: "/assets/images/photos/ProfilePic.jpg",
+  age: 26,
+  profilePic: "/assets/images/photos/profile_Illustration.png",
   location: "Negombo, Sri Lanka",
   email: "nipunsathsara1999@gmail.com",
   phone: "+94 77 880 6029",
   education: "BSc in Information Technology | UCSC (Aug 2022 – Jul 2026)",
   bio: "Full Stack Software Engineer with hands-on experience designing, developing, and deploying scalable web applications using Java, Spring Boot, NestJS, Angular, React, and Node.js. Strong expertise in building RESTful APIs, implementing secure authentication (JWT, OAuth2), and developing responsive user-friendly interfaces. Experienced with relational & NoSQL databases, AWS cloud deployment, Docker, and CI/CD pipelines. Proven ability to write clean, maintainable code and collaborate effectively in Agile/Scrum teams.",
   socialLinks: {
-    // CV shows these as labels (LinkedIn | GitHub | Portfolio) without URLs, keeping your existing URLs:
     github: "https://github.com/NipunBasnayake",
     linkedin: "https://www.linkedin.com/in/nipunbasnayake/",
-    facebook: "https://www.facebook.com/nipun.s99?mibextid=ZbWKwL",
+    facebook: "https://web.facebook.com/nipun.s99/",
     instagram: "https://www.instagram.com/nipun__s/",
     whatsapp: "https://wa.me/94778806029",
   },
@@ -496,3 +494,14 @@ export const sectionsData = {
   },
 };
 
+export const githubActivityData = {
+  heading: "GitHub Activity",
+  subtext: "Live snapshots of my open-source journey",
+  username: "NipunBasnayake",
+  streakUrl:
+    "https://nirzak-streak-stats.vercel.app/?user=NipunBasnayake&theme=transparent&hide_border=false",
+  topLanguagesUrl:
+    "https://github-readme-stats.vercel.app/api/top-langs/?username=NipunBasnayake&theme=transparent&hide_border=false&include_all_commits=false&count_private=false&layout=compact",
+  committersProfile: "https://committers.top/sri_lanka#NipunBasnayake",
+  committersEndpoint: "https://committers.top/rank_only/sri_lanka.json",
+};

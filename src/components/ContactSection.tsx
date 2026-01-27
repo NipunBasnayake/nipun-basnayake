@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Mail,
   MapPin,
@@ -16,6 +16,7 @@ import { personalData, sectionsData } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -38,7 +39,7 @@ type ContactSectionProps = {
 };
 
 export function ContactSection({ showHeading = true }: ContactSectionProps) {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
   const [formState, setFormState] = useState({
     name: "",
     email: "",

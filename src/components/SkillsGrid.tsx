@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Code,
   Monitor,
@@ -14,6 +14,7 @@ import { mainSkillAreas, sectionsData } from "@/data/portfolio";
 import { Badge } from "@/components/ui/Badge";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const iconMap = {
   Code,
@@ -33,7 +34,7 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
 });
 
 export function SkillsGrid() {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section id="skills" className="py-20">

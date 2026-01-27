@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { personalData, sectionsData } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -16,7 +17,7 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
 });
 
 export function Hero() {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section id="hero" className="relative overflow-hidden pb-20 pt-28">
@@ -100,18 +101,8 @@ export function Hero() {
               src={personalData.profilePic}
               alt={personalData.fullName}
               fill
-              priority
               sizes="(max-width: 768px) 80vw, 40vw"
               className="object-cover"
-            />
-          </div>
-          <div className="absolute -bottom-8 -left-6 hidden w-32 sm:block">
-            <ImageWithFallback
-              src={personalData.illustration}
-              alt="Profile illustration"
-              width={160}
-              height={160}
-              className="rounded-3xl border border-white/10 bg-white/5"
             />
           </div>
         </motion.div>
@@ -119,4 +110,3 @@ export function Hero() {
     </section>
   );
 }
-

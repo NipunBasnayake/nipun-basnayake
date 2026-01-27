@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { projectsData, sectionsData } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 type ProjectsGridProps = {
   variant?: "home" | "page";
@@ -22,7 +23,7 @@ const fadeUp = (reduceMotion: boolean, delay = 0) => ({
 
 export function ProjectsGrid({ variant = "home" }: ProjectsGridProps) {
   const [activeCategory, setActiveCategory] = useState("all");
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
 
   const orderedProjects = useMemo(
     () => [...projectsData].sort((a, b) => Number(b.featured) - Number(a.featured)),

@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ExternalLink, Github, Layers } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import type { Project } from "@/components/ProjectCard";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -21,7 +22,7 @@ type ProjectDetailProps = {
 };
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section className="py-20">
