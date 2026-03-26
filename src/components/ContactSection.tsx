@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/Button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
+import { cn } from "@/lib/utils";
 
 const fadeUp = (reduceMotion: boolean, delay = 0) => ({
   initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
@@ -45,7 +46,11 @@ export function ContactSection({ showHeading = true }: ContactSectionProps) {
     email: "",
     message: "",
   });
-  const [showToast, setShowToast] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -54,13 +59,54 @@ export function ContactSection({ showHeading = true }: ContactSectionProps) {
     };
   }, []);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setShowToast(true);
-    setFormState({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
 
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setShowToast(false), 3500);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSubmitStatus({
+        type: "success",
+        message: data.message || "Message sent successfully!",
+      });
+      setFormState({ name: "", email: "", message: "" });
+
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(
+        () => setSubmitStatus({ type: null, message: "" }),
+        5000
+      );
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to send message. Please try again.",
+      });
+
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(
+        () => setSubmitStatus({ type: null, message: "" }),
+        5000
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -185,24 +231,29 @@ export function ContactSection({ showHeading = true }: ContactSectionProps) {
                     placeholder="Tell me about your project..."
                   />
                 </div>
-                <Button type="submit" variant="primary">
-                  Send Message
+                <Button type="submit" variant="primary" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </GlowCard>
           </motion.div>
         </div>
-        <div className="relative mt-6" aria-live="polite">
-          {showToast ? (
+        {submitStatus.type ? (
+          <div className="relative mt-6" aria-live="polite">
             <motion.div
               {...fadeUp(reduceMotion)}
               role="status"
-              className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-xs text-cyan-100"
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs",
+                submitStatus.type === "success"
+                  ? "border-cyan-300/30 bg-cyan-300/10 text-cyan-100"
+                  : "border-red-400/30 bg-red-400/10 text-red-100"
+              )}
             >
-              Thanks! Your message has been queued for review.
+              {submitStatus.message}
             </motion.div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

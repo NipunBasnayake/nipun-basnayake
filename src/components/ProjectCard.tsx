@@ -27,21 +27,21 @@ export function ProjectCard({ project, variant = "default" }: ProjectCardProps) 
       : undefined;
 
   return (
-    <GlowCard className={cn("flex h-full flex-col gap-4", cardStyles)}>
-      <div className={cn("relative w-full overflow-hidden rounded-2xl border border-white/10", imageRatio)}>
+    <GlowCard className={cn("group flex h-full flex-col gap-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-500/20", cardStyles)}>
+      <div className={cn("relative w-full overflow-hidden rounded-2xl border border-white/10 transition-all duration-300 group-hover:border-cyan-300/50", imageRatio)}>
         <Link href={`/projects/${slug}`} className="block h-full w-full">
           <ImageWithFallback
             src={project.image}
             alt={project.title}
             fill
             sizes="(max-width: 768px) 90vw, 30vw"
-            className="object-cover transition duration-500 group-hover:scale-105"
+            className="object-cover transition duration-500 group-hover:scale-110"
           />
         </Link>
       </div>
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <Link href={`/projects/${slug}`} className="text-lg font-semibold text-white">
+          <Link href={`/projects/${slug}`} className="text-lg font-semibold text-white transition-colors hover:text-cyan-300">
             {project.title}
           </Link>
           {project.featured ? (
@@ -50,10 +50,10 @@ export function ProjectCard({ project, variant = "default" }: ProjectCardProps) 
             </Badge>
           ) : null}
         </div>
-        <p className="text-sm text-white/70">{project.description}</p>
+        <p className="text-sm leading-relaxed text-white/70">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <Badge key={tag}>{tag}</Badge>
+            <Badge key={tag} className="border-white/10 bg-white/5 text-white/70 transition-colors group-hover:border-cyan-300/30 group-hover:bg-cyan-300/10 group-hover:text-cyan-100">{tag}</Badge>
           ))}
         </div>
       </div>

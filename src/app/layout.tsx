@@ -18,13 +18,64 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nipunbasnayake.dev'),
   title: {
-    default: `${personalData.fullName} | Portfolio`,
+    default: `${personalData.fullName} | Full Stack Software Engineer`,
     template: `%s | ${personalData.firstName}`,
   },
   description: personalData.bio,
+  keywords: [
+    "Full Stack Developer",
+    "Software Engineer",
+    "Spring Boot Developer",
+    "React Developer",
+    "Java Developer",
+    "NestJS Developer",
+    "Angular Developer",
+    "Web Developer",
+    "Cloud Developer",
+    "AWS",
+    "Sri Lanka Developer",
+  ],
+  authors: [{ name: personalData.fullName, url: "https://nipunbasnayake.dev" }],
+  creator: personalData.fullName,
+  publisher: personalData.fullName,
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://nipunbasnayake.dev",
+    title: `${personalData.fullName} | Full Stack Software Engineer`,
+    description: "Full Stack Software Engineer specializing in Spring Boot, React, and cloud-native solutions. Building scalable, real-world systems.",
+    siteName: `${personalData.fullName} Portfolio`,
+    images: [
+      {
+        url: "/assets/images/photos/profile.png",
+        width: 1200,
+        height: 630,
+        alt: `${personalData.fullName} - Full Stack Software Engineer`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${personalData.fullName} | Full Stack Software Engineer`,
+    description: "Full Stack Software Engineer specializing in Spring Boot, React, and cloud-native solutions.",
+    images: ["/assets/images/photos/profile.png"],
+    creator: "@nipunbasnayake",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

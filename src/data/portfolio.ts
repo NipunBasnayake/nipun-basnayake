@@ -3,7 +3,7 @@ export const personalData = {
   lastName: "Sathsara Basnayaka",
   fullName: "Nipun Sathsara Basnayaka",
   age: 26,
-  profilePic: "/assets/images/photos/profile_Illustration.png",
+  profilePic: "/assets/images/photos/profile.png",
   location: "Negombo, Sri Lanka",
   email: "nipunsathsara1999@gmail.com",
   phone: "+94 77 880 6029",
@@ -146,7 +146,7 @@ export const projectsData = [
     title: "Progress & Task Tracking System",
     description:
       "Full-stack system to track team progress, tasks, and milestones with real-time updates and performance tracking.",
-    image: "/assets/images/projects/progress-task.webp",
+    image: "/assets/images/projects/taskmanager.webp",
     tags: ["NestJS", "React.js", "MongoDB", "Firebase"],
     demoLink: "",
     codeLink: "",
@@ -387,7 +387,7 @@ export const certificationsData = [
     issuer: "Docker, Inc.",
     date: "2025",
     description: "",
-    badge: "/assets/images/certifications/docker-foundations.webp",
+    badge: "/assets/images/certifications/Docker Foundations Professional Certificate.png",
     verificationLink: "",
   },
   {
@@ -395,7 +395,7 @@ export const certificationsData = [
     issuer: "LinkedIn",
     date: "2025",
     description: "",
-    badge: "/assets/images/certifications/ml-python-foundations.webp",
+    badge: "/assets/images/certifications/Machine Learning with Python Foundations.png",
     verificationLink: "",
   },
   {
@@ -403,7 +403,7 @@ export const certificationsData = [
     issuer: "JetBrains",
     date: "2025",
     description: "",
-    badge: "/assets/images/certifications/java-foundations.webp",
+    badge: "/assets/images/certifications/Java Foundations Professional Certificate by JetBrains.webp",
     verificationLink: "",
   },
   {
@@ -411,7 +411,7 @@ export const certificationsData = [
     issuer: "Postman",
     date: "2025",
     description: "",
-    badge: "/assets/images/certifications/postman-api-fundamentals.webp",
+    badge: "/assets/images/certifications/Postman API Fundamentals Student Expert.png",
     verificationLink: "",
   },
   // 2023
@@ -420,7 +420,7 @@ export const certificationsData = [
     issuer: "University of Colombo School of Computing",
     date: "2023",
     description: "",
-    badge: "/assets/images/certifications/diploma-it-ucsc.webp",
+    badge: "/assets/images/certifications/Information Technology Diploma by UCSC.png",
     verificationLink: "",
   },
   // 2022
@@ -437,7 +437,7 @@ export const certificationsData = [
     issuer: "Google Digital Academy (Skillshop)",
     date: "2022",
     description: "",
-    badge: "/assets/images/certifications/fundamentals-digital-marketing.webp",
+    badge: "/assets/images/certifications/Fundamentals of digital marketing.png",
     verificationLink: "",
   },
   // 2021
@@ -465,7 +465,7 @@ export const sectionsData = {
     ctaButtons: [
       {
         text: "Download CV",
-        link: "/assets/cv/Nipun-Basnayaka-CV-Jan-26.pdf",
+        link: "/assets/cv/Nipun_Sathsara_Basanayaka_Software_Engineer_CV.pdf",
         type: "primary",
         id: "download-cv",
       },
