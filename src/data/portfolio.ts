@@ -205,34 +205,33 @@ export const summaryData: SummaryData = {
     eyebrow: "Professional Summary",
     title: "A full-stack engineer with product taste and backend discipline.",
     intro:
-      "Nipun builds software for real workflows: systems that model data carefully, expose dependable APIs, and give users interfaces that stay fast, legible, and polished.",
+      "I build software for real workflows: systems that model data carefully, expose dependable APIs, and deliver interfaces that stay fast, clear, and polished.",
   },
   body: [
-    "His work spans Spring Boot services, React and Next.js frontends, PostgreSQL-backed applications, Dockerized delivery, and event-driven thinking with Kafka. The common thread is practical engineering judgment: define the domain, protect the contract, ship the workflow.",
-    "He is especially drawn to SaaS platforms, ERP systems, internal tools, HR and task management workflows, automotive operations, and microservice architectures where backend reliability and frontend clarity have to meet in one product.",
+    "I build full-stack systems using Spring Boot, React, Next.js, PostgreSQL, Docker, and Kafka, focusing on SaaS platforms, ERP systems, and workflow-driven applications where strong backend architecture and clear frontend design come together to deliver reliable, production-ready products.",
   ],
   proofPoints: [
-    "Full-stack application delivery from database schema to responsive UI",
+    "End-to-end full-stack delivery from database schema to responsive UI",
     "REST API design, service boundaries, authentication-aware workflows, and integration thinking",
-    "Production habits across Docker, AWS preparation, Postman validation, and clean TypeScript data models",
+    "Production mindset with Docker, cloud readiness, API validation, and clean TypeScript models",
   ],
   competencies: [
     {
       id: "systems",
       title: "Production Systems",
-      description: "Designs APIs, workflows, and services around maintainability, traceability, and real operating constraints.",
+      description: "I design APIs, workflows, and services with maintainability, traceability, and real-world constraints in mind.",
       icon: ServerCog,
     },
     {
       id: "product",
       title: "Product Engineering",
-      description: "Turns ERP, SaaS, HR, task, and operations requirements into interfaces people can actually run daily.",
+      description: "I turn ERP, SaaS, and operational requirements into interfaces that people can actually use daily.",
       icon: Layers3,
     },
     {
       id: "delivery",
       title: "Delivery Mindset",
-      description: "Thinks beyond the demo: Docker, cloud readiness, validation, documentation, and incremental release quality.",
+      description: "I build beyond demos—focusing on Docker, cloud readiness, validation, documentation, and production-quality releases.",
       icon: Rocket,
     },
   ],
@@ -305,49 +304,71 @@ export const experienceSection: SectionCopy = {
 
 export const experience: ExperienceItem[] = [
   {
-    id: "full-stack-product-engineering",
-    period: "2024 - Present",
-    role: "Full Stack Software Engineer",
-    company: "Independent product and academic engineering work",
+    id: "associate-software-engineer",
+    period: "Jun 2025 – Present",
+    role: "Associate Software Engineer (Full Stack)",
+    company: "Residue Solutions (Pvt) Ltd",
     location: "Colombo, Sri Lanka",
     summary:
-      "Built full-stack platforms that connect Spring Boot APIs, relational data models, and React product interfaces for operational workflows.",
+      "Building scalable full-stack systems across Spring Boot, NestJS, and React/Next.js, focusing on performance, clean architecture, and production reliability.",
     responsibilities: [
-      "Designed backend service layers, REST endpoints, DTOs, validation flow, and database-backed business logic.",
-      "Implemented responsive React interfaces for task management, HR, ERP, and SaaS-style products.",
-      "Used Git, Postman, Docker, and typed frontend data structures to keep delivery testable and maintainable.",
+      "Designed and documented RESTful APIs using Swagger/OpenAPI to support scalable frontend and mobile integrations.",
+      "Developed responsive frontend features with React.js and Next.js, integrating APIs efficiently using Tailwind CSS.",
+      "Built backend services with Spring Boot and NestJS, emphasizing maintainability, performance, and clean architecture.",
+      "Optimized PostgreSQL queries and indexing, improving API response times and handling larger datasets efficiently.",
+      "Implemented secure authentication systems using JWT and OAuth2 with Spring Security and NestJS middleware.",
+      "Designed microservices-based systems using Spring Boot and Kafka-driven event architecture for distributed processing.",
+      "Integrated third-party services including Google Maps API and Google Sheets API for automation and location-based features.",
+      "Containerized applications with Docker and implemented CI/CD pipelines using GitHub Actions.",
+      "Diagnosed and resolved production issues across APIs and databases, improving system stability and reducing downtime.",
+      "Developed SaaS and ERP systems focused on usability, performance, and real business workflows.",
+      "Wrote unit and integration tests using JUnit and Jest to improve reliability and maintainability.",
     ],
-    stack: ["Spring Boot", "React", "TypeScript", "PostgreSQL", "Docker", "Postman"],
+    stack: [
+      "Spring Boot",
+      "NestJS",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Kafka",
+      "Docker",
+      "JWT",
+      "OAuth2",
+      "GitHub Actions",
+    ],
   },
   {
-    id: "erp-systems",
-    period: "2023 - 2025",
-    role: "ERP & Workflow Systems Builder",
-    company: "Portfolio engineering projects",
-    location: "Remote / Sri Lanka",
+    id: "software-engineering-intern",
+    period: "Apr 2025 – Jun 2025",
+    role: "Software Engineering Intern (Full Stack)",
+    company: "Residue Solutions (Pvt) Ltd",
+    location: "Colombo, Sri Lanka",
     summary:
-      "Created domain-focused systems for residue management, automotive operations, HR workflows, and enterprise planning.",
+      "Contributed to production-ready full-stack applications, focusing on API development, authentication, and system performance.",
     responsibilities: [
-      "Modeled entities, permissions, statuses, and operational flows around real business processes.",
-      "Translated complex internal workflows into dashboards, forms, tables, and decision screens.",
-      "Structured projects as reusable application modules rather than isolated pages.",
+      "Built backend APIs using NestJS and Spring Boot for real-world applications.",
+      "Implemented secure authentication systems with JWT-based access control and RBAC.",
+      "Integrated frontend applications with backend APIs and Firebase for real-time features.",
+      "Improved performance through SQL query optimization and structured backend testing using Jest and JUnit.",
+      "Collaborated using Git workflows, pull requests, and code reviews within a team environment.",
     ],
-    stack: ["Java", "Spring Boot", "SQL", "React", "Tailwind CSS", "REST"],
+    stack: ["Spring Boot", "NestJS", "React", "Firebase", "PostgreSQL", "JWT", "RBAC", "Jest", "JUnit"],
   },
   {
-    id: "microservices-learning",
-    period: "2025",
-    role: "Microservices & Cloud Architecture Learner",
-    company: "Certification-led engineering practice",
+    id: "software-engineering-trainee",
+    period: "Jul 2024 – Apr 2025",
+    role: "Software Engineering Trainee",
+    company: "Institute of Computer Engineering Technology (iCET)",
     location: "Sri Lanka",
     summary:
-      "Deepened production readiness through Docker, Kafka-style event flows, AWS architecture preparation, and API validation practice.",
+      "Built foundational full-stack systems while strengthening backend architecture, authentication, and collaborative development practices.",
     responsibilities: [
-      "Explored event-driven service communication, container boundaries, and deployment-aware application design.",
-      "Validated API behavior with Postman and strengthened Java foundations through professional certification tracks.",
-      "Built a stronger security and systems mindset through cybersecurity and ethical hacking training.",
+      "Developed full-stack applications using Java, Spring Boot, Angular, and REST APIs.",
+      "Implemented authentication systems using JWT tokens and role-based access control (RBAC).",
+      "Worked in Agile teams using Git version control and collaborative workflows.",
     ],
-    stack: ["Docker", "Kafka", "AWS", "Java", "Postman", "Cybersecurity"],
+    stack: ["Java", "Spring Boot", "Angular", "REST APIs", "JWT", "RBAC", "Git"],
   },
 ];
 
@@ -361,49 +382,65 @@ export const projectsSection: SectionCopy = {
 export const projects: ProjectCaseStudy[] = [
   {
     id: "worknest",
-    title: "WorkNest",
-    type: "SaaS productivity platform",
-    problem: "Teams need one reliable place to coordinate work, visibility, ownership, and progress without turning daily operations into spreadsheet drift.",
-    solution: "Designed a full-stack task and workspace system with project views, role-aware workflows, and clean API boundaries between collaboration data and UI state.",
-    architecture: "React product surface backed by Spring Boot REST services, relational task models, status workflows, and validation-focused endpoint contracts.",
-    result: "A product-grade foundation for work tracking that can grow into team dashboards, notifications, and analytics.",
-    stack: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "REST APIs", "Docker"],
+    title: "WorkNest – Multi-Tenant Workforce Platform",
+    type: "SaaS platform",
+    problem:
+      "Organizations need a scalable system to manage workforce operations across multiple tenants while maintaining strict data isolation and performance.",
+    solution:
+      "Designed and built a multi-tenant SaaS platform with isolated tenant databases, secure authentication, and role-based workflows for workforce management.",
+    architecture:
+      "Spring Boot backend with tenant-aware data isolation, JWT/OAuth2 security, and React frontend with structured workflow modules and real-time features.",
+    result:
+      "Delivered a scalable workforce platform with improved performance, reliable API communication, and real-time task and chat synchronization.",
+    stack: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "JWT", "OAuth2", "Docker"],
     links: [{ label: "Discuss Build", href: "#contact", icon: ArrowUpRight }],
     accent: "from-arctic/60 via-wine/35 to-ember/35",
   },
   {
     id: "residue-erp",
     title: "Residue ERP System",
-    type: "ERP operations system",
-    problem: "Residue and resource operations require traceable inventory movement, status changes, and reporting across multiple business steps.",
-    solution: "Built an ERP-style workflow with structured entities, operational screens, and backend rules for inventory, users, and process state.",
-    architecture: "Layered Spring Boot backend with SQL persistence and a React interface organized around workflow modules instead of static pages.",
-    result: "Improved clarity around operational state, making the system easier to audit, extend, and demonstrate to stakeholders.",
-    stack: ["Spring Boot", "React", "SQL", "REST", "Tailwind CSS", "Postman"],
+    type: "ERP platform",
+    problem:
+      "Business operations require a unified system to manage inventory, invoicing, financial data, and customer workflows without fragmentation.",
+    solution:
+      "Built a full-stack ERP system with modular architecture covering invoicing, inventory, customers, suppliers, and financial workflows.",
+    architecture:
+      "Spring Boot backend with JWT-secured APIs, PostgreSQL persistence, and a React frontend using React Query, React Hook Form, and Material UI.",
+    result:
+      "Improved operational efficiency with a scalable, production-ready ERP system featuring robust validation, API communication, and Dockerized deployment.",
+    stack: ["Spring Boot", "React", "PostgreSQL", "Docker", "JWT", "Swagger"],
     links: [{ label: "Explore Scope", href: "#contact", icon: ArrowUpRight }],
     accent: "from-ember/65 via-wine/30 to-arctic/30",
   },
   {
     id: "task-management",
     title: "Task Management System",
-    type: "Workflow application",
-    problem: "Task systems often stop at CRUD and miss the operating details: assignment, priority, status, filtering, and a UI that helps people move quickly.",
-    solution: "Implemented task lifecycle flows with practical UI states, structured data, and backend endpoints designed for predictable updates.",
-    architecture: "Typed React components consuming REST APIs, with relational persistence for task metadata, ownership, and progress.",
-    result: "A clearer, more maintainable workflow system that demonstrates both frontend usability and backend structure.",
-    stack: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "REST APIs"],
-    links: [{ label: "Review Logic", href: "#contact", icon: TerminalSquare }],
+    type: "Full-stack application",
+    problem:
+      "Task systems often lack proper security, ownership control, and production-ready architecture for real-world usage.",
+    solution:
+      "Developed a secure full-stack task management system with authentication, protected routes, and structured workflow handling.",
+    architecture:
+      "Next.js frontend with middleware protection, NestJS backend with JWT auth, MongoDB persistence, and DTO validation with rate limiting.",
+    result:
+      "Delivered a production-ready system with secure access control, scalable deployment, and clean API design.",
+    stack: ["Next.js", "NestJS", "MongoDB", "JWT", "Docker", "Vercel"],
+    links: [{ label: "Live System", href: "#contact", icon: ArrowUpRight }],
     accent: "from-volt/45 via-arctic/35 to-wine/35",
   },
   {
     id: "event-driven-microservices",
     title: "Event-Driven Microservices System",
     type: "Distributed systems architecture",
-    problem: "Monolithic flows become brittle when independent business capabilities need to communicate without tight coupling.",
-    solution: "Modeled services around bounded responsibilities and asynchronous events, using message-driven thinking for resilience and service independence.",
-    architecture: "Spring Boot microservices with Kafka-style event channels, Dockerized services, and API contracts for synchronous entry points.",
-    result: "A stronger architecture practice for scalable backend systems, service ownership, and integration reliability.",
-    stack: ["Spring Boot", "Kafka", "Docker", "Microservices", "REST", "PostgreSQL"],
+    problem:
+      "Monolithic systems struggle with scalability and loose coupling when handling independent business processes.",
+    solution:
+      "Engineered microservices using event-driven architecture with Kafka for asynchronous communication and service decoupling.",
+    architecture:
+      "Spring Boot microservices with Kafka messaging, Dockerized services, and REST APIs for synchronous interactions.",
+    result:
+      "Enabled scalable, distributed processing with improved system resilience and service independence.",
+    stack: ["Spring Boot", "Kafka", "Docker", "Microservices", "PostgreSQL"],
     links: [
       {
         label: "Source",
@@ -418,23 +455,31 @@ export const projects: ProjectCaseStudy[] = [
     id: "automotive-erp",
     title: "Automotive ERP System",
     type: "Business operations platform",
-    problem: "Automotive operations need connected visibility across stock, service flow, customers, and administrative work.",
-    solution: "Designed an ERP structure that organizes automotive workflows into modules with clear data ownership and role-aware screens.",
-    architecture: "Backend-first ERP model with React dashboards, form-heavy workflows, SQL-backed records, and API-driven module boundaries.",
-    result: "A scalable foundation for an internal operations tool that can support future analytics and workflow automation.",
-    stack: ["Java", "Spring Boot", "React", "PostgreSQL", "REST APIs", "Docker"],
-    links: [{ label: "Talk Through", href: "#contact", icon: ArrowUpRight }],
+    problem:
+      "Automotive businesses require integrated systems for service workflows, inventory, and customer management.",
+    solution:
+      "Built a full-stack ERP platform to manage automotive operations with secure APIs and real-time capabilities.",
+    architecture:
+      "NestJS backend with REST APIs, React frontend, MongoDB storage, and AWS deployment with Firebase integration.",
+    result:
+      "Delivered a scalable cloud-based system supporting operational workflows and real-time updates.",
+    stack: ["NestJS", "React", "MongoDB", "AWS", "Firebase", "REST APIs"],
+    links: [{ label: "Discuss Build", href: "#contact", icon: ArrowUpRight }],
     accent: "from-ember/60 via-volt/25 to-arctic/25",
   },
   {
     id: "evoplan",
     title: "EvoPlan Enterprise Web Application",
-    type: "Enterprise planning app",
-    problem: "Planning work becomes difficult when teams cannot connect priorities, timelines, resources, and execution state in one coherent interface.",
-    solution: "Built a planning-oriented web application concept with modular views, reusable components, and a stronger information hierarchy.",
-    architecture: "React/TypeScript interface with structured content models, reusable UI primitives, and backend-ready workflow assumptions.",
-    result: "A polished enterprise product surface that demonstrates product thinking beyond isolated screens.",
-    stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "API Design"],
+    type: "Enterprise planning system",
+    problem:
+      "Teams struggle to align planning, resources, and execution in a single structured system.",
+    solution:
+      "Led backend and authentication development for a planning platform with modular architecture and secure workflows.",
+    architecture:
+      "Angular frontend with Spring Boot backend, OAuth2 authentication, and Supabase integration for storage and data management.",
+    result:
+      "Delivered a collaborative enterprise system built with Agile practices across a 45+ developer team.",
+    stack: ["Angular", "Spring Boot", "OAuth2", "Supabase", "REST APIs"],
     links: [{ label: "View Direction", href: "#contact", icon: Layers3 }],
     accent: "from-arctic/55 via-wine/30 to-volt/25",
   },
@@ -442,11 +487,15 @@ export const projects: ProjectCaseStudy[] = [
     id: "hr-management",
     title: "HR Management System",
     type: "Internal business system",
-    problem: "HR teams need consistent handling for employee records, workflow visibility, and administrative decisions without fragmented tools.",
-    solution: "Created an HR system structure for employee data, operational screens, and backend-ready flows for people management.",
-    architecture: "Full-stack CRUD and workflow foundation with relational employee models, RESTful endpoints, and responsive interface modules.",
-    result: "A practical internal system pattern that can be extended with attendance, leave, payroll, and approval workflows.",
-    stack: ["Spring Boot", "Angular", "MySQL", "JWT", "RBAC", "REST APIs"],
+    problem:
+      "HR systems need structured handling of employee data, payroll, and workflows with proper access control.",
+    solution:
+      "Developed a modular HR system with secure authentication, role-based access, and scalable backend architecture.",
+    architecture:
+      "Spring Boot backend with REST APIs, Angular frontend, MySQL database, and JWT-based RBAC security.",
+    result:
+      "Built a maintainable and scalable system supporting HR workflows with improved performance and security.",
+    stack: ["Spring Boot", "Angular", "MySQL", "JWT", "RBAC"],
     links: [
       {
         label: "Source",
