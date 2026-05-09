@@ -7,7 +7,7 @@ import { cn } from "../../lib/utils";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const initials = siteData.name
+  const initials = siteData.shortName
     .split(" ")
     .map((part) => part[0])
     .join("");
@@ -24,7 +24,7 @@ export function Navbar() {
             {initials}
           </span>
           <span className="hidden font-mono text-xs uppercase tracking-[0.26em] text-platinum/68 sm:block">
-            {siteData.role}
+            {siteData.shortName}
           </span>
         </a>
 
@@ -53,20 +53,45 @@ export function Navbar() {
 
       <motion.div
         className={cn(
-          "absolute left-0 right-0 top-20 border-b border-white/10 bg-obsidian/94 px-5 pb-5 pt-2 backdrop-blur-2xl md:hidden",
-          !isOpen && "pointer-events-none",
+          "absolute left-0 right-0 top-20 px-5 pb-6 pt-3 md:hidden",
+
+          // 🔥 NEW: dark glass container
+          "bg-black/80 backdrop-blur-xl",
+          "border-b border-white/10",
+
+          !isOpen && "pointer-events-none"
         )}
         initial={false}
-        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -12 }}
+        animate={{
+          opacity: isOpen ? 1 : 0,
+          y: isOpen ? 0 : -12,
+        }}
         transition={{ duration: 0.2 }}
       >
-        <nav className="grid gap-2" aria-label="Mobile navigation">
+        <nav className="grid gap-3" aria-label="Mobile navigation">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-4 text-lg font-bold text-platinum"
               onClick={() => setIsOpen(false)}
+              className="
+                  rounded-2xl
+                  text-center
+                  bg-black/60
+                  backdrop-blur-md
+
+                  border border-white/10
+
+                  px-5 py-4
+
+                  text-lg font-bold text-platinum
+
+                  transition-all duration-200
+
+                  hover:bg-black/75
+                  hover:border-white/20
+                  hover:scale-[1.01]
+                "
             >
               {item.label}
             </a>
