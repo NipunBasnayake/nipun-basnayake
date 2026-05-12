@@ -31,18 +31,20 @@ export function SkillsSection() {
                       category.accent,
                     )}
                   />
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="mb-8 flex items-center justify-between">
-                      <span className="grid size-13 place-items-center rounded-[1.25rem] border border-white/12 bg-obsidian/45 text-platinum shadow-cyan">
-                        <Icon className="size-6" />
-                      </span>
-                      <span className="font-mono text-xs text-platinum/38">0{index + 1}</span>
+                  <div className="relative z-10 flex h-full flex-col justify-between">
+                    <div>
+                      <div className="mb-8 flex items-center justify-between">
+                        <span className="grid size-13 place-items-center rounded-[1.25rem] border border-white/12 bg-obsidian/45 text-platinum shadow-cyan">
+                          <Icon className="size-6" />
+                        </span>
+                        <span className="font-mono text-xs text-platinum/38">0{index + 1}</span>
+                      </div>
+                      <h3 className="font-display font-black leading-none text-platinum text-3xl">
+                        {category.title}
+                      </h3>
+                      <p className="mt-5 text-sm leading-7 text-platinum/62">{category.description}</p>
                     </div>
-                    <h3 className="font-display font-black leading-none text-platinum text-3xl">
-                      {category.title}
-                    </h3>
-                    <p className="mt-5 text-sm leading-7 text-platinum/62">{category.description}</p>
-                    <div className="mt-auto flex flex-wrap gap-2.5 pt-8">
+                    <div className="flex flex-wrap gap-2.5 pt-8">
                       {category.skills.map((skill) => (
                         <span
                           key={skill}

@@ -18,13 +18,13 @@ export function ProjectsSection() {
   useEffect(() => {
     const updateMetrics = () => {
       const viewportWidth = viewportRef.current?.offsetWidth ?? window.innerWidth;
-      const cardWidth = Math.min(viewportWidth * 0.84, 928);
+      const cardWidth = viewportWidth;
       const step = cardWidth + 20;
 
       setMetrics({
         cardWidth,
         step,
-        offset: Math.max(0, (viewportWidth - cardWidth) / 2),
+        offset: 0,
       });
     };
 
