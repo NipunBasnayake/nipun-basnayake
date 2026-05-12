@@ -15,15 +15,11 @@ export function SkillsSection() {
           <div className="grid auto-rows-fr gap-4 md:grid-cols-2">
             {skillCategories.map((category, index) => {
               const Icon = category.icon;
-              const isDominant = category.id === "backend" || category.id === "architecture";
 
               return (
                 <motion.article
                   key={category.id}
-                  className={cn(
-                    "group relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-arctic/28 hover:shadow-[0_18px_70px_rgba(134,244,255,0.1)] sm:p-7",
-                    isDominant ? "min-h-[24rem] md:row-span-2" : "min-h-[18rem]",
-                  )}
+                  className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-arctic/28 hover:shadow-[0_18px_70px_rgba(134,244,255,0.1)] sm:p-7 min-h-[18rem]"
                   initial={{ opacity: 0, y: 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-110px" }}
@@ -42,7 +38,7 @@ export function SkillsSection() {
                       </span>
                       <span className="font-mono text-xs text-platinum/38">0{index + 1}</span>
                     </div>
-                    <h3 className={cn("font-display font-black leading-none text-platinum", isDominant ? "text-4xl sm:text-5xl" : "text-3xl")}>
+                    <h3 className="font-display font-black leading-none text-platinum text-3xl">
                       {category.title}
                     </h3>
                     <p className="mt-5 text-sm leading-7 text-platinum/62">{category.description}</p>
