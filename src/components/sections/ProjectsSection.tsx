@@ -98,11 +98,20 @@ export function ProjectsSection() {
           <motion.div
             className="flex cursor-grab gap-5 active:cursor-grabbing"
             drag={reduceMotion ? false : "x"}
-            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.12}
             onDragStart={() => setIsPaused(true)}
-            onDragEnd={handleDragEnd}
+            onDrag={(event, info) => {
+              setMetrics((m) => ({ ...m, offset: info.offset.x }));
+            }}
+            onDragEnd={(event, info) => {
+              // decide which card to snap to based on swipe + velocity
+              handleDragEnd(event as any, info);
+              // reset live offset so animate target is based only on index
+              setMetrics((m) => ({ ...m, offset: 0 }));
+            }}
+            whileTap={{ cursor: "grabbing" }}
             animate={{ x: metrics.offset - activeIndex * metrics.step }}
-            transition={{ duration: reduceMotion ? 0 : 0.72, ease: [0.22, 1, 0.36, 1] }}
+            transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 120, damping: 18 }}
           >
             {projects.map((project, index) => (
               <motion.div
