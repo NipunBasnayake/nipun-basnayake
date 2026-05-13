@@ -124,6 +124,7 @@ export interface Certificate {
   year: string;
   description: string;
   image?: string;
+  referenceUrl?: string;
   status?: "earned" | "preparing";
 }
 
@@ -523,6 +524,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     description: "Container fundamentals, image workflows, and deployment-ready packaging habits.",
     image: "/assets/images/certificates/docker-foundations.png",
+    referenceUrl: "https://www.docker.com/certification/",
     status: "earned",
   },
   {
@@ -532,6 +534,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     description: "Core Java language foundations for backend engineering and Spring Boot readiness.",
     image: "/assets/images/certificates/java-foundations.png",
+    referenceUrl: "https://www.jetbrains.com/academy/",
     status: "earned",
   },
   {
@@ -541,6 +544,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     description: "API validation, requests, collections, and practical REST workflow confidence.",
     image: "/assets/images/certificates/postman-api-fundamentals.png",
+    referenceUrl: "https://academy.postman.com/",
     status: "earned",
   },
   {
@@ -550,6 +554,7 @@ export const certificates: Certificate[] = [
     year: "Top 5 / A+",
     description: "Security fundamentals, ethical hacking mindset, and risk-aware engineering practice.",
     image: "/assets/images/certificates/cybersecurity-ethical-hacking.png",
+    referenceUrl: "https://sitc.lk/",
     status: "earned",
   },
   {
@@ -559,6 +564,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     description: "Introductory AI and machine learning concepts for modern intelligent applications.",
     image: "/assets/images/certificates/ai-ml-engineer-stage-1.png",
+    referenceUrl: "https://sliit.lk/",
     status: "earned",
   },
   {
@@ -568,6 +574,7 @@ export const certificates: Certificate[] = [
     year: "Preparing",
     description: "Cloud architecture preparation focused on scalable, resilient, and cost-aware systems.",
     image: "/assets/images/certificates/aws-solutions-architect-associate.png",
+    referenceUrl: "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
     status: "preparing",
   },
 ];
@@ -607,7 +614,7 @@ export const contactData: ContactData = {
     eyebrow: "Contact",
     title: "Need a full-stack engineer who can think in systems and ship the interface?",
     intro:
-      "Reach out for backend-heavy web apps, SaaS platforms, ERP systems, API work, microservices, or product engineering collaborations.",
+      "",
   },
   availability: "Open to full-stack software engineering, product engineering, and backend-focused opportunities.",
   links: [

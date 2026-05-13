@@ -54,8 +54,8 @@ export function Button({ item, className }: ButtonProps) {
       transition={{ type: "spring", stiffness: 260, damping: 18 }}
     >
       <span className="absolute inset-0 translate-y-full bg-gradient-to-r from-ember/30 via-arctic/20 to-volt/25 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100" />
-      <span className="relative z-10">{item.label}</span>
       {Icon ? <Icon className="relative z-10 size-4 transition group-hover:translate-x-0.5" /> : null}
+      <span className="relative z-10">{item.label}</span>
     </motion.a>
   );
 }
