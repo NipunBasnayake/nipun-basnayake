@@ -65,7 +65,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[1.9fr_0.7fr] lg:items-end">
           <SectionHeader copy={projectsSection} />
           <div className="flex items-center justify-start gap-3 lg:justify-end">
             <button
