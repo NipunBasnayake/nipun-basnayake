@@ -6,10 +6,9 @@ export function Footer() {
     <footer className="border-t border-white/10 py-10">
       <Container className="flex flex-col gap-6 text-sm text-platinum/54 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-display text-lg font-black text-platinum">{siteData.name}</p>
-          <p className="mt-1">{contactData.closingLine}</p>
+          <p className="text-sm text-platinum/64">© {new Date().getFullYear()} {siteData.name}. All rights reserved.</p>
         </div>
-        <nav className="flex flex-wrap gap-3" aria-label="Footer navigation">
+        <nav className="flex flex-wrap gap-6" aria-label="Footer navigation">
           {navItems.map((item) => (
             <a key={item.href} href={item.href} className="transition hover:text-platinum">
               {item.label}
