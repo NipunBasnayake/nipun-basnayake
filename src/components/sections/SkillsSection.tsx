@@ -34,8 +34,8 @@ export function SkillsSection() {
                   <div className="relative z-10 flex h-full flex-col justify-between">
                     <div>
                       <div className="mb-8 flex items-center justify-between">
-                        <span className="grid size-13 place-items-center rounded-[1.25rem] border border-white/12 bg-obsidian/45 text-platinum shadow-cyan">
-                          <Icon className="size-6" />
+                        <span className="grid place-items-center">
+                          <Icon className="size-12" />
                         </span>
                         <span className="font-mono text-xs text-platinum/38">0{index + 1}</span>
                       </div>
