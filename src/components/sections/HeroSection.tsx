@@ -338,7 +338,7 @@ export const HeroSection = memo(function HeroSection() {
                       absolute
                       left-1/2
 
-                      top-[30%]
+                      top-[24%]
                       sm:top-[22%]
                       md:top-[18%]
                       lg:top-[24%]
@@ -441,7 +441,7 @@ export const HeroSection = memo(function HeroSection() {
                             absolute
                             inset-x-0
 
-                            bottom-[-17%]
+                            bottom-[-10%]
 
                             z-20
                             flex
