@@ -161,6 +161,7 @@ export const navItems: LinkItem[] = [
   { label: "Experience", href: "#experience" },
   { label: "Work", href: "#projects" },
   { label: "Certificates", href: "#certificates" },
+  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -518,13 +519,69 @@ export const certificatesSection: SectionCopy = {
 
 export const certificates: Certificate[] = [
   {
+    id: "diploma-software-engineering",
+    title: "Diploma in Software Engineering",
+    issuer: "Institute of Computer Engineering Technology (iCET)",
+    year: "2025",
+    description:
+      "Comprehensive software engineering diploma covering full-stack development, system design, and modern application engineering.",
+    image: "/assets/images/certificates/diploma-software-engineering.jpg",
+    referenceUrl: "",
+    status: "earned",
+  },
+  {
+    id: "diploma-information-technology",
+    title: "Diploma in Information Technology",
+    issuer: "University of Colombo School of Computing",
+    year: "2023",
+    description:
+      "Foundational information technology diploma covering computing, software concepts, and technical problem solving.",
+    image: "/assets/images/certificates/diploma-information-technology.jpg",
+    referenceUrl: "https://www.bit.lk/index.php/results_old/dit/?year=%222022%22",
+    status: "earned",
+  },
+  {
+    id: "cybersecurity-ethical-hacking",
+    title: "Diploma in Cybersecurity and Ethical Hacking",
+    issuer: "SITC Campus",
+    year: "2022",
+    description:
+      "Security fundamentals, ethical hacking methodologies, and risk-aware engineering practices with Top 5 / A+ achievement.",
+    image: "/assets/images/certificates/cybersecurity-ethical-hacking.jpg",
+    referenceUrl: "https://portal.sitc.lk/verify-certificate?search=CBC-2023-CBC197",
+    status: "earned",
+  },
+  {
+    id: "ai-ml-stage-one",
+    title: "AI/ML Engineer - Stage 1",
+    issuer: "SLIIT",
+    year: "2025",
+    description:
+      "Introduction to artificial intelligence and machine learning concepts for intelligent software applications.",
+    image: "/assets/images/certificates/ai-ml-engineer-stage-1.jpg",
+    referenceUrl: "https://code.sliit.org/certificates/fuqwudff6j",
+    status: "earned",
+  },
+  {
     id: "docker-foundations",
     title: "Docker Foundations Professional Certificate",
     issuer: "Docker, Inc.",
     year: "2025",
-    description: "Container fundamentals, image workflows, and deployment-ready packaging habits.",
-    image: "/assets/images/certificates/docker-foundations.png",
-    referenceUrl: "https://www.docker.com/certification/",
+    description:
+      "Container fundamentals, Docker workflows, image management, and deployment-ready containerization practices.",
+    image: "/assets/images/certificates/docker-foundations.jpg",
+    referenceUrl: "https://www.linkedin.com/learning/certificates/8cf1b85131850ea7862e9761743ee711aff4423ea1257463784dfc4d1796c4a6",
+    status: "earned",
+  },
+  {
+    id: "kodekloud-engineer-docker-level-1",
+    title: "KodeKloud Engineer - Docker (Level 1)",
+    issuer: "KodeKloud",
+    year: "2025",
+    description:
+      "Hands-on Docker engineering certification focused on practical container management and DevOps workflows.",
+    image: "/assets/images/certificates/kodekloud-engineer-docker-level-1.jpg",
+    referenceUrl: "https://engineer.kodekloud.com/certificate-verification/b5504811-b375-4891-9628-ccf1ce5c8a53",
     status: "earned",
   },
   {
@@ -532,39 +589,175 @@ export const certificates: Certificate[] = [
     title: "Java Foundations Professional Certificate",
     issuer: "JetBrains",
     year: "2025",
-    description: "Core Java language foundations for backend engineering and Spring Boot readiness.",
-    image: "/assets/images/certificates/java-foundations.png",
-    referenceUrl: "https://www.jetbrains.com/academy/",
+    description:
+      "Core Java programming, object-oriented concepts, and backend engineering foundations for Spring Boot development.",
+    image: "/assets/images/certificates/java-foundations.jpg",
+    referenceUrl: "https://www.linkedin.com/learning/certificates/e36c4c7cb4dce77da805f0a45442256721d076b9b6e5b9f5dd37e9a4cd7a9a1e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bb5ORvSU9Ruu7s28lVc9fPQ%3D%3D",
     status: "earned",
   },
   {
     id: "postman-api",
     title: "Postman API Fundamentals Student Expert",
-    issuer: "Postman",
+    issuer: "Canvas Credentials (Badgr)",
     year: "2025",
-    description: "API validation, requests, collections, and practical REST workflow confidence.",
-    image: "/assets/images/certificates/postman-api-fundamentals.png",
-    referenceUrl: "https://academy.postman.com/",
+    description:
+      "REST API testing, collections, request workflows, and practical API development collaboration skills.",
+    image: "/assets/images/certificates/postman-api-fundamentals.jpg",
+    referenceUrl: "https://badges.parchment.com/public/assertions/hJhfByj9S0CU3CiR7zZvhg",
     status: "earned",
   },
   {
-    id: "cybersecurity-ethical-hacking",
-    title: "Diploma in Cybersecurity and Ethical Hacking",
-    issuer: "SITC Campus",
-    year: "Top 5 / A+",
-    description: "Security fundamentals, ethical hacking mindset, and risk-aware engineering practice.",
-    image: "/assets/images/certificates/cybersecurity-ethical-hacking.png",
-    referenceUrl: "https://sitc.lk/",
+    id: "python-bootcamp-zero-to-expert",
+    title: "Python Bootcamp from Zero to Expert",
+    issuer: "Udemy",
+    year: "2025",
+    description:
+      "Practical Python programming covering fundamentals, NumPy, and real-world software development concepts.",
+    image: "/assets/images/certificates/python-bootcamp-zero-to-expert.jpg",
+    referenceUrl: "https://www.udemy.com/certificate/UC-0bfc97fa-72b9-4293-b04f-678c6364cd95/",
     status: "earned",
   },
   {
-    id: "ai-ml-stage-one",
-    title: "AI/ML Engineer Stage 1",
-    issuer: "SLIIT",
+    id: "linux-for-absolute-beginners",
+    title: "Linux For Absolute Beginners",
+    issuer: "KodeKloud",
     year: "2025",
-    description: "Introductory AI and machine learning concepts for modern intelligent applications.",
-    image: "/assets/images/certificates/ai-ml-engineer-stage-1.png",
-    referenceUrl: "https://sliit.lk/",
+    description:
+      "Linux and Ubuntu fundamentals including command line usage, filesystem navigation, and system basics.",
+    image: "/assets/images/certificates/linux-for-absolute-beginners.jpg",
+    referenceUrl: "https://learn.kodekloud.com/certificate/1c60da24-0af1-4ef6-b962-dc0e34491978",
+    status: "earned",
+  },
+  {
+    id: "docker-training-absolute-beginner",
+    title: "Docker Training Course for the Absolute Beginner",
+    issuer: "KodeKloud",
+    year: "2025",
+    description:
+      "Beginner-focused Docker training covering containerization concepts and practical Docker usage.",
+    image: "/assets/images/certificates/docker-training-course-absolute-beginner.jpg",
+    referenceUrl: "https://learn.kodekloud.com/certificate/36610a65-e3d6-4e76-a1d0-850cf1e90b43",
+    status: "earned",
+  },
+  {
+    id: "docker-absolute-beginners",
+    title: "Docker for Absolute Beginners",
+    issuer: "CoDeKu DevOps Academy",
+    year: "2025",
+    description:
+      "Foundational Docker and containerization training for beginner DevOps and backend engineering workflows.",
+    image: "/assets/images/certificates/docker-for-absolute-beginners.jpg",
+    referenceUrl: "",
+    status: "earned",
+  },
+  {
+    id: "multicloud-network-associate",
+    title: "Multicloud Network Associate",
+    issuer: "Aviatrix",
+    year: "2025",
+    description:
+      "Multi-cloud networking concepts, connectivity, and cloud infrastructure communication fundamentals.",
+    image: "/assets/images/certificates/multicloud-network-associate.jpg",
+    referenceUrl: "https://www.credly.com/badges/7d861f02-a7c9-402e-bc18-bc3074933995/linked_in_profile",
+    status: "earned",
+  },
+  {
+    id: "mongodb-atlas-upgrades-maintenance",
+    title: "MongoDB Atlas Upgrades & Maintenance",
+    issuer: "MongoDB",
+    year: "2025",
+    description:
+      "MongoDB Atlas maintenance workflows, upgrade management, and cloud database operational practices.",
+    image: "/assets/images/certificates/mongodb-atlas-upgrades-maintenance.jpg",
+    referenceUrl: "https://learn.mongodb.com/c/uHTbLAfyQJGIpi_qoi5zYg",
+    status: "earned",
+  },
+  {
+    id: "sap-clean-core-s4hana",
+    title: "Managing Clean Core for SAP S/4HANA Cloud",
+    issuer: "SAP",
+    year: "2025",
+    description:
+      "SAP S/4HANA clean core concepts and cloud ERP customization best practices.",
+    image: "/assets/images/certificates/managing-clean-core-s4hana-cloud.jpg",
+    referenceUrl: "https://www.credly.com/badges/ceb7fe77-2f68-4260-98a9-e800521c6454/linked_in_profile/",
+    status: "earned",
+  },
+  {
+    id: "machine-learning-python-foundations",
+    title: "Machine Learning with Python: Foundations",
+    issuer: "LinkedIn Learning",
+    year: "2025",
+    description:
+      "Foundational machine learning concepts using Python for predictive and data-driven applications.",
+    image: "/assets/images/certificates/machine-learning-python-foundations.jpg",
+    referenceUrl: "https://www.linkedin.com/learning/certificates/20ffd5c690e3290fa914926a915d0e914240d0f88e40e77ce8b80807ae097367?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BNDQDUTSbS%2FWP%2BlUHSQlX%2Fw%3D%3D",
+    status: "earned",
+  },
+  {
+    id: "mathematics-for-computing",
+    title: "Mathematics for Computing",
+    issuer: "KodeKloud",
+    year: "2026",
+    description:
+      "Computational mathematics concepts supporting algorithms, logic, and software engineering fundamentals.",
+    image: "/assets/images/certificates/mathematics-for-computing.jpg",
+    referenceUrl: "https://learn.kodekloud.com/certificate/562e21c9-edd9-4e8b-bf41-bc7501c71d08",
+    status: "earned",
+  },
+  {
+    id: "mastering-prompt-engineering",
+    title: "Mastering Prompt Engineering",
+    issuer: "Udemy",
+    year: "2025",
+    description:
+      "Prompt engineering techniques for effective AI interaction, workflows, and productivity enhancement.",
+    image: "/assets/images/certificates/mastering-prompt-engineering.jpg",
+    referenceUrl: "https://www.udemy.com/certificate/UC-c107fed0-06c3-4a29-a895-e5c565a01c09/",
+    status: "earned",
+  },
+  {
+    id: "blockchain-beyond-basics",
+    title: "Blockchain: Beyond the Basics",
+    issuer: "LinkedIn Learning",
+    year: "2025",
+    description:
+      "Intermediate blockchain concepts, decentralized systems, and practical blockchain technology understanding.",
+    image: "/assets/images/certificates/blockchain-beyond-the-basics.jpg",
+    referenceUrl: "https://www.linkedin.com/learning/certificates/a63595032be6105a72925924037a76aebb9eac9bec80506d1dd55a343c2c7edf?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BNDQDUTSbS%2FWP%2BlUHSQlX%2Fw%3D%3D",
+    status: "earned",
+  },
+  {
+    id: "blockchain-basics",
+    title: "Blockchain Basics",
+    issuer: "LinkedIn Learning",
+    year: "2025",
+    description:
+      "Introduction to blockchain technology, cryptocurrency concepts, and decentralized digital systems.",
+    image: "/assets/images/certificates/blockchain-basics.jpg",
+    referenceUrl: "https://www.linkedin.com/learning/certificates/d464722b98f48f4444dd541a44158daed6b612fcbf2ac0e384b97e320372c483?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BNDQDUTSbS%2FWP%2BlUHSQlX%2Fw%3D%3D",
+    status: "earned",
+  },
+  {
+    id: "fundamentals-digital-marketing",
+    title: "Fundamentals of Digital Marketing",
+    issuer: "Google Digital Academy (Skillshop)",
+    year: "2022",
+    description:
+      "Core digital marketing concepts including online presence, search visibility, and marketing strategy fundamentals.",
+    image: "/assets/images/certificates/fundamentals-of-digital-marketing.jpg",
+    referenceUrl: "https://skillshop.exceedlms.com/student/award/5KvDazd1zcyRjFMPnJDBFZdf",
+    status: "earned",
+  },
+  {
+    id: "introduction-to-cybersecurity",
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco",
+    year: "2021",
+    description:
+      "Cybersecurity awareness, online safety concepts, and foundational security principles.",
+    image: "/assets/images/certificates/introduction-to-cybersecurity.jpg",
+    referenceUrl: "linkedin.com/safety/go/?url=https%3A%2F%2Fwww.credly.com%2Fbadges%2F98c0da82-eda5-4c45-9485-682945c3fbbe%2Flinked_in_profile&urlhash=miu7&mt=SwRnxFsPw80KyVWJmeF4ueIECpX_wKZyhpbQbIwpo8PkcCMQGBzeSljPYj8TDp2N0YFd4tQIPBHlphU91SgMVGg7dic&isSdui=true&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BNDQDUTSbS%2FWP%2BlUHSQlX%2Fw%3D%3D",
     status: "earned",
   },
   {
@@ -572,9 +765,10 @@ export const certificates: Certificate[] = [
     title: "AWS Certified Solutions Architect Associate",
     issuer: "Amazon Web Services",
     year: "Preparing",
-    description: "Cloud architecture preparation focused on scalable, resilient, and cost-aware systems.",
-    image: "/assets/images/certificates/aws-solutions-architect-associate.png",
-    referenceUrl: "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+    description:
+      "Cloud architecture preparation focused on scalable, resilient, and cost-optimized distributed systems.",
+    image: "/assets/images/certificates/aws-solutions-architect-associate.jpg",
+    referenceUrl:"",
     status: "preparing",
   },
 ];
@@ -588,24 +782,86 @@ export const educationSection: SectionCopy = {
 
 export const education: EducationItem[] = [
   {
-    id: "software-engineering",
+    id: "bachelor-information-technology",
     institution: "University of Colombo School of Computing",
-    program: "BSc in Information Technology",
-    period: "Aug 2022 - Jul 2026",
+    program: "Bachelor of Information Technology",
+    period: "Aug 2022 - Jul 2026 (Expected)",
     location: "Sri Lanka",
     details:
-      "Focused on practical software systems across backend services, frontend product interfaces, databases, cloud deployment, and collaborative engineering.",
-    focus: ["Java", "Spring Boot", "React", "Databases", "System Design", "Cloud Readiness"],
+      "Focused on practical software engineering, backend systems, frontend applications, databases, cloud technologies, and scalable system architecture.",
+    focus: [
+      "Java",
+      "Spring Boot",
+      "React",
+      "Databases",
+      "Software Engineering",
+      "System Design",
+      "Cloud Computing",
+    ],
+  },
+  {
+    id: "higher-diploma-information-technology",
+    institution: "University of Colombo School of Computing",
+    program: "Higher Diploma in Information Technology",
+    period: "Aug 2024",
+    location: "Sri Lanka",
+    details:
+      "Advanced information technology studies focused on software systems, computing concepts, and modern development practices.",
+    focus: [
+      "Advanced Computing",
+      "Software Development",
+      "Database Systems",
+      "Networking",
+      "System Analysis",
+    ],
+  },
+  {
+    id: "diploma-software-engineering",
+    institution: "Institute of Computer Engineering Technology (iCET)",
+    program: "Diploma in Software Engineering",
+    period: "Apr 2025",
+    location: "Sri Lanka",
+    details:
+      "Comprehensive software engineering diploma covering full-stack application development and practical software project implementation.",
+    focus: [
+      "Full-Stack Development",
+      "Object-Oriented Programming",
+      "Frontend Development",
+      "Backend Development",
+      "Software Architecture",
+    ],
+  },
+  {
+    id: "diploma-information-technology",
+    institution: "University of Colombo School of Computing",
+    program: "Diploma in Information Technology",
+    period: "Aug 2022",
+    location: "Sri Lanka",
+    details:
+      "Foundation-level information technology program covering computing fundamentals and software development concepts.",
+    focus: [
+      "Programming Fundamentals",
+      "Computer Systems",
+      "Database Basics",
+      "Software Fundamentals",
+      "Problem Solving",
+    ],
   },
   {
     id: "cybersecurity",
     institution: "SITC Campus",
     program: "Diploma in Cybersecurity and Ethical Hacking",
-    period: "Completed",
+    period: "Feb 2023",
     location: "Sri Lanka",
     details:
-      "Completed with Top 5 recognition and A+ performance, strengthening secure engineering instincts.",
-    focus: ["Security fundamentals", "Ethical hacking", "Risk awareness", "Defensive thinking"],
+      "Completed with Top 5 recognition and A+ performance, strengthening cybersecurity knowledge and secure engineering practices.",
+    focus: [
+      "Cybersecurity",
+      "Ethical Hacking",
+      "Network Security",
+      "Risk Awareness",
+      "Defensive Security",
+    ],
   },
 ];
 
@@ -642,7 +898,7 @@ export const contactData: ContactData = {
       icon: MessageCircle,
     },
   ],
-  closingLine: "Built with React, TypeScript, Spring Boot thinking, motion, and production taste.",
+  closingLine: "",
 };
 
 export const footerLinks: LinkItem[] = [
