@@ -54,8 +54,6 @@ export function Navbar() {
       <motion.div
         className={cn(
           "absolute left-0 right-0 top-20 px-5 pb-6 pt-3 md:hidden",
-
-          // 🔥 NEW: dark glass container
           "bg-black/80 backdrop-blur-xl",
           "border-b border-white/10",
 
