@@ -43,7 +43,7 @@ export function ExperienceSection() {
                   ))}
                 </div>
               </div>
-              <div className="self-end rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 backdrop-blur-xl">
+              <div className="self-end rounded-[1.4rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur-sm">
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-platinum/38">Stack</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {item.stack.map((technology) => (

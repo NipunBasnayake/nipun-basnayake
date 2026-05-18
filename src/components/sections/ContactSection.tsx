@@ -11,7 +11,7 @@ export function ContactSection() {
       <GradientBlob className="left-1/2 top-10 size-[34rem] -translate-x-1/2" colors="from-ember/30 via-arctic/20 to-wine/20" />
       <Container>
         <motion.div
-          className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.045] p-6 text-center backdrop-blur-xl sm:p-12 lg:p-16"
+          className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.055] p-6 text-center backdrop-blur-sm sm:p-12 lg:p-16"
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}

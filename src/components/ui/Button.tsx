@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useState, type PointerEvent } from "react";
+import type { PointerEvent } from "react";
 import type { CtaItem, LinkItem } from "../../data/portfolio";
 import { cn } from "../../lib/utils";
 
@@ -14,27 +14,15 @@ const variants: Record<NonNullable<ButtonLink["variant"]>, string> = {
   primary:
     "border-transparent bg-platinum text-obsidian shadow-[0_0_45px_rgba(244,240,232,0.2)] hover:bg-white",
   secondary:
-    "border-platinum/18 bg-white/[0.06] text-platinum backdrop-blur-xl hover:border-arctic/45 hover:bg-arctic/10 hover:text-white",
+    "border-platinum/18 bg-white/[0.06] text-platinum backdrop-blur-lg hover:border-arctic/45 hover:bg-arctic/10 hover:text-white",
   ghost:
     "border-white/10 bg-transparent text-platinum/72 hover:border-ember/40 hover:bg-ember/10 hover:text-platinum",
 };
 
 export function Button({ item, className }: ButtonProps) {
   const reduceMotion = useReducedMotion();
-  const [transform, setTransform] = useState({ x: 0, y: 0 });
   const Icon = item.icon;
   const variant = item.variant ?? "ghost";
-
-  const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
-    if (reduceMotion || event.pointerType === "touch") {
-      return;
-    }
-
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left - bounds.width / 2) * 0.18;
-    const y = (event.clientY - bounds.top - bounds.height / 2) * 0.24;
-    setTransform({ x, y });
-  };
 
   return (
     <motion.a
@@ -46,9 +34,6 @@ export function Button({ item, className }: ButtonProps) {
         variants[variant],
         className,
       )}
-      animate={transform}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={() => setTransform({ x: 0, y: 0 })}
       whileHover={reduceMotion ? undefined : { scale: 1.035 }}
       whileTap={reduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 260, damping: 18 }}

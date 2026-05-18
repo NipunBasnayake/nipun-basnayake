@@ -12,7 +12,7 @@ export function CapabilityCard({ capability, index }: CapabilityCardProps) {
 
   return (
     <motion.article
-      className="group relative min-h-[22rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-7"
+      className="group relative min-h-[22rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-7"
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-110px" }}

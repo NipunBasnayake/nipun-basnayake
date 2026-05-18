@@ -9,7 +9,7 @@ interface StatPillProps {
 export function StatPill({ stat, index }: StatPillProps) {
   return (
     <motion.div
-      className="rounded-[1.35rem] border border-white/10 bg-obsidian/54 p-4 backdrop-blur-xl"
+      className="rounded-[1.35rem] border border-white/10 bg-obsidian/60 p-4 backdrop-blur-sm"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: 0.6 + index * 0.05 }}

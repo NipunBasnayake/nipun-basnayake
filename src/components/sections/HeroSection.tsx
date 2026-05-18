@@ -111,15 +111,20 @@ const GLOW_BLOBS = [
 
 interface GlowBlobsProps {
   reduceMotion: boolean;
+  isDesktop: boolean;
 }
 
 const GlowBlobsComponent = memo(
   function GlowBlobs({
     reduceMotion,
+    isDesktop,
   }: GlowBlobsProps) {
+    // On mobile, render only the first glow blob; on desktop, render all 3
+    const visibleBlobs = isDesktop ? GLOW_BLOBS : GLOW_BLOBS.slice(0, 1);
+    
     return (
       <>
-        {GLOW_BLOBS.map((blob, index) => (
+        {visibleBlobs.map((blob, index) => (
           <motion.div
             key={`glow-${index}`}
             className={`absolute rounded-full ${ANIMATION_CONFIG.blur.glow} ${blob.className}`}
@@ -188,6 +193,21 @@ const DustParticlesComponent = memo(
 
 export const HeroSection = memo(function HeroSection() {
   const prefersReducedMotion = useReducedMotion() ?? false;
+  
+  // Gate expensive effects by device: only on desktop (fine pointer)
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const query = window.matchMedia("(pointer: fine)");
+    setIsDesktop(query.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+    };
+
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
 
   const stageRef = useRef<HTMLElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
@@ -196,9 +216,10 @@ export const HeroSection = memo(function HeroSection() {
 
   const [imageFailed, setImageFailed] = useState(false);
 
+  // Only create dust particles on desktop to save memory and paint cost
   const dustParticles = useMemo(
-    () => createDustParticles(),
-    []
+    () => (isDesktop ? createDustParticles() : []),
+    [isDesktop]
   );
 
   const pointerTimeoutRef = useRef<ReturnType<
@@ -207,7 +228,8 @@ export const HeroSection = memo(function HeroSection() {
 
   const handlePointerMove = useCallback(
     (event: PointerEvent) => {
-      if (prefersReducedMotion || !stageRef.current) return;
+      // Disable parallax on touch devices entirely
+      if (prefersReducedMotion || !stageRef.current || !isDesktop) return;
 
       const bounds =
         stageRef.current.getBoundingClientRect();
@@ -237,6 +259,9 @@ export const HeroSection = memo(function HeroSection() {
 
   const throttledPointerMove = useCallback(
     (event: PointerEvent) => {
+      // Skip on mobile entirely
+      if (!isDesktop) return;
+      
       if (pointerTimeoutRef.current) return;
 
       handlePointerMove(event);
@@ -245,7 +270,7 @@ export const HeroSection = memo(function HeroSection() {
         pointerTimeoutRef.current = null;
       }, 16);
     },
-    [handlePointerMove]
+    [handlePointerMove, isDesktop]
   );
 
   const handlePointerLeave = useCallback(() => {
@@ -292,7 +317,7 @@ export const HeroSection = memo(function HeroSection() {
         clearTimeout(pointerTimeoutRef.current);
       }
     };
-  }, [throttledPointerMove, handlePointerLeave]);
+  }, [throttledPointerMove, handlePointerLeave, isDesktop]);
 
   return (
     <section
@@ -319,6 +344,7 @@ export const HeroSection = memo(function HeroSection() {
 
         <GlowBlobsComponent
           reduceMotion={prefersReducedMotion}
+          isDesktop={isDesktop}
         />
 
         <DustParticlesComponent
@@ -515,7 +541,10 @@ export const HeroSection = memo(function HeroSection() {
               <img
                 src={heroData.portrait}
                 alt={heroData.portraitAlt}
-                className="h-full w-full object-contain object-bottom drop-shadow-[0_38px_52px_rgba(0,0,0,0.68)]"
+                className="h-full w-full object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 onError={() => setImageFailed(true)}
               />
             )}

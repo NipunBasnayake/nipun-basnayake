@@ -23,7 +23,7 @@ export function TimelineCard({ item, index }: TimelineCardProps) {
         <h3 className="font-display text-2xl font-black text-platinum sm:text-3xl">{item.title}</h3>
         <p className="mt-3 max-w-2xl text-base leading-8 text-platinum/62">{item.description}</p>
       </div>
-      <p className="self-end rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 text-sm font-semibold leading-6 text-platinum/76 backdrop-blur-xl">
+      <p className="self-end rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 text-sm font-semibold leading-6 text-platinum/76 backdrop-blur-sm">
         {item.outcome}
       </p>
     </motion.article>

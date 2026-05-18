@@ -13,7 +13,7 @@ export function Navbar() {
     .join("");
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/8 bg-obsidian/58 backdrop-blur-2xl">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/8 bg-obsidian/95 lg:bg-obsidian/58 lg:backdrop-blur-lg">
       <Container className="flex h-20 items-center justify-between">
         <a
           href="#hero"
@@ -54,7 +54,7 @@ export function Navbar() {
       <motion.div
         className={cn(
           "absolute left-0 right-0 top-20 px-5 pb-6 pt-3 md:hidden",
-          "bg-black/80 backdrop-blur-xl",
+          "bg-black/90 backdrop-blur-md",
           "border-b border-white/10",
 
           !isOpen && "pointer-events-none"

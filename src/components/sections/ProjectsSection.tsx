@@ -13,11 +13,29 @@ export function ProjectsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [metrics, setMetrics] = useState({ cardWidth: 928, step: 948, offset: 0 });
   const [isPaused, setIsPaused] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+  
   const maxIndex = projects.length - 1;
+
+  // Detect desktop (fine pointer) to enable autoplay and drag
+  useEffect(() => {
+    const query = window.matchMedia("(pointer: fine)");
+    setIsDesktop(query.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+    };
+
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
     const updateMetrics = () => {
       const viewportWidth = viewportRef.current?.offsetWidth ?? window.innerWidth;
+      
+      // On mobile: use most of screen width (one card per view)
+      // On desktop: full width (cards will scale to fit)
       const cardWidth = viewportWidth;
       const step = cardWidth + 20;
 
@@ -35,7 +53,8 @@ export function ProjectsSection() {
   }, []);
 
   useEffect(() => {
-    if (reduceMotion || isPaused) {
+    // Disable autoplay on mobile entirely; only autoplay on desktop
+    if (reduceMotion || isPaused || !isDesktop) {
       return;
     }
 
@@ -44,7 +63,7 @@ export function ProjectsSection() {
     }, 4600);
 
     return () => window.clearInterval(timer);
-  }, [isPaused, maxIndex, reduceMotion]);
+  }, [isPaused, maxIndex, reduceMotion, isDesktop]);
 
   const goTo = (nextIndex: number) => {
     setActiveIndex(Math.min(maxIndex, Math.max(0, nextIndex)));
@@ -97,7 +116,7 @@ export function ProjectsSection() {
         >
           <motion.div
             className="flex cursor-grab gap-5 active:cursor-grabbing"
-            drag={reduceMotion ? false : "x"}
+            drag={reduceMotion || !isDesktop ? false : "x"}
             dragElastic={0.12}
             onDragStart={() => setIsPaused(true)}
             onDrag={(event, info) => {

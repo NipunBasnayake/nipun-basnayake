@@ -19,7 +19,7 @@ export function SkillsSection() {
               return (
                 <motion.article
                   key={category.id}
-                  className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-arctic/28 hover:shadow-[0_18px_70px_rgba(134,244,255,0.1)] sm:p-7 min-h-[18rem]"
+                  className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-arctic/28 hover:shadow-[0_12px_40px_rgba(134,244,255,0.08)] sm:p-7 min-h-[18rem]"
                   initial={{ opacity: 0, y: 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-110px" }}

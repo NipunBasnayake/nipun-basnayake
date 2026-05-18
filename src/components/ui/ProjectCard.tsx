@@ -7,7 +7,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <article className="group relative h-full min-h-[34rem] overflow-hidden rounded-[2.4rem_0.9rem_2.4rem_0.9rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.36)] backdrop-blur-xl sm:p-8 lg:p-10">
+    <article className="group relative h-full min-h-[34rem] overflow-hidden rounded-[2.4rem_0.9rem_2.4rem_0.9rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm sm:p-8 lg:p-10">
       <div className="absolute -right-20 -top-24 size-72 rounded-full bg-gradient-to-br from-arctic/55 via-wine/30 to-ember/35 blur-3xl transition duration-700 group-hover:scale-125" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-platinum/40 to-transparent" />
 
