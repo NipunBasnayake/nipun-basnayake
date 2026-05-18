@@ -12,7 +12,6 @@ export function SummarySection() {
         <div className="grid gap-12 lg:grid-cols-[1fr_0.95fr] lg:items-start">
           <SectionHeader copy={summaryData.section} />
           <div className="relative justify-self-end lg:max-w-[41rem]">
-            <div className="absolute -left-6 top-8 hidden h-28 w-28 rounded-[1.6rem] border border-arctic/16 md:block" />
             <motion.div
               className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.08] p-6 backdrop-blur-sm sm:p-8\"
               initial={{ opacity: 0, y: 42 }}
