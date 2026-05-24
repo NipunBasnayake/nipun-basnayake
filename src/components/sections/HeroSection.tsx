@@ -11,6 +11,7 @@ import {
   useMemo,
   useCallback,
   memo,
+  type MutableRefObject,
 } from "react";
 
 import { heroData, siteData } from "../../data/portfolio";
@@ -80,6 +81,17 @@ const TEXT_DISTORTION_CONFIG = {
     stiffness: 0.075,
     damping: 0.8,
   },
+  settleThreshold: 0.01,
+} as const;
+
+const PARTICLE_REPEL_CONFIG = {
+  radius: 0.44,
+  maxOffsetX: 7,
+  maxOffsetY: 5,
+  stiffness: 0.09,
+  damping: 0.84,
+  returnStiffness: 0.12,
+  returnDamping: 0.88,
   settleThreshold: 0.01,
 } as const;
 
@@ -271,19 +283,21 @@ const GlowBlobsComponent = memo(
 interface DustParticlesProps {
   particles: ReturnType<typeof createDustParticles>;
   reduceMotion: boolean;
+  particleRefs: MutableRefObject<Array<HTMLSpanElement | null>>;
 }
 
 const DustParticlesComponent = memo(
   function DustParticles({
     particles,
     reduceMotion,
+    particleRefs,
   }: DustParticlesProps) {
     return (
       <>
-        {particles.map((particle) => (
+        {particles.map((particle, index) => (
           <motion.span
             key={particle.id}
-            className="absolute rounded-full bg-platinum/70 shadow-[0_0_14px_rgba(244,240,232,0.14)]"
+            className="absolute"
             style={{
               left: particle.left,
               top: particle.top,
@@ -311,7 +325,22 @@ const DustParticlesComponent = memo(
                   ease: "easeInOut",
                 } as Transition)
             }
-          />
+          >
+            <span
+              ref={(node) => {
+                particleRefs.current[index] = node;
+              }}
+              className="absolute rounded-full bg-platinum/70 shadow-[0_0_14px_rgba(244,240,232,0.14)]"
+              style={{
+                width: particle.size,
+                height: particle.size,
+                transform:
+                  "translate3d(var(--particle-x, 0px), var(--particle-y, 0px), 0)",
+                willChange: "transform",
+                pointerEvents: "none",
+              }}
+            />
+          </motion.span>
         ))}
       </>
     );
@@ -341,6 +370,7 @@ export const HeroSection = memo(function HeroSection() {
   const portraitMagneticRef = useRef<HTMLDivElement | null>(null);
   const rearTextRef = useRef<HTMLHeadingElement | null>(null);
   const frontTextRef = useRef<HTMLHeadingElement | null>(null);
+  const dustParticleRefs = useRef<Array<HTMLSpanElement | null>>([]);
 
   const [imageFailed, setImageFailed] = useState(false);
 
@@ -363,6 +393,15 @@ export const HeroSection = memo(function HeroSection() {
   const dustParticles = useMemo(
     () => (isDesktop ? createDustParticles() : []),
     [isDesktop]
+  );
+
+  const dustParticleAnchors = useMemo(
+    () =>
+      dustParticles.map((particle) => ({
+        x: (parseFloat(particle.left) / 100) * 2 - 1,
+        y: (parseFloat(particle.top) / 100) * 2 - 1,
+      })),
+    [dustParticles]
   );
 
   const pointerTimeoutRef = useRef<ReturnType<
@@ -412,6 +451,20 @@ export const HeroSection = memo(function HeroSection() {
     scale: 1,
   });
 
+  const particleFrameRef = useRef<number | null>(null);
+  const particleInteractionActiveRef = useRef(false);
+  const particleTargetRef = useRef(
+    dustParticles.map(() => ({ x: 0, y: 0 }))
+  );
+  const particleCurrentRef = useRef(
+    dustParticles.map(() => ({
+      x: 0,
+      y: 0,
+      velocityX: 0,
+      velocityY: 0,
+    }))
+  );
+
   const setMagneticStyles = useCallback(
     (
       x: number,
@@ -445,6 +498,126 @@ export const HeroSection = memo(function HeroSection() {
       magneticFrameRef.current = null;
     }
   }, []);
+
+  const setParticleStyle = useCallback(
+    (index: number, x: number, y: number) => {
+      const element = dustParticleRefs.current[index];
+
+      if (!element) return;
+
+      element.style.setProperty("--particle-x", `${x}px`);
+      element.style.setProperty("--particle-y", `${y}px`);
+    },
+    []
+  );
+
+  const stopParticleAnimation = useCallback(() => {
+    if (particleFrameRef.current !== null) {
+      cancelAnimationFrame(particleFrameRef.current);
+      particleFrameRef.current = null;
+    }
+  }, []);
+
+  const runParticleAnimation = useCallback(() => {
+    particleFrameRef.current = null;
+
+    let hasMotionRemaining = false;
+
+    particleCurrentRef.current.forEach((current, index) => {
+      const target = particleTargetRef.current[index] ?? { x: 0, y: 0 };
+      const stiffness = particleInteractionActiveRef.current
+        ? PARTICLE_REPEL_CONFIG.stiffness
+        : PARTICLE_REPEL_CONFIG.returnStiffness;
+      const damping = particleInteractionActiveRef.current
+        ? PARTICLE_REPEL_CONFIG.damping
+        : PARTICLE_REPEL_CONFIG.returnDamping;
+
+      const nextX = springStep(
+        current.x,
+        target.x,
+        current.velocityX,
+        stiffness,
+        damping
+      );
+      const nextY = springStep(
+        current.y,
+        target.y,
+        current.velocityY,
+        stiffness,
+        damping
+      );
+
+      const boundedX = clamp(
+        nextX.value,
+        -PARTICLE_REPEL_CONFIG.maxOffsetX,
+        PARTICLE_REPEL_CONFIG.maxOffsetX
+      );
+      const boundedY = clamp(
+        nextY.value,
+        -PARTICLE_REPEL_CONFIG.maxOffsetY,
+        PARTICLE_REPEL_CONFIG.maxOffsetY
+      );
+
+      particleCurrentRef.current[index] = {
+        x: boundedX,
+        y: boundedY,
+        velocityX: nextX.velocity,
+        velocityY: nextY.velocity,
+      };
+
+      setParticleStyle(index, boundedX, boundedY);
+
+      const settledX = Math.abs(boundedX - target.x) < PARTICLE_REPEL_CONFIG.settleThreshold;
+      const settledY = Math.abs(boundedY - target.y) < PARTICLE_REPEL_CONFIG.settleThreshold;
+      const slowedX = Math.abs(nextX.velocity) < PARTICLE_REPEL_CONFIG.settleThreshold;
+      const slowedY = Math.abs(nextY.velocity) < PARTICLE_REPEL_CONFIG.settleThreshold;
+
+      if (!settledX || !settledY || !slowedX || !slowedY) {
+        hasMotionRemaining = true;
+      }
+    });
+
+    if (hasMotionRemaining) {
+      particleFrameRef.current = requestAnimationFrame(runParticleAnimation);
+      return;
+    }
+
+    if (!particleInteractionActiveRef.current) {
+      particleCurrentRef.current = dustParticles.map(() => ({
+        x: 0,
+        y: 0,
+        velocityX: 0,
+        velocityY: 0,
+      }));
+      dustParticleRefs.current.forEach((_, index) => {
+        setParticleStyle(index, 0, 0);
+      });
+    }
+  }, [dustParticles, setParticleStyle]);
+
+  const startParticleAnimation = useCallback(() => {
+    if (particleFrameRef.current !== null) return;
+
+    particleFrameRef.current = requestAnimationFrame(runParticleAnimation);
+  }, [runParticleAnimation]);
+
+  useEffect(() => {
+    particleInteractionActiveRef.current = false;
+    particleTargetRef.current = dustParticles.map(() => ({ x: 0, y: 0 }));
+    particleCurrentRef.current = dustParticles.map(() => ({
+      x: 0,
+      y: 0,
+      velocityX: 0,
+      velocityY: 0,
+    }));
+    dustParticleRefs.current = dustParticles.map(() => null);
+
+    stopParticleAnimation();
+
+    dustParticles.forEach((_, index) => {
+      setParticleStyle(index, 0, 0);
+    });
+  }, [dustParticles, setParticleStyle, stopParticleAnimation]);
 
   const setTypographyStyles = useCallback(
     (
@@ -865,8 +1038,49 @@ export const HeroSection = memo(function HeroSection() {
       };
 
       startTypographyAnimation();
+
+      if (dustParticles.length > 0) {
+        const cursorX = clamp(
+          ((event.clientX - textBounds.left) / textBounds.width) * 2 - 1,
+          -1,
+          1
+        );
+        const cursorY = clamp(
+          ((event.clientY - textBounds.top) / textBounds.height) * 2 - 1,
+          -1,
+          1
+        );
+
+        particleInteractionActiveRef.current = true;
+        particleTargetRef.current = dustParticleAnchors.map((anchor) => {
+          const awayX = anchor.x - cursorX;
+          const awayY = anchor.y - cursorY;
+          const distance = Math.hypot(awayX, awayY) || 0.0001;
+          const influence = clamp(
+            1 - distance / PARTICLE_REPEL_CONFIG.radius,
+            0,
+            1
+          );
+          const softened = influence * influence;
+
+          return {
+            x: clamp(
+              (awayX / distance) * PARTICLE_REPEL_CONFIG.maxOffsetX * softened,
+              -PARTICLE_REPEL_CONFIG.maxOffsetX,
+              PARTICLE_REPEL_CONFIG.maxOffsetX
+            ),
+            y: clamp(
+              (awayY / distance) * PARTICLE_REPEL_CONFIG.maxOffsetY * softened,
+              -PARTICLE_REPEL_CONFIG.maxOffsetY,
+              PARTICLE_REPEL_CONFIG.maxOffsetY
+            ),
+          };
+        });
+
+        startParticleAnimation();
+      }
     },
-    [prefersReducedMotion, startTypographyAnimation]
+    [dustParticleAnchors, dustParticles.length, prefersReducedMotion, startParticleAnimation, startTypographyAnimation]
   );
 
   const throttledPointerMove = useCallback(
@@ -904,8 +1118,12 @@ export const HeroSection = memo(function HeroSection() {
       active: false,
     };
 
+    particleInteractionActiveRef.current = false;
+    particleTargetRef.current = dustParticles.map(() => ({ x: 0, y: 0 }));
+
     startTypographyAnimation();
-  }, []);
+    startParticleAnimation();
+  }, [dustParticles, startParticleAnimation, startTypographyAnimation]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -970,6 +1188,7 @@ export const HeroSection = memo(function HeroSection() {
 
       stopMagneticAnimation();
       stopTypographyAnimation();
+      stopParticleAnimation();
     };
   }, [
     handleMagneticPointerEnter,
@@ -977,6 +1196,7 @@ export const HeroSection = memo(function HeroSection() {
     handleMagneticPointerMove,
     handlePointerLeave,
     stopMagneticAnimation,
+    stopParticleAnimation,
     stopTypographyAnimation,
     throttledPointerMove,
   ]);
@@ -1012,6 +1232,7 @@ export const HeroSection = memo(function HeroSection() {
         <DustParticlesComponent
           particles={dustParticles}
           reduceMotion={prefersReducedMotion}
+          particleRefs={dustParticleRefs}
         />
       </div>
 
