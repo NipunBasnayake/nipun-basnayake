@@ -63,11 +63,48 @@ const MAGNETIC_CONFIG = {
   settleThreshold: 0.001,
 };
 
+const TEXT_DISTORTION_CONFIG = {
+  rear: {
+    maxOffsetX: 4,
+    maxOffsetY: 1.6,
+    maxSkewX: 1.8,
+    maxSkewY: 0.7,
+    stiffness: 0.07,
+    damping: 0.82,
+  },
+  front: {
+    maxOffsetX: 3,
+    maxOffsetY: 1.2,
+    maxSkewX: 1.35,
+    maxSkewY: 0.55,
+    stiffness: 0.075,
+    damping: 0.8,
+  },
+  settleThreshold: 0.01,
+} as const;
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
 const lerp = (start: number, end: number, amount: number) =>
   start + (end - start) * amount;
+
+const springStep = (
+  current: number,
+  target: number,
+  velocity: number,
+  stiffness: number,
+  damping: number
+) => {
+  const force = (target - current) * stiffness;
+  const nextVelocity = (velocity + force) * damping;
+  const nextValue = current + nextVelocity;
+
+  return {
+    value: nextValue,
+    velocity: nextVelocity,
+  };
+};
 
 const createRearTextVariants = (reduceMotion: boolean): Variants => ({
   hidden: {
@@ -332,6 +369,35 @@ export const HeroSection = memo(function HeroSection() {
     typeof setTimeout
   > | null>(null);
 
+  const typographyFrameRef = useRef<number | null>(null);
+  const typographyTargetRef = useRef({
+    x: 0,
+    y: 0,
+    active: false,
+  });
+  const typographyCurrentRef = useRef({
+    rear: {
+      x: 0,
+      y: 0,
+      skewX: 0,
+      skewY: 0,
+      velocityX: 0,
+      velocityY: 0,
+      velocitySkewX: 0,
+      velocitySkewY: 0,
+    },
+    front: {
+      x: 0,
+      y: 0,
+      skewX: 0,
+      skewY: 0,
+      velocityX: 0,
+      velocityY: 0,
+      velocitySkewX: 0,
+      velocitySkewY: 0,
+    },
+  });
+
   const magneticFrameRef = useRef<number | null>(null);
   const magneticTargetRef = useRef({
     x: 0,
@@ -379,6 +445,264 @@ export const HeroSection = memo(function HeroSection() {
       magneticFrameRef.current = null;
     }
   }, []);
+
+  const setTypographyStyles = useCallback(
+    (
+      element: HTMLHeadingElement | null,
+      x: number,
+      y: number,
+      skewX: number,
+      skewY: number
+    ) => {
+      if (!element) return;
+
+      element.style.setProperty("--type-x", `${x}px`);
+      element.style.setProperty("--type-y", `${y}px`);
+      element.style.setProperty("--type-skew-x", `${skewX}deg`);
+      element.style.setProperty("--type-skew-y", `${skewY}deg`);
+    },
+    []
+  );
+
+  const stopTypographyAnimation = useCallback(() => {
+    if (typographyFrameRef.current !== null) {
+      cancelAnimationFrame(typographyFrameRef.current);
+      typographyFrameRef.current = null;
+    }
+  }, []);
+
+  const runTypographyAnimation = useCallback(() => {
+    typographyFrameRef.current = null;
+
+    const target = typographyTargetRef.current;
+    const current = typographyCurrentRef.current;
+    const rearTargetX = clamp(
+      target.x * TEXT_DISTORTION_CONFIG.rear.maxOffsetX,
+      -TEXT_DISTORTION_CONFIG.rear.maxOffsetX,
+      TEXT_DISTORTION_CONFIG.rear.maxOffsetX
+    );
+    const rearTargetY = clamp(
+      -target.y * TEXT_DISTORTION_CONFIG.rear.maxOffsetY,
+      -TEXT_DISTORTION_CONFIG.rear.maxOffsetY,
+      TEXT_DISTORTION_CONFIG.rear.maxOffsetY
+    );
+    const rearTargetSkewX = clamp(
+      target.x * TEXT_DISTORTION_CONFIG.rear.maxSkewX,
+      -TEXT_DISTORTION_CONFIG.rear.maxSkewX,
+      TEXT_DISTORTION_CONFIG.rear.maxSkewX
+    );
+    const rearTargetSkewY = clamp(
+      -target.y * TEXT_DISTORTION_CONFIG.rear.maxSkewY,
+      -TEXT_DISTORTION_CONFIG.rear.maxSkewY,
+      TEXT_DISTORTION_CONFIG.rear.maxSkewY
+    );
+    const frontTargetX = clamp(
+      target.x * TEXT_DISTORTION_CONFIG.front.maxOffsetX,
+      -TEXT_DISTORTION_CONFIG.front.maxOffsetX,
+      TEXT_DISTORTION_CONFIG.front.maxOffsetX
+    );
+    const frontTargetY = clamp(
+      -target.y * TEXT_DISTORTION_CONFIG.front.maxOffsetY,
+      -TEXT_DISTORTION_CONFIG.front.maxOffsetY,
+      TEXT_DISTORTION_CONFIG.front.maxOffsetY
+    );
+    const frontTargetSkewX = clamp(
+      target.x * TEXT_DISTORTION_CONFIG.front.maxSkewX,
+      -TEXT_DISTORTION_CONFIG.front.maxSkewX,
+      TEXT_DISTORTION_CONFIG.front.maxSkewX
+    );
+    const frontTargetSkewY = clamp(
+      -target.y * TEXT_DISTORTION_CONFIG.front.maxSkewY,
+      -TEXT_DISTORTION_CONFIG.front.maxSkewY,
+      TEXT_DISTORTION_CONFIG.front.maxSkewY
+    );
+
+    const nextRearX = springStep(
+      current.rear.x,
+      rearTargetX,
+      current.rear.velocityX,
+      TEXT_DISTORTION_CONFIG.rear.stiffness,
+      TEXT_DISTORTION_CONFIG.rear.damping
+    );
+    const nextRearY = springStep(
+      current.rear.y,
+      rearTargetY,
+      current.rear.velocityY,
+      TEXT_DISTORTION_CONFIG.rear.stiffness,
+      TEXT_DISTORTION_CONFIG.rear.damping
+    );
+    const nextRearSkewX = springStep(
+      current.rear.skewX,
+      rearTargetSkewX,
+      current.rear.velocitySkewX,
+      TEXT_DISTORTION_CONFIG.rear.stiffness,
+      TEXT_DISTORTION_CONFIG.rear.damping
+    );
+    const nextRearSkewY = springStep(
+      current.rear.skewY,
+      rearTargetSkewY,
+      current.rear.velocitySkewY,
+      TEXT_DISTORTION_CONFIG.rear.stiffness,
+      TEXT_DISTORTION_CONFIG.rear.damping
+    );
+
+    const nextFrontX = springStep(
+      current.front.x,
+      frontTargetX,
+      current.front.velocityX,
+      TEXT_DISTORTION_CONFIG.front.stiffness,
+      TEXT_DISTORTION_CONFIG.front.damping
+    );
+    const nextFrontY = springStep(
+      current.front.y,
+      frontTargetY,
+      current.front.velocityY,
+      TEXT_DISTORTION_CONFIG.front.stiffness,
+      TEXT_DISTORTION_CONFIG.front.damping
+    );
+    const nextFrontSkewX = springStep(
+      current.front.skewX,
+      frontTargetSkewX,
+      current.front.velocitySkewX,
+      TEXT_DISTORTION_CONFIG.front.stiffness,
+      TEXT_DISTORTION_CONFIG.front.damping
+    );
+    const nextFrontSkewY = springStep(
+      current.front.skewY,
+      frontTargetSkewY,
+      current.front.velocitySkewY,
+      TEXT_DISTORTION_CONFIG.front.stiffness,
+      TEXT_DISTORTION_CONFIG.front.damping
+    );
+
+    typographyCurrentRef.current = {
+      rear: {
+        x: clamp(
+          nextRearX.value,
+          -TEXT_DISTORTION_CONFIG.rear.maxOffsetX,
+          TEXT_DISTORTION_CONFIG.rear.maxOffsetX
+        ),
+        y: clamp(
+          nextRearY.value,
+          -TEXT_DISTORTION_CONFIG.rear.maxOffsetY,
+          TEXT_DISTORTION_CONFIG.rear.maxOffsetY
+        ),
+        skewX: clamp(
+          nextRearSkewX.value,
+          -TEXT_DISTORTION_CONFIG.rear.maxSkewX,
+          TEXT_DISTORTION_CONFIG.rear.maxSkewX
+        ),
+        skewY: clamp(
+          nextRearSkewY.value,
+          -TEXT_DISTORTION_CONFIG.rear.maxSkewY,
+          TEXT_DISTORTION_CONFIG.rear.maxSkewY
+        ),
+        velocityX: nextRearX.velocity,
+        velocityY: nextRearY.velocity,
+        velocitySkewX: nextRearSkewX.velocity,
+        velocitySkewY: nextRearSkewY.velocity,
+      },
+      front: {
+        x: clamp(
+          nextFrontX.value,
+          -TEXT_DISTORTION_CONFIG.front.maxOffsetX,
+          TEXT_DISTORTION_CONFIG.front.maxOffsetX
+        ),
+        y: clamp(
+          nextFrontY.value,
+          -TEXT_DISTORTION_CONFIG.front.maxOffsetY,
+          TEXT_DISTORTION_CONFIG.front.maxOffsetY
+        ),
+        skewX: clamp(
+          nextFrontSkewX.value,
+          -TEXT_DISTORTION_CONFIG.front.maxSkewX,
+          TEXT_DISTORTION_CONFIG.front.maxSkewX
+        ),
+        skewY: clamp(
+          nextFrontSkewY.value,
+          -TEXT_DISTORTION_CONFIG.front.maxSkewY,
+          TEXT_DISTORTION_CONFIG.front.maxSkewY
+        ),
+        velocityX: nextFrontX.velocity,
+        velocityY: nextFrontY.velocity,
+        velocitySkewX: nextFrontSkewX.velocity,
+        velocitySkewY: nextFrontSkewY.velocity,
+      },
+    };
+
+    setTypographyStyles(
+      rearTextRef.current,
+      typographyCurrentRef.current.rear.x,
+      typographyCurrentRef.current.rear.y,
+      typographyCurrentRef.current.rear.skewX,
+      typographyCurrentRef.current.rear.skewY
+    );
+    setTypographyStyles(
+      frontTextRef.current,
+      typographyCurrentRef.current.front.x,
+      typographyCurrentRef.current.front.y,
+      typographyCurrentRef.current.front.skewX,
+      typographyCurrentRef.current.front.skewY
+    );
+
+    const rearSettled =
+      Math.abs(typographyCurrentRef.current.rear.x - rearTargetX) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.rear.y - rearTargetY) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.rear.skewX - rearTargetSkewX) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.rear.skewY - rearTargetSkewY) <
+        TEXT_DISTORTION_CONFIG.settleThreshold;
+
+    const frontSettled =
+      Math.abs(typographyCurrentRef.current.front.x - frontTargetX) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.front.y - frontTargetY) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.front.skewX - frontTargetSkewX) <
+        TEXT_DISTORTION_CONFIG.settleThreshold &&
+      Math.abs(typographyCurrentRef.current.front.skewY - frontTargetSkewY) <
+        TEXT_DISTORTION_CONFIG.settleThreshold;
+
+    if (!rearSettled || !frontSettled) {
+      typographyFrameRef.current = requestAnimationFrame(runTypographyAnimation);
+      return;
+    }
+
+    if (!target.active) {
+      typographyCurrentRef.current = {
+        rear: {
+          x: 0,
+          y: 0,
+          skewX: 0,
+          skewY: 0,
+          velocityX: 0,
+          velocityY: 0,
+          velocitySkewX: 0,
+          velocitySkewY: 0,
+        },
+        front: {
+          x: 0,
+          y: 0,
+          skewX: 0,
+          skewY: 0,
+          velocityX: 0,
+          velocityY: 0,
+          velocitySkewX: 0,
+          velocitySkewY: 0,
+        },
+      };
+      setTypographyStyles(rearTextRef.current, 0, 0, 0, 0);
+      setTypographyStyles(frontTextRef.current, 0, 0, 0, 0);
+    }
+  }, [setTypographyStyles]);
+
+  const startTypographyAnimation = useCallback(() => {
+    if (typographyFrameRef.current !== null) return;
+
+    typographyFrameRef.current = requestAnimationFrame(runTypographyAnimation);
+  }, [runTypographyAnimation]);
 
   const runMagneticAnimation = useCallback(() => {
     magneticFrameRef.current = null;
@@ -524,8 +848,25 @@ export const HeroSection = memo(function HeroSection() {
         "--parallax-x",
         `${x * ANIMATION_CONFIG.parallax.frontX}px`
       );
+
+      const textBounds = stageRef.current.getBoundingClientRect();
+      typographyTargetRef.current = {
+        x: clamp(
+          ((event.clientX - textBounds.left) / textBounds.width) * 2 - 1,
+          -1,
+          1
+        ),
+        y: clamp(
+          ((event.clientY - textBounds.top) / textBounds.height) * 2 - 1,
+          -1,
+          1
+        ),
+        active: true,
+      };
+
+      startTypographyAnimation();
     },
-    [prefersReducedMotion]
+    [prefersReducedMotion, startTypographyAnimation]
   );
 
   const throttledPointerMove = useCallback(
@@ -556,6 +897,14 @@ export const HeroSection = memo(function HeroSection() {
     frontTextRef.current?.style.removeProperty(
       "--parallax-x"
     );
+
+    typographyTargetRef.current = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    startTypographyAnimation();
   }, []);
 
   useEffect(() => {
@@ -620,6 +969,7 @@ export const HeroSection = memo(function HeroSection() {
       }
 
       stopMagneticAnimation();
+      stopTypographyAnimation();
     };
   }, [
     handleMagneticPointerEnter,
@@ -627,6 +977,7 @@ export const HeroSection = memo(function HeroSection() {
     handleMagneticPointerMove,
     handlePointerLeave,
     stopMagneticAnimation,
+    stopTypographyAnimation,
     throttledPointerMove,
   ]);
 
@@ -710,7 +1061,7 @@ export const HeroSection = memo(function HeroSection() {
                     "
             style={{
               transform:
-                "translateX(var(--parallax-x, 0px))",
+                "translateX(var(--parallax-x, 0px)) translate3d(var(--type-x, 0px), var(--type-y, 0px), 0) skewX(var(--type-skew-x, 0deg)) skewY(var(--type-skew-y, 0deg))",
               willChange: "transform, opacity, filter",
               transition:
                 "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
@@ -900,7 +1251,7 @@ export const HeroSection = memo(function HeroSection() {
                         "
             style={{
               transform:
-                "translateX(var(--parallax-x, 0px))",
+                "translateX(var(--parallax-x, 0px)) translate3d(var(--type-x, 0px), var(--type-y, 0px), 0) skewX(var(--type-skew-x, 0deg)) skewY(var(--type-skew-y, 0deg))",
               WebkitMaskImage:
                 "linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.96) 22%, #000 58%, #000 100%)",
               maskImage:
