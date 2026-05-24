@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, type Transition } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import {
   useEffect,
   useRef,
@@ -40,6 +40,74 @@ const ANIMATION_CONFIG = {
     glow: "blur-2xl",
   },
 };
+
+const CINEMATIC_EASING = {
+  rear: [0.22, 1, 0.36, 1] as const,
+  portrait: [0.19, 1, 0.22, 1] as const,
+  front: [0.16, 1, 0.3, 1] as const,
+};
+
+const createRearTextVariants = (reduceMotion: boolean): Variants => ({
+  hidden: {
+    opacity: reduceMotion ? 1 : 0,
+    y: reduceMotion ? 0 : 44,
+    scale: reduceMotion ? 1 : 0.976,
+    filter: reduceMotion ? "blur(0px)" : "blur(18px)",
+  },
+  visible: {
+    opacity: 0.95,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.rearText.duration,
+      delay: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.rearText.delay,
+      ease: CINEMATIC_EASING.rear,
+    },
+  },
+});
+
+const createPortraitVariants = (reduceMotion: boolean): Variants => ({
+  hidden: {
+    opacity: reduceMotion ? 1 : 0,
+    y: reduceMotion ? 0 : 56,
+    scale: reduceMotion ? 1 : 0.94,
+    rotateX: reduceMotion ? 0 : 12,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: {
+      duration: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.portrait.duration,
+      delay: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.portrait.delay,
+      ease: CINEMATIC_EASING.portrait,
+    },
+  },
+});
+
+const createFrontTextVariants = (reduceMotion: boolean): Variants => ({
+  hidden: {
+    opacity: reduceMotion ? 1 : 0,
+    y: reduceMotion ? 0 : 30,
+    scale: reduceMotion ? 1 : 0.986,
+    WebkitMaskSize: "0% 100%",
+    maskSize: "0% 100%",
+  },
+  visible: {
+    opacity: 0.95,
+    y: 0,
+    scale: 1,
+    WebkitMaskSize: "220% 100%",
+    maskSize: "220% 100%",
+    transition: {
+      duration: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.frontText.duration,
+      delay: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.frontText.delay,
+      ease: CINEMATIC_EASING.front,
+    },
+  },
+});
 
 const createDustParticles = () =>
   Array.from(
@@ -216,6 +284,21 @@ export const HeroSection = memo(function HeroSection() {
 
   const [imageFailed, setImageFailed] = useState(false);
 
+  const rearTextVariants = useMemo(
+    () => createRearTextVariants(prefersReducedMotion),
+    [prefersReducedMotion]
+  );
+
+  const portraitVariants = useMemo(
+    () => createPortraitVariants(prefersReducedMotion),
+    [prefersReducedMotion]
+  );
+
+  const frontTextVariants = useMemo(
+    () => createFrontTextVariants(prefersReducedMotion),
+    [prefersReducedMotion]
+  );
+
   // Only create dust particles on desktop to save memory and paint cost
   const dustParticles = useMemo(
     () => (isDesktop ? createDustParticles() : []),
@@ -359,6 +442,9 @@ export const HeroSection = memo(function HeroSection() {
           {/* Rear Text */}
           <motion.h1
             ref={rearTextRef}
+            variants={rearTextVariants}
+            initial="hidden"
+            animate="visible"
             className="
                       pointer-events-none
                       absolute
@@ -397,18 +483,9 @@ export const HeroSection = memo(function HeroSection() {
             style={{
               transform:
                 "translateX(var(--parallax-x, 0px))",
+              willChange: "transform, opacity, filter",
               transition:
                 "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
-            }}
-            initial={{ opacity: 0, y: 90 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration:
-                ANIMATION_CONFIG.sequence.rearText
-                  .duration,
-              delay:
-                ANIMATION_CONFIG.sequence.rearText.delay,
-              ease: ANIMATION_CONFIG.easing.entrance,
             }}
           >
             {heroData.nameLines[0]}
@@ -417,6 +494,9 @@ export const HeroSection = memo(function HeroSection() {
           {/* Portrait */}
           <motion.div
             ref={portraitRef}
+            variants={portraitVariants}
+            initial="hidden"
+            animate="visible"
             className="
                       absolute
                       left-1/2
@@ -440,25 +520,11 @@ export const HeroSection = memo(function HeroSection() {
             style={{
               transform:
                 "translateX(var(--parallax-x, 0px))",
+              transformStyle: "preserve-3d",
+              backfaceVisibility: "hidden",
+              willChange: "transform, opacity",
               transition:
                 "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
-            }}
-            initial={{
-              opacity: 0,
-              y: 70,
-              scale: 0.96,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            transition={{
-              duration:
-                ANIMATION_CONFIG.sequence.portrait
-                  .duration,
-              delay:
-                ANIMATION_CONFIG.sequence.portrait.delay,
             }}
           >
             {/* Mobile Text */}
@@ -553,6 +619,9 @@ export const HeroSection = memo(function HeroSection() {
           {/* Front Text */}
           <motion.h1
             ref={frontTextRef}
+            variants={frontTextVariants}
+            initial="hidden"
+            animate="visible"
             className="
                       pointer-events-none
                           absolute
@@ -592,19 +661,19 @@ export const HeroSection = memo(function HeroSection() {
             style={{
               transform:
                 "translateX(var(--parallax-x, 0px))",
+              WebkitMaskImage:
+                "linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.96) 22%, #000 58%, #000 100%)",
+              maskImage:
+                "linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.96) 22%, #000 58%, #000 100%)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "0% 50%",
+              maskPosition: "0% 50%",
+              WebkitMaskSize: "220% 100%",
+              maskSize: "220% 100%",
+              willChange: "transform, opacity, mask-size",
               transition:
                 "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
-            }}
-            initial={{ opacity: 0, y: 80 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration:
-                ANIMATION_CONFIG.sequence.frontText
-                  .duration,
-              delay:
-                ANIMATION_CONFIG.sequence.frontText
-                  .delay,
-              ease: ANIMATION_CONFIG.easing.entrance,
             }}
           >
             {heroData.nameLines[1]}
