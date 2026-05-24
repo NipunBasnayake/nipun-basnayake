@@ -41,10 +41,6 @@ const ANIMATION_CONFIG = {
     maxDuration: 14,
     maxDrift: 10,
   },
-
-  blur: {
-    glow: "blur-2xl",
-  },
 };
 
 const CINEMATIC_EASING = {
@@ -163,15 +159,11 @@ const createFrontTextVariants = (reduceMotion: boolean): Variants => ({
     opacity: reduceMotion ? 1 : 0,
     y: reduceMotion ? 0 : 30,
     scale: reduceMotion ? 1 : 0.986,
-    WebkitMaskSize: "0% 100%",
-    maskSize: "0% 100%",
   },
   visible: {
     opacity: 0.95,
     y: 0,
     scale: 1,
-    WebkitMaskSize: "220% 100%",
-    maskSize: "220% 100%",
     transition: {
       duration: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.frontText.duration,
       delay: reduceMotion ? 0 : ANIMATION_CONFIG.sequence.frontText.delay,
@@ -203,79 +195,122 @@ const createDustParticles = () =>
     })
   );
 
-const GLOW_BLOBS = [
+const AURORA_RIBBONS = [
   {
-    className: "left-[-7rem] top-16 size-[24rem] bg-arctic/14",
+    className:
+      "left-[-22%] top-[8%] h-[15rem] w-[92rem] bg-[linear-gradient(100deg,rgba(134,244,255,0)_0%,rgba(134,244,255,0.08)_12%,rgba(134,244,255,0.58)_34%,rgba(162,41,255,0.36)_58%,rgba(255,90,61,0.18)_80%,rgba(255,90,61,0)_100%)]",
     animate: {
-      x: [0, 12, 0],
-      y: [0, -9, 0],
-      scale: [1, 1.04, 1],
+      x: [0, 52, 0],
+      y: [0, -18, 0],
+      rotate: [-7, -3, -7],
+      scale: [1, 1.05, 1],
     },
     transition: {
-      duration: 20,
+      duration: 28,
       repeat: Infinity,
       ease: "easeInOut",
       delay: 0,
     },
   },
   {
-    className: "right-[-8rem] top-28 size-[30rem] bg-wine/12",
+    className:
+      "right-[-24%] top-[18%] h-[18rem] w-[100rem] bg-[linear-gradient(95deg,rgba(255,90,61,0)_0%,rgba(255,90,61,0.08)_14%,rgba(255,90,61,0.5)_30%,rgba(162,41,255,0.34)_56%,rgba(134,244,255,0.16)_76%,rgba(134,244,255,0)_100%)]",
     animate: {
-      x: [0, -10, 0],
-      y: [0, 8, 0],
-      scale: [1, 1.03, 1],
+      x: [0, -46, 0],
+      y: [0, 14, 0],
+      rotate: [6, 2, 6],
+      scale: [1, 1.045, 1],
     },
     transition: {
-      duration: 22,
-      repeat: Infinity,
-      ease: "easeInOut",
-      delay: 0.8,
-    },
-  },
-  {
-    className: "left-[18%] bottom-[-10rem] size-[26rem] bg-ember/12",
-    animate: {
-      x: [0, 8, 0],
-      y: [0, -6, 0],
-      scale: [1, 1.02, 1],
-    },
-    transition: {
-      duration: 24,
+      duration: 30,
       repeat: Infinity,
       ease: "easeInOut",
       delay: 1.2,
     },
   },
+  {
+    className:
+      "left-[8%] bottom-[-14%] h-[17rem] w-[86rem] bg-[linear-gradient(110deg,rgba(162,41,255,0)_0%,rgba(162,41,255,0.1)_14%,rgba(162,41,255,0.48)_34%,rgba(255,255,255,0.08)_52%,rgba(255,90,61,0.26)_72%,rgba(255,90,61,0)_100%)]",
+    animate: {
+      x: [0, 38, 0],
+      y: [0, -16, 0],
+      rotate: [-4, -1, -4],
+      scale: [1, 1.03, 1],
+    },
+    transition: {
+      duration: 32,
+      repeat: Infinity,
+      ease: "easeInOut",
+      delay: 0.6,
+    },
+  },
 ];
 
-interface GlowBlobsProps {
+interface AuroraBackdropProps {
   reduceMotion: boolean;
   isDesktop: boolean;
+  backdropRef: MutableRefObject<HTMLDivElement | null>;
 }
 
-const GlowBlobsComponent = memo(
-  function GlowBlobs({
+const AuroraBackdropComponent = memo(
+  function AuroraBackdrop({
     reduceMotion,
     isDesktop,
-  }: GlowBlobsProps) {
-    // On mobile, render only the first glow blob; on desktop, render all 3
-    const visibleBlobs = isDesktop ? GLOW_BLOBS : GLOW_BLOBS.slice(0, 1);
-    
+    backdropRef,
+  }: AuroraBackdropProps) {
+    const visibleRibbons = isDesktop ? AURORA_RIBBONS : AURORA_RIBBONS.slice(0, 2);
+
     return (
-      <>
-        {visibleBlobs.map((blob, index) => (
+      <div
+        ref={backdropRef}
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+        style={{
+          transform:
+            "translate3d(var(--aurora-x, 0px), var(--aurora-y, 0px), 0) rotate(var(--aurora-rotate, 0deg))",
+          transition: "transform 240ms cubic-bezier(0.22, 1, 0.36, 1)",
+          willChange: "transform",
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 opacity-70"
+          style={{
+            background:
+              "radial-gradient(72% 54% at 50% 14%, rgba(134,244,255,0.18) 0%, rgba(134,244,255,0.04) 34%, rgba(162,41,255,0.02) 58%, rgba(0,0,0,0) 82%)",
+            mixBlendMode: "screen",
+          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  opacity: [0.35, 0.62, 0.35],
+                  scale: [1, 1.04, 1],
+                }
+          }
+          transition={
+            reduceMotion
+              ? undefined
+              : ({ duration: 18, repeat: Infinity, ease: "easeInOut" } as Transition)
+          }
+        />
+
+        {visibleRibbons.map((ribbon, index) => (
           <motion.div
-            key={`glow-${index}`}
-            className={`absolute rounded-full ${ANIMATION_CONFIG.blur.glow} ${blob.className}`}
+            key={`aurora-${index}`}
+            className={`absolute rounded-full blur-3xl ${ribbon.className}`}
             style={{
-              opacity: 0.08 + index * 0.02,
-              willChange: "transform",
+              opacity: 0.18 + index * 0.05,
+              mixBlendMode: "screen",
+              willChange: "transform, opacity",
+              transformOrigin: "center",
             }}
-            animate={reduceMotion ? undefined : blob.animate}
-            transition={reduceMotion ? undefined : (blob.transition as Transition)}
+            animate={reduceMotion ? undefined : ribbon.animate}
+            transition={reduceMotion ? undefined : (ribbon.transition as Transition)}
           />
         ))}
-      </>
+
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,5,5,0)_0%,rgba(5,5,5,0.16)_68%,rgba(5,5,5,0.5)_100%)]" />
+      </div>
     );
   }
 );
@@ -366,6 +401,7 @@ export const HeroSection = memo(function HeroSection() {
   }, []);
 
   const stageRef = useRef<HTMLElement | null>(null);
+  const auroraBackdropRef = useRef<HTMLDivElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
   const portraitMagneticRef = useRef<HTMLDivElement | null>(null);
   const rearTextRef = useRef<HTMLHeadingElement | null>(null);
@@ -491,6 +527,16 @@ export const HeroSection = memo(function HeroSection() {
     },
     []
   );
+
+  const setAuroraStyles = useCallback((x: number, y: number, rotate: number) => {
+    const element = auroraBackdropRef.current;
+
+    if (!element) return;
+
+    element.style.setProperty("--aurora-x", `${x}px`);
+    element.style.setProperty("--aurora-y", `${y}px`);
+    element.style.setProperty("--aurora-rotate", `${rotate}deg`);
+  }, []);
 
   const stopMagneticAnimation = useCallback(() => {
     if (magneticFrameRef.current !== null) {
@@ -1007,6 +1053,13 @@ export const HeroSection = memo(function HeroSection() {
           0.5) *
         2;
 
+      const y =
+        ((event.clientY - bounds.top) / bounds.height -
+          0.5) *
+        2;
+
+      setAuroraStyles(x * 18, y * 10, x * 1.6);
+
       portraitRef.current?.style.setProperty(
         "--parallax-x",
         `${x * ANIMATION_CONFIG.parallax.portraitX}px`
@@ -1100,6 +1153,8 @@ export const HeroSection = memo(function HeroSection() {
   );
 
   const handlePointerLeave = useCallback(() => {
+    setAuroraStyles(0, 0, 0);
+
     portraitRef.current?.style.removeProperty(
       "--parallax-x"
     );
@@ -1123,7 +1178,7 @@ export const HeroSection = memo(function HeroSection() {
 
     startTypographyAnimation();
     startParticleAnimation();
-  }, [dustParticles, startParticleAnimation, startTypographyAnimation]);
+  }, [dustParticles, setAuroraStyles, startParticleAnimation, startTypographyAnimation]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -1209,25 +1264,23 @@ export const HeroSection = memo(function HeroSection() {
     >
       {/* Background */}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#09111f_0%,#050505_52%,#0b0710_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(78%_52%_at_50%_14%,rgba(134,244,255,0.13)_0%,rgba(134,244,255,0)_66%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(58%_42%_at_84%_28%,rgba(255,90,61,0.16)_0%,rgba(255,90,61,0)_72%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,rgba(255,90,61,0.06)_0%,rgba(134,244,255,0.04)_42%,rgba(0,0,0,0)_72%)]" />
+
+      <AuroraBackdropComponent
+        reduceMotion={prefersReducedMotion}
+        isDesktop={isDesktop}
+        backdropRef={auroraBackdropRef}
+      />
 
       {/* Animated Grid */}
-      <AnimatedGrid className="opacity-25" />
+      <AnimatedGrid className="opacity-20 mix-blend-soft-light" />
 
       {/* Decorative Elements */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute left-[-9rem] top-16 size-[24rem] rounded-full bg-arctic/12 blur-3xl" />
-        <div className="absolute bottom-[-8rem] right-[-10rem] size-[28rem] rounded-full bg-wine/12 blur-3xl" />
-
-        <GlowBlobsComponent
-          reduceMotion={prefersReducedMotion}
-          isDesktop={isDesktop}
-        />
+        <div className="absolute left-[-9rem] top-16 size-[24rem] rounded-full bg-arctic/6 blur-3xl" />
+        <div className="absolute bottom-[-8rem] right-[-10rem] size-[28rem] rounded-full bg-wine/6 blur-3xl" />
 
         <DustParticlesComponent
           particles={dustParticles}
