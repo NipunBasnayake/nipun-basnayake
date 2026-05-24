@@ -1,4 +1,9 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  type Transition,
+  type Variants,
+} from "framer-motion";
 import {
   useEffect,
   useRef,
@@ -46,6 +51,23 @@ const CINEMATIC_EASING = {
   portrait: [0.19, 1, 0.22, 1] as const,
   front: [0.16, 1, 0.3, 1] as const,
 };
+
+const MAGNETIC_CONFIG = {
+  maxOffsetX: 16,
+  maxOffsetY: 12,
+  maxRotateX: 7,
+  maxRotateY: 9,
+  maxScale: 1.015,
+  followLerp: 0.085,
+  returnLerp: 0.12,
+  settleThreshold: 0.001,
+};
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
+const lerp = (start: number, end: number, amount: number) =>
+  start + (end - start) * amount;
 
 const createRearTextVariants = (reduceMotion: boolean): Variants => ({
   hidden: {
@@ -279,6 +301,7 @@ export const HeroSection = memo(function HeroSection() {
 
   const stageRef = useRef<HTMLElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
+  const portraitMagneticRef = useRef<HTMLDivElement | null>(null);
   const rearTextRef = useRef<HTMLHeadingElement | null>(null);
   const frontTextRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -308,6 +331,171 @@ export const HeroSection = memo(function HeroSection() {
   const pointerTimeoutRef = useRef<ReturnType<
     typeof setTimeout
   > | null>(null);
+
+  const magneticFrameRef = useRef<number | null>(null);
+  const magneticTargetRef = useRef({
+    x: 0,
+    y: 0,
+    active: false,
+  });
+  const magneticCurrentRef = useRef({
+    x: 0,
+    y: 0,
+    rotateX: 0,
+    rotateY: 0,
+    scale: 1,
+  });
+
+  const setMagneticStyles = useCallback(
+    (
+      x: number,
+      y: number,
+      rotateX: number,
+      rotateY: number,
+      scale: number
+    ) => {
+      const element = portraitMagneticRef.current;
+
+      if (!element) return;
+
+      element.style.setProperty("--magnetic-x", `${x}px`);
+      element.style.setProperty("--magnetic-y", `${y}px`);
+      element.style.setProperty(
+        "--magnetic-rotate-x",
+        `${rotateX}deg`
+      );
+      element.style.setProperty(
+        "--magnetic-rotate-y",
+        `${rotateY}deg`
+      );
+      element.style.setProperty("--magnetic-scale", `${scale}`);
+    },
+    []
+  );
+
+  const stopMagneticAnimation = useCallback(() => {
+    if (magneticFrameRef.current !== null) {
+      cancelAnimationFrame(magneticFrameRef.current);
+      magneticFrameRef.current = null;
+    }
+  }, []);
+
+  const runMagneticAnimation = useCallback(() => {
+    magneticFrameRef.current = null;
+
+    const target = magneticTargetRef.current;
+    const current = magneticCurrentRef.current;
+    const easing = target.active
+      ? MAGNETIC_CONFIG.followLerp
+      : MAGNETIC_CONFIG.returnLerp;
+
+    const nextX = lerp(current.x, target.x, easing);
+    const nextY = lerp(current.y, target.y, easing);
+    const nextRotateX = lerp(current.rotateX, target.y * -MAGNETIC_CONFIG.maxRotateX, easing);
+    const nextRotateY = lerp(current.rotateY, target.x * MAGNETIC_CONFIG.maxRotateY, easing);
+    const hoverIntensity = clamp(
+      1 - Math.max(Math.abs(target.x), Math.abs(target.y)) * 0.65,
+      0,
+      1
+    );
+    const nextScale = lerp(
+      current.scale,
+      1 + hoverIntensity * (MAGNETIC_CONFIG.maxScale - 1),
+      easing
+    );
+
+    magneticCurrentRef.current = {
+      x: nextX,
+      y: nextY,
+      rotateX: nextRotateX,
+      rotateY: nextRotateY,
+      scale: nextScale,
+    };
+
+    setMagneticStyles(nextX, nextY, nextRotateX, nextRotateY, nextScale);
+
+    const hasSettled =
+      Math.abs(nextX - target.x) < MAGNETIC_CONFIG.settleThreshold &&
+      Math.abs(nextY - target.y) < MAGNETIC_CONFIG.settleThreshold &&
+      Math.abs(nextRotateX - target.y * -MAGNETIC_CONFIG.maxRotateX) <
+        MAGNETIC_CONFIG.settleThreshold &&
+      Math.abs(nextRotateY - target.x * MAGNETIC_CONFIG.maxRotateY) <
+        MAGNETIC_CONFIG.settleThreshold &&
+      Math.abs(nextScale - (1 + hoverIntensity * (MAGNETIC_CONFIG.maxScale - 1))) <
+        MAGNETIC_CONFIG.settleThreshold;
+
+    if (!hasSettled) {
+      magneticFrameRef.current = requestAnimationFrame(runMagneticAnimation);
+      return;
+    }
+
+    if (!target.active) {
+      magneticCurrentRef.current = {
+        x: 0,
+        y: 0,
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+      };
+      setMagneticStyles(0, 0, 0, 0, 1);
+    }
+  }, [setMagneticStyles]);
+
+  const startMagneticAnimation = useCallback(() => {
+    if (magneticFrameRef.current !== null) return;
+
+    magneticFrameRef.current = requestAnimationFrame(runMagneticAnimation);
+  }, [runMagneticAnimation]);
+
+  const handleMagneticPointerMove = useCallback(
+    (event: PointerEvent) => {
+      if (
+        prefersReducedMotion ||
+        !isDesktop ||
+        !portraitRef.current ||
+        !portraitMagneticRef.current
+      ) {
+        return;
+      }
+
+      const bounds = portraitRef.current.getBoundingClientRect();
+      const normalizedX = clamp(
+        ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
+        -1,
+        1
+      );
+      const normalizedY = clamp(
+        ((event.clientY - bounds.top) / bounds.height) * 2 - 1,
+        -1,
+        1
+      );
+
+      magneticTargetRef.current = {
+        x: normalizedX,
+        y: normalizedY,
+        active: true,
+      };
+
+      startMagneticAnimation();
+    },
+    [isDesktop, prefersReducedMotion, startMagneticAnimation]
+  );
+
+  const handleMagneticPointerEnter = useCallback(() => {
+    if (prefersReducedMotion || !isDesktop) return;
+
+    magneticTargetRef.current.active = true;
+    startMagneticAnimation();
+  }, [isDesktop, prefersReducedMotion, startMagneticAnimation]);
+
+  const handleMagneticPointerLeave = useCallback(() => {
+    magneticTargetRef.current = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+    startMagneticAnimation();
+  }, [startMagneticAnimation]);
 
   const handlePointerMove = useCallback(
     (event: PointerEvent) => {
@@ -372,6 +560,7 @@ export const HeroSection = memo(function HeroSection() {
 
   useEffect(() => {
     const stage = stageRef.current;
+    const portrait = portraitRef.current;
 
     if (!stage) return;
 
@@ -385,6 +574,21 @@ export const HeroSection = memo(function HeroSection() {
       handlePointerLeave
     );
 
+    portrait?.addEventListener(
+      "pointerenter",
+      handleMagneticPointerEnter
+    );
+
+    portrait?.addEventListener(
+      "pointermove",
+      handleMagneticPointerMove
+    );
+
+    portrait?.addEventListener(
+      "pointerleave",
+      handleMagneticPointerLeave
+    );
+
     return () => {
       stage.removeEventListener(
         "pointermove",
@@ -396,11 +600,35 @@ export const HeroSection = memo(function HeroSection() {
         handlePointerLeave
       );
 
+      portrait?.removeEventListener(
+        "pointerenter",
+        handleMagneticPointerEnter
+      );
+
+      portrait?.removeEventListener(
+        "pointermove",
+        handleMagneticPointerMove
+      );
+
+      portrait?.removeEventListener(
+        "pointerleave",
+        handleMagneticPointerLeave
+      );
+
       if (pointerTimeoutRef.current) {
         clearTimeout(pointerTimeoutRef.current);
       }
+
+      stopMagneticAnimation();
     };
-  }, [throttledPointerMove, handlePointerLeave, isDesktop]);
+  }, [
+    handleMagneticPointerEnter,
+    handleMagneticPointerLeave,
+    handleMagneticPointerMove,
+    handlePointerLeave,
+    stopMagneticAnimation,
+    throttledPointerMove,
+  ]);
 
   return (
     <section
@@ -527,8 +755,19 @@ export const HeroSection = memo(function HeroSection() {
                 "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
             }}
           >
-            {/* Mobile Text */}
-            <div className="
+            <div
+              ref={portraitMagneticRef}
+              className="relative h-full w-full"
+              style={{
+                transform:
+                  "perspective(1200px) translate3d(var(--magnetic-x, 0px), var(--magnetic-y, 0px), 0) rotateX(var(--magnetic-rotate-x, 0deg)) rotateY(var(--magnetic-rotate-y, 0deg)) scale(var(--magnetic-scale, 1))",
+                transformStyle: "preserve-3d",
+                backfaceVisibility: "hidden",
+                willChange: "transform",
+              }}
+            >
+              {/* Mobile Text */}
+              <div className="
                             pointer-events-none
                             absolute
                             inset-x-0
@@ -543,8 +782,8 @@ export const HeroSection = memo(function HeroSection() {
 
                             sm:hidden
                           ">
-              <span
-                className="
+                <span
+                  className="
                           bg-gradient-to-r
                           from-platinum
                           via-arctic
@@ -564,12 +803,12 @@ export const HeroSection = memo(function HeroSection() {
 
                           drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)]
                         "
-                                >
-                                  {heroData.nameLines[0]}
-                                </span>
+                >
+                  {heroData.nameLines[0]}
+                </span>
 
-                                <span
-                                  className="
+                <span
+                  className="
                           bg-gradient-to-r
                           from-ember
                           via-platinum
@@ -589,31 +828,32 @@ export const HeroSection = memo(function HeroSection() {
 
                           drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)]
                         "
-              >
-                {heroData.nameLines[1]}
-              </span>
-            </div>
-
-            {imageFailed ? (
-              <div className="grid h-full place-items-center rounded-b-[8rem] bg-gradient-to-b from-white/12 to-white/[0.02]">
-                <span className="font-display text-8xl font-black text-platinum/76">
-                  {siteData.shortName
-                    .split(" ")
-                    .map((part) => part[0])
-                    .join("")}
+                >
+                  {heroData.nameLines[1]}
                 </span>
               </div>
-            ) : (
-              <img
-                src={heroData.portrait}
-                alt={heroData.portraitAlt}
-                className="h-full w-full object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                onError={() => setImageFailed(true)}
-              />
-            )}
+
+              {imageFailed ? (
+                <div className="grid h-full place-items-center rounded-b-[8rem] bg-gradient-to-b from-white/12 to-white/[0.02]">
+                  <span className="font-display text-8xl font-black text-platinum/76">
+                    {siteData.shortName
+                      .split(" ")
+                      .map((part) => part[0])
+                      .join("")}
+                  </span>
+                </div>
+              ) : (
+                <img
+                  src={heroData.portrait}
+                  alt={heroData.portraitAlt}
+                  className="h-full w-full object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  onError={() => setImageFailed(true)}
+                />
+              )}
+            </div>
           </motion.div>
 
           {/* Front Text */}
