@@ -148,11 +148,11 @@ export interface ContactData {
 export const siteData = {
   name: "Nipun Sathsara Basnayaka",
   shortName: "Nipun Basnayaka",
-  role: "Full Stack Software Engineer",
+  role: "Software Engineer + Graphic Designer",
   location: "Negombo, Sri Lanka",
   email: "nipunsathsara1999@gmail.com",
   phone: "+94 77 880 6029",
-  meta: "Premium full stack software engineering portfolio for Nipun Sathsara Basnayaka",
+  meta: "Premium software engineering and graphic design portfolio for Nipun Sathsara Basnayaka",
 };
 
 export const navItems: LinkItem[] = [
@@ -734,7 +734,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     description:
       "Introduction to blockchain technology, cryptocurrency concepts, and decentralized digital systems.",
-    image: "/assets/images/certificates/blockchain-basics.jpg",
+    image: "/assets/images/certificates/blockchain-basics.jpg.jpg",
     referenceUrl: "https://www.linkedin.com/learning/certificates/d464722b98f48f4444dd541a44158daed6b612fcbf2ac0e384b97e320372c483?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BNDQDUTSbS%2FWP%2BlUHSQlX%2Fw%3D%3D",
     status: "earned",
   },
