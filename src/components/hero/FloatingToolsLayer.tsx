@@ -12,7 +12,7 @@ export function FloatingToolsLayer({ tools, variant }: FloatingToolsLayerProps) 
   const isDeveloper = variant === "developer";
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-30" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0 z-[25]" aria-hidden="true">
       {tools.map((tool) => (
         <motion.div
           key={tool.id}

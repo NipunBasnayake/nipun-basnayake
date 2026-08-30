@@ -3,6 +3,7 @@ import { Code2, PenTool } from "lucide-react";
 import { type KeyboardEvent, useState } from "react";
 import { heroData } from "../../data/portfolio";
 import { cn } from "../../lib/utils";
+import { HeroPortrait } from "../hero/HeroPortrait";
 import { AnimatedGrid } from "../ui/AnimatedGrid";
 
 type IdentityMode = "developer" | "designer";
@@ -86,19 +87,6 @@ function SplitSurface({
           ? "items-start justify-start bg-[#071519]"
           : "items-end justify-end bg-[#170d18]",
       )}
-      animate={
-        reduceMotion
-          ? undefined
-          : {
-              flexBasis:
-                active === null
-                  ? "50%"
-                  : isActive
-                    ? "54%"
-                    : "46%",
-            }
-      }
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
         className={cn(
@@ -275,28 +263,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             </h1>
           </motion.div>
 
-          <motion.div
-            className="absolute left-1/2 top-1/2 z-30 h-[26rem] w-[19rem] -translate-x-1/2 -translate-y-1/2 sm:h-[32rem] sm:w-[24rem] md:h-[35rem] md:w-[26rem]"
-            animate={{
-              scale: reduceMotion ? 1 : active ? 1.012 : 1,
-              filter:
-                active === "developer"
-                  ? "drop-shadow(0 0 26px rgba(134,244,255,0.28))"
-                  : active === "designer"
-                    ? "drop-shadow(0 0 26px rgba(255,90,61,0.2)) drop-shadow(0 0 18px rgba(162,41,255,0.18))"
-                    : "drop-shadow(0 18px 38px rgba(0,0,0,0.55))",
-            }}
-            transition={{ duration: 0.45 }}
-          >
-            <img
-              src={heroData.portrait}
-              alt={heroData.portraitAlt}
-              className="h-full w-full object-contain object-bottom"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </motion.div>
+          <HeroPortrait composition="landing" hoverTone={active} />
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import { cn } from "../../lib/utils";
 import { Container } from "../common/Container";
 import { AnimatedGrid } from "../ui/AnimatedGrid";
 import { FloatingToolsLayer } from "./FloatingToolsLayer";
+import { HeroPortrait } from "./HeroPortrait";
 
 interface RoleHeroProps {
   variant: HeroVariant;
@@ -55,7 +56,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden bg-obsidian pb-10 pt-20"
+      className="relative min-h-screen overflow-hidden bg-obsidian pt-20"
     >
       <div className={cn("absolute inset-0", copy.background)} />
       <AnimatedGrid className="opacity-20 mix-blend-soft-light" />
@@ -75,7 +76,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
       </div>
 
       <Container className="relative z-20">
-        <div className="relative min-h-[48rem] pt-8 sm:min-h-[56rem] lg:min-h-[calc(100vh-5rem)]">
+        <div className="relative min-h-[calc(100vh-5rem)]">
           <motion.div
             className="pointer-events-none absolute inset-x-0 top-[20%] z-20 hidden text-center sm:block md:top-[17%] lg:top-[22%]"
             initial={reduceMotion ? false : { opacity: 0, y: 32, filter: "blur(14px)" }}
@@ -137,23 +138,9 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
 
           <FloatingToolsLayer tools={tools} variant={variant} />
 
-          <motion.div
-            className="pointer-events-none absolute left-1/2 top-1/2 z-40 h-[32rem] w-[23rem] -translate-x-1/2 -translate-y-[46%] sm:h-[39rem] sm:w-[29rem] md:-translate-y-[48%]"
-            initial={reduceMotion ? false : { opacity: 0, y: 42, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.22, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <img
-              src={heroData.portrait}
-              alt={heroData.portraitAlt}
-              className="h-full w-full object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </motion.div>
+          <HeroPortrait composition="role" />
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 z-50 mx-auto max-w-xl px-6 text-center sm:bottom-10">
+          <div className="pointer-events-none absolute inset-x-0 bottom-8 z-40 mx-auto max-w-xl px-6 text-center sm:bottom-10">
             <motion.p
               className={cn(
                 "font-mono text-[0.65rem] uppercase tracking-[0.28em] sm:text-xs",
