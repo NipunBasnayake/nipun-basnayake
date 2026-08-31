@@ -11,19 +11,24 @@ const footerLinksByRoute: Record<AppRoute, Array<{ label: string; href: string }
   "/": [
     { label: "Developer", href: "/developer" },
     { label: "Designer", href: "/designer" },
-    { label: "Contact", href: "/developer#contact" },
+    { label: "Contact", href: "/contact?from=home" },
   ],
   "/developer": [
     { label: "Profile", href: "/developer#summary" },
     { label: "Work", href: "/developer#projects" },
     { label: "Certificates", href: "/developer#certificates" },
-    { label: "Contact", href: "/developer#contact" },
+    { label: "Contact", href: "/contact?from=developer" },
   ],
   "/designer": [
     { label: "Profile", href: "/designer#designer-profile" },
     { label: "Design Work", href: "/designer#design-work" },
     { label: "Developer", href: "/developer" },
-    { label: "Contact", href: "/designer#designer-contact" },
+    { label: "Contact", href: "/contact?from=designer" },
+  ],
+  "/contact": [
+    { label: "Home", href: "/" },
+    { label: "Developer", href: "/developer" },
+    { label: "Designer", href: "/designer" },
   ],
 };
 

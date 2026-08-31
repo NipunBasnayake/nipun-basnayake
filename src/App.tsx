@@ -10,6 +10,7 @@ import {
 } from "./hooks/useRouteNavigation";
 import { DesignerPage } from "./pages/DesignerPage";
 import { DeveloperPage } from "./pages/DeveloperPage";
+import { ContactPage } from "./pages/ContactPage";
 import { LandingPage } from "./pages/LandingPage";
 
 const routeMeta: Record<AppRoute, { title: string; description: string }> = {
@@ -27,6 +28,11 @@ const routeMeta: Record<AppRoute, { title: string; description: string }> = {
     title: "Nipun Basnayaka | Graphic Designer Portfolio",
     description:
       "Graphic design portfolio for Nipun Basnayaka, a freelance graphic designer since 2019 working across brand, print, social, event, and visual design.",
+  },
+  "/contact": {
+    title: "Contact Nipun Basnayaka | Software Engineering + Graphic Design",
+    description:
+      "Contact Nipun Basnayaka for software engineering, full-stack development, backend APIs, graphic design, branding, print, and visual design inquiries.",
   },
 };
 
@@ -75,7 +81,7 @@ const pageVariants = {
 export function App() {
   useLenis();
   const reduceMotion = useReducedMotion() ?? false;
-  const { route, direction, navigate } = useRouteNavigation();
+  const { route, direction, search, navigate } = useRouteNavigation();
 
   useEffect(() => {
     const meta = routeMeta[route];
@@ -92,9 +98,11 @@ export function App() {
 
   const page =
     route === "/developer" ? (
-      <DeveloperPage />
+      <DeveloperPage onNavigate={navigate} />
     ) : route === "/designer" ? (
-      <DesignerPage />
+      <DesignerPage onNavigate={navigate} />
+    ) : route === "/contact" ? (
+      <ContactPage search={search} />
     ) : (
       <LandingPage onNavigate={navigate} />
     );
@@ -108,7 +116,7 @@ export function App() {
         custom={{ direction, reduceMotion }}
       >
         <motion.div
-          key={route}
+          key={`${route}${search}`}
           custom={{ direction, reduceMotion }}
           variants={pageVariants}
           initial="initial"

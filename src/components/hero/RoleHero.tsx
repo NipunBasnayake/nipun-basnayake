@@ -78,7 +78,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
       <Container className="relative z-20">
         <div className="relative min-h-[calc(100vh-5rem)]">
           <motion.div
-            className="pointer-events-none absolute inset-x-0 top-[20%] z-20 hidden text-center sm:block md:top-[17%] lg:top-[22%]"
+            className="pointer-events-none absolute inset-x-0 top-[18%] z-20 hidden text-center sm:block md:top-[16%] lg:top-[28%]"
             initial={reduceMotion ? false : { opacity: 0, y: 32, filter: "blur(14px)" }}
             animate={{ opacity: 0.92, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -86,7 +86,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           >
             <h1
               className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(7rem,23vw,22rem)] font-black leading-[0.74] tracking-[-0.07em] text-transparent",
+                "bg-gradient-to-r bg-clip-text font-display text-[clamp(7rem,25vw,24rem)] font-black leading-[0.74] tracking-[-0.07em] text-transparent",
                 copy.nameTop,
               )}
             >
@@ -95,7 +95,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           </motion.div>
 
           <motion.div
-            className="pointer-events-none absolute inset-x-0 bottom-[8%] z-20 hidden text-center sm:block md:bottom-[22%] lg:bottom-[13%]"
+            className="pointer-events-none absolute inset-x-0 bottom-[10%] z-40 hidden text-center sm:block md:bottom-[18%] lg:bottom-[12%]"
             initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 0.94, y: 0 }}
             transition={{ duration: 0.82, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
@@ -103,7 +103,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           >
             <h1
               className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(4rem,12vw,12rem)] font-black leading-[0.78] tracking-[-0.055em] text-transparent",
+                "bg-gradient-to-r bg-clip-text font-display text-[clamp(4.2rem,13.2vw,13.2rem)] font-black leading-[0.78] tracking-[-0.055em] text-transparent",
                 copy.nameBottom,
               )}
             >
@@ -112,7 +112,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           </motion.div>
 
           <motion.div
-            className="pointer-events-none absolute inset-x-0 top-[18%] z-20 text-center sm:hidden"
+            className="pointer-events-none absolute inset-x-0 top-[16%] z-20 text-center sm:hidden"
             initial={reduceMotion ? false : { opacity: 0, y: 20, filter: "blur(10px)" }}
             animate={{ opacity: 0.9, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.72, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
@@ -126,6 +126,15 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
             >
               {heroData.nameLines[0]}
             </h1>
+          </motion.div>
+
+          <motion.div
+            className="pointer-events-none absolute inset-x-0 bottom-[18%] z-40 text-center sm:hidden"
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 0.94, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden="true"
+          >
             <h1
               className={cn(
                 "bg-gradient-to-r bg-clip-text font-display text-[clamp(3.2rem,15vw,4.2rem)] font-black leading-[0.82] tracking-[-0.04em] text-transparent",
@@ -140,7 +149,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
 
           <HeroPortrait composition="role" />
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 z-40 mx-auto max-w-xl px-6 text-center sm:bottom-10">
+          <div className="pointer-events-none absolute inset-x-0 bottom-8 z-50 mx-auto max-w-xl px-6 text-center sm:bottom-10">
             <motion.p
               className={cn(
                 "font-mono text-[0.65rem] uppercase tracking-[0.28em] sm:text-xs",

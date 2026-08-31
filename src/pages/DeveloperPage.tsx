@@ -7,7 +7,11 @@ import { ProjectsSection } from "../components/sections/ProjectsSection";
 import { SkillsSection } from "../components/sections/SkillsSection";
 import { SummarySection } from "../components/sections/SummarySection";
 
-export function DeveloperPage() {
+interface DeveloperPageProps {
+  onNavigate: (to: string) => void;
+}
+
+export function DeveloperPage({ onNavigate }: DeveloperPageProps) {
   return (
     <main>
       <HeroSection />
@@ -17,7 +21,7 @@ export function DeveloperPage() {
       <ProjectsSection />
       <CertificatesSection />
       <EducationSection />
-      <ContactSection />
+      <ContactSection onNavigate={onNavigate} />
     </main>
   );
 }

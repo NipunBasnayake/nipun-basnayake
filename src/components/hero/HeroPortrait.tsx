@@ -17,7 +17,7 @@ const visibleSubjectCorrectionRatio =
   visibleSubjectCorrectionPx / portraitSourceWidth;
 
 const portraitWidths: Record<HeroPortraitComposition, string> = {
-  landing: "clamp(19rem, 34vw, 26rem)",
+  landing: "clamp(19rem, 38vw, 29rem)",
   role: "clamp(19rem, 38vw, 29rem)",
 };
 
@@ -40,7 +40,7 @@ export function HeroPortrait({
   const reduceMotion = useReducedMotion();
   const style = {
     "--hero-portrait-x": "50%",
-    "--hero-portrait-y": "50%",
+    "--hero-portrait-y": "48%",
     "--hero-portrait-width": portraitWidths[composition],
     "--hero-portrait-translate-y": "-48%",
     "--portrait-visual-offset-x": `calc(var(--hero-portrait-width) * ${visibleSubjectCorrectionRatio})`,

@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type AppRoute = "/" | "/developer" | "/designer";
+export type AppRoute = "/" | "/developer" | "/designer" | "/contact";
 export type RouteDirection = -1 | 0 | 1;
 
-const validRoutes = new Set<AppRoute>(["/", "/developer", "/designer"]);
+const validRoutes = new Set<AppRoute>([
+  "/",
+  "/developer",
+  "/designer",
+  "/contact",
+]);
 
 function normalizeRoute(pathname: string): AppRoute {
   return validRoutes.has(pathname as AppRoute)
@@ -33,6 +38,7 @@ export function useRouteNavigation() {
   const [direction, setDirection] = useState<RouteDirection>(() =>
     getRouteDirection(normalizeRoute(window.location.pathname)),
   );
+  const [search, setSearch] = useState(window.location.search);
   const pendingHashRef = useRef(window.location.hash);
 
   const navigate = useCallback((to: string) => {
@@ -40,8 +46,9 @@ export function useRouteNavigation() {
     const nextRoute = normalizeRoute(url.pathname);
 
     pendingHashRef.current = url.hash;
-    window.history.pushState({}, "", `${nextRoute}${url.hash}`);
+    window.history.pushState({}, "", `${nextRoute}${url.search}${url.hash}`);
     setDirection(getRouteDirection(nextRoute));
+    setSearch(url.search);
     setRoute(nextRoute);
 
     window.setTimeout(() => {
@@ -60,6 +67,7 @@ export function useRouteNavigation() {
 
       pendingHashRef.current = window.location.hash;
       setDirection(getRouteDirection(nextRoute));
+      setSearch(window.location.search);
       setRoute(nextRoute);
     };
 
@@ -76,5 +84,5 @@ export function useRouteNavigation() {
     window.setTimeout(() => scrollToHash(hash), 0);
   }, [route]);
 
-  return { route, direction, navigate };
+  return { route, direction, search, navigate };
 }

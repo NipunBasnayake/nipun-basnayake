@@ -226,7 +226,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
           <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_42%,rgba(244,240,232,0.08),transparent_22%),linear-gradient(90deg,rgba(134,244,255,0.08),transparent_44%,rgba(162,41,255,0.1))]" />
 
           <motion.div
-            className="absolute inset-x-0 top-[17%] z-20 text-center sm:top-[15%] md:top-[16%]"
+            className="absolute inset-x-0 top-[15%] z-20 text-center sm:top-[14%] md:top-[35%]"
             animate={{
               x: reduceMotion
                 ? 0
@@ -239,13 +239,13 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display text-[clamp(4.4rem,15vw,14rem)] font-black leading-[0.74] tracking-[-0.055em] text-transparent">
+            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display text-[clamp(5rem,19vw,18rem)] font-black leading-[0.74] tracking-[-0.055em] text-transparent">
               {heroData.nameLines[0]}
             </h1>
           </motion.div>
 
           <motion.div
-            className="absolute inset-x-0 bottom-[22%] z-20 text-center sm:bottom-[19%] md:bottom-[17%]"
+            className="absolute inset-x-0 bottom-[18%] z-40 text-center sm:bottom-[16%] md:bottom-[11%]"
             animate={{
               x: reduceMotion
                 ? 0
@@ -258,7 +258,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display text-[clamp(3.3rem,8.7vw,8.2rem)] font-black leading-[0.8] tracking-[-0.04em] text-transparent">
+            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display text-[clamp(3.8rem,11vw,9.5rem)] font-black leading-[0.8] tracking-[-0.04em] text-transparent">
               {heroData.nameLines[1]}
             </h1>
           </motion.div>

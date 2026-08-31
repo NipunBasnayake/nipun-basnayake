@@ -19,7 +19,7 @@ interface NavbarProps {
 const landingLinks: NavLink[] = [
   { label: "Developer", href: "/developer" },
   { label: "Designer", href: "/designer" },
-  { label: "Contact", href: "/developer#contact" },
+  { label: "Contact", href: "/contact?from=home" },
 ];
 
 const developerLinks: NavLink[] = [
@@ -29,19 +29,26 @@ const developerLinks: NavLink[] = [
   { label: "Work", href: "/developer#projects" },
   { label: "Certificates", href: "/developer#certificates" },
   { label: "Education", href: "/developer#education" },
-  { label: "Contact", href: "/developer#contact" },
+  { label: "Contact", href: "/contact?from=developer" },
 ];
 
 const designerLinks: NavLink[] = [
   { label: "Profile", href: "/designer#designer-profile" },
   { label: "Experience", href: "/designer#designer-experience" },
   { label: "Design Work", href: "/designer#design-work" },
-  { label: "Contact", href: "/designer#designer-contact" },
+  { label: "Contact", href: "/contact?from=designer" },
+];
+
+const contactLinks: NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "Developer", href: "/developer" },
+  { label: "Designer", href: "/designer" },
 ];
 
 function getNavLinks(route: AppRoute): NavLink[] {
   if (route === "/developer") return developerLinks;
   if (route === "/designer") return designerLinks;
+  if (route === "/contact") return contactLinks;
   return landingLinks;
 }
 
@@ -56,7 +63,7 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navLinks = getNavLinks(route);
   const initials = getInitials(siteData.shortName);
-  const isRoleRoute = route !== "/";
+  const isRoleRoute = route === "/developer" || route === "/designer";
 
   const handleNavigate = (href: string) => {
     onNavigate(href);

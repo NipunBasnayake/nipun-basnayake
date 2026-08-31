@@ -1,12 +1,10 @@
 import { motion } from "framer-motion";
-import { BriefcaseBusiness } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { DesignGallery } from "../components/design/DesignGallery";
 import { Container } from "../components/common/Container";
 import { SectionHeader } from "../components/common/SectionHeader";
-import { Button } from "../components/ui/Button";
 import { GradientBlob } from "../components/ui/GradientBlob";
 import { RoleHero } from "../components/hero/RoleHero";
-import { contactData } from "../data/portfolio";
 import {
   designCategories,
   designItems,
@@ -157,7 +155,9 @@ function DesignWorkSection() {
   );
 }
 
-function DesignerContactSection() {
+function DesignerContactSection({ onNavigate }: { onNavigate: (to: string) => void }) {
+  const href = "/contact?from=designer";
+
   return (
     <section id="designer-contact" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
       <Container>
@@ -169,18 +169,28 @@ function DesignerContactSection() {
           <p className="relative z-10 mx-auto mt-6 max-w-2xl text-base leading-8 text-platinum/64">
             Contact Nipun for freelance graphic design work across brand, print, social media, events, and visual communication.
           </p>
-          <div className="relative z-10 mt-9 flex flex-wrap justify-center gap-3">
-            {contactData.links.map((link) => (
-              <Button key={link.href} item={link} />
-            ))}
-          </div>
+          <a
+            href={href}
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigate(href);
+            }}
+            className="relative z-10 mt-9 inline-flex h-14 items-center justify-center gap-2 rounded-full border border-transparent bg-platinum px-7 text-sm font-black uppercase tracking-[0.16em] text-obsidian transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
+          >
+            Start a Design Project
+            <ArrowUpRight className="size-4" aria-hidden="true" />
+          </a>
         </div>
       </Container>
     </section>
   );
 }
 
-export function DesignerPage() {
+interface DesignerPageProps {
+  onNavigate: (to: string) => void;
+}
+
+export function DesignerPage({ onNavigate }: DesignerPageProps) {
   return (
     <main>
       <DesignerHero />
@@ -188,7 +198,7 @@ export function DesignerPage() {
       <DesignerExperienceSection />
       <DesignCategoriesSection />
       <DesignWorkSection />
-      <DesignerContactSection />
+      <DesignerContactSection onNavigate={onNavigate} />
     </main>
   );
 }
