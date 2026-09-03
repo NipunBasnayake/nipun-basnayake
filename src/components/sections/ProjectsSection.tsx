@@ -69,7 +69,7 @@ export function ProjectsSection() {
     setActiveIndex(Math.min(maxIndex, Math.max(0, nextIndex)));
   };
 
-  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (info: PanInfo) => {
     const swipe = info.offset.x + info.velocity.x * 0.16;
 
     if (swipe < -90) {
@@ -122,9 +122,9 @@ export function ProjectsSection() {
             onDrag={(event, info) => {
               setMetrics((m) => ({ ...m, offset: info.offset.x }));
             }}
-            onDragEnd={(event, info) => {
+            onDragEnd={(_event, info) => {
               // decide which card to snap to based on swipe + velocity
-              handleDragEnd(event as any, info);
+              handleDragEnd(info);
               // reset live offset so animate target is based only on index
               setMetrics((m) => ({ ...m, offset: 0 }));
             }}
