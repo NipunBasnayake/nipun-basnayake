@@ -12,6 +12,13 @@ interface DesignGalleryProps {
 export function DesignGallery({ categories, items }: DesignGalleryProps) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedItem, setSelectedItem] = useState<DesignItem | null>(null);
+  const [returnFocusElement, setReturnFocusElement] =
+    useState<HTMLElement | null>(null);
+
+  const categoryById = useMemo(
+    () => new Map(categories.map((category) => [category.id, category])),
+    [categories],
+  );
 
   const filteredItems = useMemo(() => {
     if (activeCategory === "all") return items;
@@ -28,13 +35,16 @@ export function DesignGallery({ categories, items }: DesignGalleryProps) {
       />
 
       {filteredItems.length > 0 ? (
-        <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3 xl:columns-4">
+        <div className="mt-10 columns-1 gap-5 min-[480px]:columns-2 md:columns-3 min-[1200px]:columns-4">
           {filteredItems.map((item) => (
             <DesignGalleryItem
               key={item.id}
               item={item}
-              category={categories.find((category) => category.id === item.categoryId)}
-              onOpen={setSelectedItem}
+              category={categoryById.get(item.categoryId)}
+              onOpen={(nextItem, trigger) => {
+                setReturnFocusElement(trigger);
+                setSelectedItem(nextItem);
+              }}
             />
           ))}
         </div>
@@ -44,7 +54,7 @@ export function DesignGallery({ categories, items }: DesignGalleryProps) {
             Design gallery ready for real artwork.
           </p>
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-platinum/62 sm:text-base sm:leading-8">
-            Categories, mixed-aspect-ratio masonry layout, lazy image rendering, and lightbox behavior are in place. Add optimized design items to `src/data/designPortfolio.ts` when the real portfolio assets are ready.
+            Categories, mixed-aspect-ratio masonry layout, lazy image rendering, and lightbox behavior are in place. Add optimized design items to `src/data/designGallery.json` when the real portfolio assets are ready.
           </p>
         </div>
       )}
@@ -55,6 +65,7 @@ export function DesignGallery({ categories, items }: DesignGalleryProps) {
         categories={categories}
         onClose={() => setSelectedItem(null)}
         onSelect={setSelectedItem}
+        returnFocusElement={returnFocusElement}
       />
     </div>
   );

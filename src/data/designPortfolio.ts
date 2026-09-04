@@ -1,25 +1,9 @@
 import type { SectionCopy } from "./portfolio";
+import { designCategories } from "./designCategories";
+import { designItems } from "./designGallery";
 
-export interface DesignCategory {
-  id: string;
-  label: string;
-  description?: string;
-  featured?: boolean;
-}
-
-export interface DesignItem {
-  id: string;
-  title: string;
-  categoryId: string;
-  image: string;
-  thumbnail: string;
-  width: number;
-  height: number;
-  alt: string;
-  year?: string;
-  description?: string;
-  featured?: boolean;
-}
+export type { DesignCategory } from "./designCategories";
+export type { DesignItem } from "./designGallery";
 
 export const designerHero = {
   eyebrow: "Freelance Graphic Designer since 2019",
@@ -48,21 +32,4 @@ export const designerExperience = {
   ],
 };
 
-export const designCategories: DesignCategory[] = [
-  { id: "logo-design", label: "Logo Design", featured: true },
-  { id: "branding", label: "Branding", featured: true },
-  { id: "posters", label: "Posters", featured: true },
-  { id: "flyers", label: "Flyers", featured: true },
-  { id: "social-media", label: "Social Media", featured: true },
-  { id: "wedding-cards", label: "Wedding Cards" },
-  { id: "invitations", label: "Invitations" },
-  { id: "business-cards", label: "Business Cards" },
-  { id: "certificates", label: "Certificates" },
-  { id: "brochures", label: "Brochures" },
-  { id: "banners", label: "Banners" },
-  { id: "event-designs", label: "Event Designs" },
-  { id: "print-designs", label: "Print Designs" },
-  { id: "other", label: "Other" },
-];
-
-export const designItems: DesignItem[] = [];
+export { designCategories, designItems };
