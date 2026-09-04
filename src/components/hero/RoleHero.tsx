@@ -1,10 +1,17 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { heroData } from "../../data/portfolio";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
+import { useEffect, useRef } from "react";
 import type { HeroFloatingTool, HeroVariant } from "../../data/heroTools";
 import { cn } from "../../lib/utils";
 import { Container } from "../common/Container";
-import { AnimatedGrid } from "../ui/AnimatedGrid";
-import { FloatingToolsLayer } from "./FloatingToolsLayer";
+import { DesignerHeroEnvironment } from "./DesignerHeroEnvironment";
+import { DeveloperHeroEnvironment } from "./DeveloperHeroEnvironment";
+import { HeroCursorLight } from "./HeroCursorLight";
+import { HeroName } from "./HeroName";
 import { HeroPortrait } from "./HeroPortrait";
 
 interface RoleHeroProps {
@@ -15,25 +22,21 @@ interface RoleHeroProps {
 const variantCopy = {
   developer: {
     eyebrow: "Full Stack Software Engineer / Product Engineer",
-    tone: "Spring Boot / React / APIs / Microservices",
+    tone: "Spring Boot / React / APIs / Distributed Systems",
     background:
-      "bg-[linear-gradient(180deg,#09111f_0%,#050505_52%,#0b0710_100%)]",
-    nameTop: "from-platinum via-arctic to-wine",
-    nameBottom: "from-ember via-platinum to-arctic",
+      "bg-[linear-gradient(180deg,#06101e_0%,#050505_54%,#090712_100%)]",
     glowLeft: "bg-arctic/10",
     glowRight: "bg-wine/10",
-    labelColor: "text-arctic/75",
+    labelColor: "text-arctic/85",
   },
   designer: {
     eyebrow: "Freelance Graphic Designer / Since 2019",
-    tone: "Brand / Print / Social / Visual Design",
+    tone: "Brand Identity / Print / Motion / Visual Systems",
     background:
-      "bg-[linear-gradient(180deg,#140b18_0%,#050505_52%,#16080d_100%)]",
-    nameTop: "from-platinum via-wine to-arctic",
-    nameBottom: "from-ember via-platinum to-wine",
+      "bg-[linear-gradient(180deg,#160b1b_0%,#050505_54%,#14080e_100%)]",
     glowLeft: "bg-wine/10",
     glowRight: "bg-ember/10",
-    labelColor: "text-ember/75",
+    labelColor: "text-ember/85",
   },
 } satisfies Record<
   HeroVariant,
@@ -41,8 +44,6 @@ const variantCopy = {
     eyebrow: string;
     tone: string;
     background: string;
-    nameTop: string;
-    nameBottom: string;
     glowLeft: string;
     glowRight: string;
     labelColor: string;
@@ -50,122 +51,136 @@ const variantCopy = {
 >;
 
 export function RoleHero({ variant, tools }: RoleHeroProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const copy = variantCopy[variant];
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const frameRef = useRef<number | null>(null);
+
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 70, damping: 24, mass: 0.45 });
+  const smoothY = useSpring(pointerY, { stiffness: 70, damping: 24, mass: 0.45 });
+
+  useEffect(() => {
+    if (reduceMotion) {
+      pointerX.set(0);
+      pointerY.set(0);
+      return undefined;
+    }
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (frameRef.current !== null) return;
+
+      frameRef.current = window.requestAnimationFrame(() => {
+        frameRef.current = null;
+        const bounds = sectionRef.current?.getBoundingClientRect();
+        if (!bounds) return;
+
+        const normalizedX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+        const normalizedY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+
+        pointerX.set(Math.min(Math.max(normalizedX, -1), 1));
+        pointerY.set(Math.min(Math.max(normalizedY, -1), 1));
+      });
+    };
+
+    const handleReset = () => {
+      pointerX.set(0);
+      pointerY.set(0);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", handleReset);
+    window.addEventListener("blur", handleReset);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", handleReset);
+      window.removeEventListener("blur", handleReset);
+
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, [pointerX, pointerY, reduceMotion]);
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       className="relative min-h-screen overflow-hidden bg-obsidian pt-20"
     >
+      {/* 1. Base Gradient Atmosphere */}
       <div className={cn("absolute inset-0", copy.background)} />
-      <AnimatedGrid className="opacity-20 mix-blend-soft-light" />
 
+      {/* 2. Ambient Color Blobs */}
       <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden" aria-hidden="true">
         <motion.div
-          className={cn("absolute left-[-9rem] top-16 size-[24rem] rounded-full blur-3xl", copy.glowLeft)}
-          animate={reduceMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.72, 1, 0.72] }}
+          className={cn("absolute left-[-8rem] top-12 size-[26rem] rounded-full blur-3xl", copy.glowLeft)}
+          animate={reduceMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.7, 0.95, 0.7] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className={cn("absolute bottom-[-8rem] right-[-10rem] size-[28rem] rounded-full blur-3xl", copy.glowRight)}
-          animate={reduceMotion ? undefined : { scale: [1, 1.12, 1], opacity: [0.6, 0.92, 0.6] }}
+          className={cn("absolute bottom-[-6rem] right-[-8rem] size-[30rem] rounded-full blur-3xl", copy.glowRight)}
+          animate={reduceMotion ? undefined : { scale: [1, 1.12, 1], opacity: [0.6, 0.9, 0.6] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(244,240,232,0.07),transparent_22%),radial-gradient(circle_at_50%_64%,rgba(0,0,0,0.28),transparent_36%)]" />
       </div>
 
+      {/* 3. High-Performance Cursor Spotlight */}
+      <HeroCursorLight
+        variant={variant}
+        pointerX={pointerX}
+        pointerY={pointerY}
+        reduceMotion={reduceMotion}
+      />
+
+      {/* 4. Full Viewport Environment Layer (Spans full width 2% - 98%) */}
+      <div className="pointer-events-none absolute inset-0 z-15">
+        {variant === "developer" ? (
+          <DeveloperHeroEnvironment
+            tools={tools}
+            pointerX={smoothX}
+            pointerY={smoothY}
+            reduceMotion={reduceMotion}
+          />
+        ) : (
+          <DesignerHeroEnvironment
+            tools={tools}
+            pointerX={smoothX}
+            pointerY={smoothY}
+            reduceMotion={reduceMotion}
+          />
+        )}
+      </div>
+
+      {/* 5. Central Hero Composition */}
       <Container className="relative z-20">
         <div className="relative min-h-[calc(100vh-5rem)]">
-          <motion.div
-            className="pointer-events-none absolute inset-x-0 top-[18%] z-20 hidden text-center sm:block md:top-[16%] lg:top-[28%]"
-            initial={reduceMotion ? false : { opacity: 0, y: 32, filter: "blur(14px)" }}
-            animate={{ opacity: 0.92, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          >
-            <h1
-              className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(7rem,25vw,24rem)] font-black leading-[0.74] tracking-[-0.07em] text-transparent",
-                copy.nameTop,
-              )}
-            >
-              {heroData.nameLines[0]}
-            </h1>
-          </motion.div>
+          {/* Layered Typography: NIPUN (Behind, z-20) & BASNAYAKA (Front, z-40) */}
+          <HeroName variant={variant} reduceMotion={reduceMotion} />
 
-          <motion.div
-            className="pointer-events-none absolute inset-x-0 bottom-[10%] z-40 hidden text-center sm:block md:bottom-[18%] lg:bottom-[12%]"
-            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 0.94, y: 0 }}
-            transition={{ duration: 0.82, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          >
-            <h1
-              className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(4.2rem,13.2vw,13.2rem)] font-black leading-[0.78] tracking-[-0.055em] text-transparent",
-                copy.nameBottom,
-              )}
-            >
-              {heroData.nameLines[1]}
-            </h1>
-          </motion.div>
+          {/* Centered Dominant Portrait (z-30) */}
+          <HeroPortrait composition="role" variant={variant} />
 
-          <motion.div
-            className="pointer-events-none absolute inset-x-0 top-[16%] z-20 text-center sm:hidden"
-            initial={reduceMotion ? false : { opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={{ opacity: 0.9, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.72, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          >
-            <h1
-              className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(4rem,18vw,5rem)] font-black leading-[0.78] tracking-[-0.05em] text-transparent",
-                copy.nameTop,
-              )}
-            >
-              {heroData.nameLines[0]}
-            </h1>
-          </motion.div>
-
-          <motion.div
-            className="pointer-events-none absolute inset-x-0 bottom-[18%] z-40 text-center sm:hidden"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 0.94, y: 0 }}
-            transition={{ duration: 0.72, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          >
-            <h1
-              className={cn(
-                "bg-gradient-to-r bg-clip-text font-display text-[clamp(3.2rem,15vw,4.2rem)] font-black leading-[0.82] tracking-[-0.04em] text-transparent",
-                copy.nameBottom,
-              )}
-            >
-              {heroData.nameLines[1]}
-            </h1>
-          </motion.div>
-
-          <FloatingToolsLayer tools={tools} variant={variant} />
-
-          <HeroPortrait composition="role" />
-
+          {/* Bottom Role Eyebrow & Tone (z-50) */}
           <div className="pointer-events-none absolute inset-x-0 bottom-8 z-50 mx-auto max-w-xl px-6 text-center sm:bottom-10">
             <motion.p
               className={cn(
-                "font-mono text-[0.65rem] uppercase tracking-[0.28em] sm:text-xs",
+                "font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] sm:text-xs",
                 copy.labelColor,
               )}
-              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.62 }}
+              transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
               {copy.eyebrow}
             </motion.p>
             <motion.p
-              className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-platinum/40 sm:text-[0.7rem]"
+              className="mt-2.5 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-platinum/50 sm:text-[0.7rem]"
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.7 }}
+              transition={{ duration: 0.6, delay: 0.68, ease: [0.22, 1, 0.36, 1] }}
             >
               {copy.tone}
             </motion.p>

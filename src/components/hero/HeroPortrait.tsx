@@ -8,6 +8,7 @@ type HeroPortraitComposition = "landing" | "role";
 interface HeroPortraitProps {
   composition?: HeroPortraitComposition;
   hoverTone?: HeroVariant | null;
+  variant?: HeroVariant;
 }
 
 const portraitSourceWidth = 1722;
@@ -21,13 +22,13 @@ const portraitWidths: Record<HeroPortraitComposition, string> = {
   role: "clamp(19rem, 38vw, 29rem)",
 };
 
-const getHoverFilter = (hoverTone?: HeroVariant | null) => {
-  if (hoverTone === "developer") {
-    return "drop-shadow(0 0 26px rgba(134,244,255,0.28))";
+const getHoverFilter = (tone?: HeroVariant | null) => {
+  if (tone === "developer") {
+    return "drop-shadow(0 0 30px rgba(134,244,255,0.32)) drop-shadow(0 20px 42px rgba(0,0,0,0.65))";
   }
 
-  if (hoverTone === "designer") {
-    return "drop-shadow(0 0 26px rgba(255,90,61,0.2)) drop-shadow(0 0 18px rgba(162,41,255,0.18))";
+  if (tone === "designer") {
+    return "drop-shadow(0 0 30px rgba(162,41,255,0.24)) drop-shadow(0 0 20px rgba(255,90,61,0.18)) drop-shadow(0 20px 42px rgba(0,0,0,0.65))";
   }
 
   return "drop-shadow(0 18px 38px rgba(0,0,0,0.55))";
@@ -36,8 +37,11 @@ const getHoverFilter = (hoverTone?: HeroVariant | null) => {
 export function HeroPortrait({
   composition = "role",
   hoverTone,
+  variant,
 }: HeroPortraitProps) {
   const reduceMotion = useReducedMotion();
+  const activeTone = hoverTone ?? variant;
+
   const style = {
     "--hero-portrait-x": "50%",
     "--hero-portrait-y": "48%",
@@ -55,16 +59,31 @@ export function HeroPortrait({
       className="pointer-events-none absolute z-30"
       style={style}
     >
+      {/* Role-specific rim glow behind portrait */}
+      {variant ? (
+        <div
+          className="pointer-events-none absolute -inset-x-12 top-6 -bottom-10 -z-10 rounded-full"
+          style={{
+            background:
+              variant === "developer"
+                ? "radial-gradient(ellipse at 50% 45%, rgba(134, 244, 255, 0.16) 0%, rgba(56, 189, 248, 0.06) 45%, transparent 72%)"
+                : "radial-gradient(ellipse at 50% 45%, rgba(162, 41, 255, 0.16) 0%, rgba(255, 90, 61, 0.09) 45%, transparent 72%)",
+            filter: "blur(28px)",
+          }}
+          aria-hidden="true"
+        />
+      ) : null}
+
       <motion.div
         className="relative w-full"
-        initial={reduceMotion ? false : { opacity: 0, y: 42, scale: 0.94 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 38, scale: 0.95 }}
         animate={{
           opacity: 1,
           y: 0,
-          scale: reduceMotion ? 1 : hoverTone ? 1.012 : 1,
-          filter: getHoverFilter(hoverTone),
+          scale: reduceMotion ? 1 : activeTone ? 1.01 : 1,
+          filter: getHoverFilter(activeTone),
         }}
-        transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
         <img
           src={heroData.portrait}
