@@ -33,7 +33,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[clamp(7rem,24vw,23rem)] font-black leading-[0.74] tracking-[-0.07em] text-transparent",
+              "bg-gradient-to-r bg-clip-text font-display text-[5.5rem] font-black leading-[0.74] tracking-normal text-transparent sm:text-[8rem] md:text-[10rem] lg:text-[14rem] xl:text-[18rem] 2xl:text-[23rem]",
               topGradient,
             )}
           >
@@ -51,7 +51,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[clamp(4.2rem,19vw,5.5rem)] font-black leading-[0.78] tracking-[-0.05em] text-transparent",
+              "bg-gradient-to-r bg-clip-text font-display text-[4rem] font-black leading-[0.78] tracking-normal text-transparent min-[390px]:text-[4.8rem]",
               topGradient,
             )}
           >
@@ -72,7 +72,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[clamp(4.2rem,13vw,13rem)] font-black leading-[0.78] tracking-[-0.055em] text-transparent",
+              "bg-gradient-to-r bg-clip-text font-display text-[4.2rem] font-black leading-[0.78] tracking-normal text-transparent sm:text-[6rem] md:text-[8rem] lg:text-[10rem] 2xl:text-[13rem]",
               bottomGradient,
             )}
           >
@@ -90,7 +90,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[clamp(3.1rem,15vw,4.2rem)] font-black leading-[0.82] tracking-[-0.04em] text-transparent",
+              "bg-gradient-to-r bg-clip-text font-display text-[2.9rem] font-black leading-[0.82] tracking-normal text-transparent min-[390px]:text-[3.45rem]",
               bottomGradient,
             )}
           >

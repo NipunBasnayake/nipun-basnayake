@@ -1,12 +1,15 @@
 import rawGalleryItems from "./designGallery.json";
 import { designCategories } from "./designCategories";
 
+export type DesignMediaType = "image" | "video";
+
 export interface DesignItem {
   id: string;
   title: string;
   categoryId: string;
+  mediaType: DesignMediaType;
   image: string;
-  thumbnail: string;
+  thumbnail?: string;
   width: number;
   height: number;
   alt: string;
@@ -23,6 +26,7 @@ interface DesignGalleryJsonItem {
   id?: unknown;
   title?: unknown;
   categoryId?: unknown;
+  mediaType?: unknown;
   image?: unknown;
   thumbnail?: unknown;
   alt?: unknown;
@@ -44,6 +48,8 @@ interface GalleryValidationError {
 }
 
 const galleryRoot = "/assets/gallery/";
+const supportedImageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"]);
+const supportedVideoExtensions = new Set([".mp4", ".webm"]);
 const validCategoryIds = new Set(designCategories.map((category) => category.id));
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -114,6 +120,19 @@ function readSortOrder(
   return value;
 }
 
+function readMediaType(
+  value: unknown,
+  itemId: string,
+  errors: GalleryValidationError[],
+): DesignMediaType {
+  if (value === undefined) return "image";
+
+  if (value === "image" || value === "video") return value;
+
+  addError(errors, itemId, "mediaType", 'must be either "image" or "video" when provided.');
+  return "image";
+}
+
 function readOptionalTools(
   value: unknown,
   itemId: string,
@@ -137,7 +156,13 @@ function readOptionalTools(
   return tools.length > 0 ? tools : undefined;
 }
 
-function validateGalleryPath(
+function getPathExtension(path: string): string {
+  const pathWithoutQuery = path.split(/[?#]/)[0];
+  const dotIndex = pathWithoutQuery.lastIndexOf(".");
+  return dotIndex >= 0 ? pathWithoutQuery.slice(dotIndex).toLowerCase() : "";
+}
+
+function validateGalleryRootPath(
   path: string,
   itemId: string,
   field: "image" | "thumbnail",
@@ -145,6 +170,41 @@ function validateGalleryPath(
 ) {
   if (!path.startsWith(galleryRoot)) {
     addError(errors, itemId, field, `must begin with ${galleryRoot}.`);
+  }
+}
+
+function validateMediaPath(
+  path: string,
+  mediaType: DesignMediaType,
+  itemId: string,
+  errors: GalleryValidationError[],
+) {
+  validateGalleryRootPath(path, itemId, "image", errors);
+
+  const extension = getPathExtension(path);
+  const validExtensions =
+    mediaType === "image" ? supportedImageExtensions : supportedVideoExtensions;
+
+  if (!validExtensions.has(extension)) {
+    addError(
+      errors,
+      itemId,
+      "image",
+      `must use a supported ${mediaType} extension.`,
+    );
+  }
+}
+
+function validateThumbnailPath(
+  path: string,
+  itemId: string,
+  errors: GalleryValidationError[],
+) {
+  validateGalleryRootPath(path, itemId, "thumbnail", errors);
+
+  const extension = getPathExtension(path);
+  if (!supportedImageExtensions.has(extension)) {
+    addError(errors, itemId, "thumbnail", "must use a supported image extension.");
   }
 }
 
@@ -181,12 +241,13 @@ function validateAndNormalizeGalleryItems(value: unknown): {
     const id = readRequiredString(item, "id", itemId, errors);
     const title = readRequiredString(item, "title", itemId, errors);
     const categoryId = readRequiredString(item, "categoryId", itemId, errors);
+    const mediaType = readMediaType(item.mediaType, itemId, errors);
     const image = readRequiredString(item, "image", itemId, errors);
     const alt = readRequiredString(item, "alt", itemId, errors);
     const width = readPositiveNumber(item, "width", itemId, errors);
     const height = readPositiveNumber(item, "height", itemId, errors);
     const sortOrder = readSortOrder(item.sortOrder, itemId, errors);
-    const thumbnail = readOptionalString(item.thumbnail) ?? image;
+    const thumbnail = readOptionalString(item.thumbnail) ?? (mediaType === "image" ? image : undefined);
 
     if (id) {
       if (seenIds.has(id)) {
@@ -206,11 +267,11 @@ function validateAndNormalizeGalleryItems(value: unknown): {
     }
 
     if (image) {
-      validateGalleryPath(image, itemId, "image", errors);
+      validateMediaPath(image, mediaType, itemId, errors);
     }
 
     if (thumbnail) {
-      validateGalleryPath(thumbnail, itemId, "thumbnail", errors);
+      validateThumbnailPath(thumbnail, itemId, errors);
     }
 
     const tools = readOptionalTools(item.tools, itemId, errors);
@@ -227,6 +288,7 @@ function validateAndNormalizeGalleryItems(value: unknown): {
       id,
       title,
       categoryId,
+      mediaType,
       image,
       thumbnail,
       alt,

@@ -5,10 +5,10 @@ import { SectionHeader } from "../common/SectionHeader";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section id="experience" className="section-pad relative overflow-hidden bg-obsidian">
       <Container>
         <SectionHeader copy={experienceSection} />
-        <div className="mt-16 grid gap-5">
+        <div className="mt-10 grid gap-5 sm:mt-16">
           {experience.map((item, index) => (
             <motion.article
               key={item.id}
@@ -23,15 +23,15 @@ export function ExperienceSection() {
                 <p className="font-display text-5xl font-black leading-none text-platinum/14 lg:text-6xl">
                   0{index + 1}
                 </p>
-                <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-arctic/72">
+                <p className="mt-4 break-words font-mono text-xs uppercase tracking-[0.18em] text-arctic/72 sm:tracking-[0.2em]">
                   {item.period}
                 </p>
               </div>
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.22em] text-platinum/42">
+                <p className="break-words font-mono text-xs uppercase tracking-[0.16em] text-platinum/42 sm:tracking-[0.22em]">
                   {item.company} / {item.location}
                 </p>
-                <h3 className="mt-3 font-display text-3xl font-black leading-none text-platinum sm:text-4xl">
+                <h3 className="mt-3 font-display text-[2rem] font-black leading-none text-platinum sm:text-4xl">
                   {item.role}
                 </h3>
                 <p className="mt-5 max-w-3xl text-base leading-8 text-platinum/66">{item.summary}</p>

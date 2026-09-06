@@ -82,7 +82,7 @@ export function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
+    <section id="projects" className="section-pad relative overflow-hidden bg-carbon">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1.9fr_0.7fr] lg:items-end">
           <SectionHeader copy={projectsSection} />
@@ -110,13 +110,13 @@ export function ProjectsSection() {
 
         <div
           ref={viewportRef}
-          className="mt-14 overflow-hidden"
+          className="mt-10 overflow-hidden sm:mt-14"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           <motion.div
             className="flex cursor-grab gap-5 active:cursor-grabbing"
-            drag={reduceMotion || !isDesktop ? false : "x"}
+            drag={reduceMotion ? false : "x"}
             dragElastic={0.12}
             onDragStart={() => setIsPaused(true)}
             onDrag={(event, info) => {
@@ -154,13 +154,19 @@ export function ProjectsSection() {
             <button
               key={project.id}
               type="button"
-              className={cn(
-                "h-2 rounded-full transition-all",
-                index === activeIndex ? "w-10 bg-platinum" : "w-2 bg-white/20 hover:bg-white/40",
-              )}
+              className="tap-target grid size-11 place-items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-arctic"
               onClick={() => goTo(index)}
               aria-label={`Go to ${project.title}`}
-            />
+            >
+              <span
+                className={cn(
+                  "h-2 rounded-full transition-all",
+                  index === activeIndex
+                    ? "w-10 bg-platinum"
+                    : "w-2 bg-white/20 hover:bg-white/40",
+                )}
+              />
+            </button>
           ))}
         </div>
       </Container>

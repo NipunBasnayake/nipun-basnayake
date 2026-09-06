@@ -108,7 +108,7 @@ export function App() {
     );
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-obsidian text-platinum">
+    <div className="app-screen overflow-x-hidden bg-obsidian text-platinum">
       <Navbar route={route} onNavigate={navigate} />
       <AnimatePresence
         mode="wait"

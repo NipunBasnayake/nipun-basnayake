@@ -82,7 +82,7 @@ function SplitSurface({
       onFocus={() => onActiveChange(mode)}
       onBlur={() => onActiveChange(null)}
       className={cn(
-        "group relative isolate flex min-h-[calc((100vh-5rem)/2)] cursor-pointer overflow-hidden outline-none md:min-h-[calc(100vh-5rem)] md:w-1/2",
+        "landing-split-surface group relative isolate flex cursor-pointer overflow-hidden outline-none md:w-1/2",
         isDeveloper
           ? "items-start justify-start bg-[#071519]"
           : "items-end justify-end bg-[#170d18]",
@@ -142,13 +142,15 @@ function SplitSurface({
 
       <div
         className={cn(
-          "relative z-10 flex h-full min-h-[calc((100vh-5rem)/2)] w-full items-center px-6 py-14 sm:px-10 md:min-h-[calc(100vh-5rem)] lg:px-16",
-          isDeveloper ? "justify-start text-left" : "justify-end text-right",
+          "landing-split-inner relative z-30 flex h-full w-full px-5 py-8 sm:px-10 sm:py-14 md:items-center lg:px-16",
+          isDeveloper
+            ? "items-start justify-start pt-16 text-left md:pt-14"
+            : "items-end justify-end pb-16 text-right md:pb-14",
         )}
       >
         <motion.div
           className={cn(
-            "max-w-[15rem] sm:max-w-xs lg:max-w-sm",
+            "hidden max-w-xs md:block lg:max-w-sm",
             isDeveloper ? "md:mr-28" : "md:ml-28",
           )}
           animate={{
@@ -166,13 +168,13 @@ function SplitSurface({
           />
           <p
             className={cn(
-              "font-mono text-[0.64rem] uppercase tracking-[0.24em] sm:text-xs sm:tracking-[0.3em]",
+              "font-mono text-[0.58rem] uppercase tracking-[0.2em] sm:text-xs sm:tracking-[0.3em]",
               isDeveloper ? "text-arctic/70" : "text-ember/70",
             )}
           >
             {copy.label}
           </p>
-          <h2 className="mt-4 font-display text-4xl font-black uppercase leading-[0.88] tracking-[-0.02em] text-platinum sm:text-6xl lg:text-7xl">
+          <h2 className="mt-3 font-display text-[1.95rem] font-black uppercase leading-[0.92] tracking-normal text-platinum min-[380px]:text-[2.25rem] sm:mt-4 sm:text-6xl sm:leading-[0.88] lg:text-7xl">
             <span className="block">{copy.titleTop}</span>
             <span className="block">{copy.titleBottom}</span>
           </h2>
@@ -206,9 +208,9 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden bg-obsidian pt-20"
+      className="app-screen relative overflow-hidden bg-obsidian pt-20"
     >
-      <div className="relative flex min-h-[calc(100vh-5rem)] flex-col overflow-hidden md:flex-row">
+      <div className="app-screen-minus-nav relative flex flex-col overflow-hidden md:flex-row">
         <SplitSurface
           mode="developer"
           active={active}
@@ -225,6 +227,32 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
         <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
           <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_42%,rgba(244,240,232,0.08),transparent_22%),linear-gradient(90deg,rgba(134,244,255,0.08),transparent_44%,rgba(162,41,255,0.1))]" />
 
+          <div className="absolute left-5 top-[14%] z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-left backdrop-blur-[2px] md:hidden">
+            <p className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-arctic/70">
+              Systems / APIs / Products
+            </p>
+            <h2 className="mt-3 font-display text-[2.05rem] font-black uppercase leading-[0.9] tracking-normal text-platinum">
+              <span className="block">Software</span>
+              <span className="block">Developer</span>
+            </h2>
+            <p className="mt-4 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-arctic/55">
+              Enter portfolio
+            </p>
+          </div>
+
+          <div className="absolute bottom-[6%] right-5 z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-right backdrop-blur-[2px] md:hidden">
+            <p className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-ember/70">
+              Brand / Print / Visual Design
+            </p>
+            <h2 className="mt-3 font-display text-[2.05rem] font-black uppercase leading-[0.9] tracking-normal text-platinum">
+              <span className="block">Graphic</span>
+              <span className="block">Designer</span>
+            </h2>
+            <p className="mt-4 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-wine/70">
+              Enter portfolio
+            </p>
+          </div>
+
           <motion.div
             className="absolute inset-x-0 top-[15%] z-20 text-center sm:top-[14%] md:top-[35%]"
             animate={{
@@ -239,7 +267,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display text-[clamp(5rem,19vw,18rem)] font-black leading-[0.74] tracking-[-0.055em] text-transparent">
+            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display text-[5rem] font-black leading-[0.74] tracking-normal text-transparent min-[390px]:text-8xl sm:text-[8rem] md:text-[12rem] lg:text-[15rem] 2xl:text-[18rem]">
               {heroData.nameLines[0]}
             </h1>
           </motion.div>
@@ -258,7 +286,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display text-[clamp(3.8rem,11vw,9.5rem)] font-black leading-[0.8] tracking-[-0.04em] text-transparent">
+            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display text-[3.4rem] font-black leading-[0.8] tracking-normal text-transparent min-[390px]:text-[4rem] sm:text-[5.8rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[9.5rem]">
               {heroData.nameLines[1]}
             </h1>
           </motion.div>

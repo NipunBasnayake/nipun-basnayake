@@ -38,7 +38,7 @@ export function SectionHeader({
 
           // Better readability
           "leading-[0.95]",
-          "tracking-[-0.03em]",
+          "tracking-normal",
 
           // Responsive font sizes
           "text-4xl sm:text-6xl lg:text-7xl",

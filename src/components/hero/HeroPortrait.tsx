@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties } from "react";
 import { heroData } from "../../data/portfolio";
 import type { HeroVariant } from "../../data/heroTools";
+import { cn } from "../../lib/utils";
 
 type HeroPortraitComposition = "landing" | "role";
 
@@ -16,11 +17,6 @@ const portraitSourceWidth = 1722;
 const visibleSubjectCorrectionPx = -11.65;
 const visibleSubjectCorrectionRatio =
   visibleSubjectCorrectionPx / portraitSourceWidth;
-
-const portraitWidths: Record<HeroPortraitComposition, string> = {
-  landing: "clamp(19rem, 38vw, 29rem)",
-  role: "clamp(19rem, 38vw, 29rem)",
-};
 
 const getHoverFilter = (tone?: HeroVariant | null) => {
   if (tone === "developer") {
@@ -43,20 +39,17 @@ export function HeroPortrait({
   const activeTone = hoverTone ?? variant;
 
   const style = {
-    "--hero-portrait-x": "50%",
-    "--hero-portrait-y": "48%",
-    "--hero-portrait-width": portraitWidths[composition],
-    "--hero-portrait-translate-y": "-48%",
     "--portrait-visual-offset-x": `calc(var(--hero-portrait-width) * ${visibleSubjectCorrectionRatio})`,
-    left: "calc(var(--hero-portrait-x) + var(--portrait-visual-offset-x))",
-    top: "var(--hero-portrait-y)",
-    width: "var(--hero-portrait-width)",
-    transform: "translate(-50%, var(--hero-portrait-translate-y))",
   } as CSSProperties;
 
   return (
     <div
-      className="pointer-events-none absolute z-30"
+      className={cn(
+        "hero-portrait pointer-events-none absolute z-30",
+        composition === "landing"
+          ? "hero-portrait--landing"
+          : "hero-portrait--role",
+      )}
       style={style}
     >
       {/* Role-specific rim glow behind portrait */}

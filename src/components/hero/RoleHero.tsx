@@ -108,7 +108,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen overflow-hidden bg-obsidian pt-20"
+      className="app-screen relative overflow-hidden bg-obsidian pt-20"
     >
       {/* 1. Base Gradient Atmosphere */}
       <div className={cn("absolute inset-0", copy.background)} />
@@ -156,7 +156,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
 
       {/* 5. Central Hero Composition */}
       <Container className="relative z-20">
-        <div className="relative min-h-[calc(100vh-5rem)]">
+        <div className="app-screen-minus-nav relative">
           {/* Layered Typography: NIPUN (Behind, z-20) & BASNAYAKA (Front, z-40) */}
           <HeroName variant={variant} reduceMotion={reduceMotion} />
 
@@ -164,7 +164,7 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           <HeroPortrait composition="role" variant={variant} />
 
           {/* Bottom Role Eyebrow & Tone (z-50) */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 z-50 mx-auto max-w-xl px-6 text-center sm:bottom-10">
+          <div className="pointer-events-none absolute inset-x-0 bottom-5 z-50 mx-auto max-w-xl px-4 text-center [bottom:max(1.25rem,env(safe-area-inset-bottom))] sm:bottom-10 sm:px-6">
             <motion.p
               className={cn(
                 "font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] sm:text-xs",

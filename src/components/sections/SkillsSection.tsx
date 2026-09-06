@@ -7,7 +7,7 @@ import { GradientBlob } from "../ui/GradientBlob";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
+    <section id="skills" className="section-pad relative overflow-hidden bg-carbon">
       <GradientBlob className="-left-24 bottom-20 size-[24rem]" colors="from-arctic/25 via-volt/20 to-transparent" />
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
@@ -19,7 +19,7 @@ export function SkillsSection() {
               return (
                 <motion.article
                   key={category.id}
-                  className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-arctic/28 hover:shadow-[0_12px_40px_rgba(134,244,255,0.08)] sm:p-7 min-h-[18rem]"
+                  className="group relative min-h-[16rem] overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:border-arctic/28 hover:shadow-[0_12px_40px_rgba(134,244,255,0.08)] sm:min-h-[18rem] sm:p-7 lg:hover:-translate-y-1"
                   initial={{ opacity: 0, y: 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-110px" }}

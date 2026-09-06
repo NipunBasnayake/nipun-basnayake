@@ -11,6 +11,7 @@ export const designCategories = [
   { id: "posters", label: "Posters", featured: true },
   { id: "flyers", label: "Flyers", featured: true },
   { id: "social-media", label: "Social Media", featured: true },
+  { id: "motion-graphics", label: "Motion Graphics", featured: true },
   { id: "wedding-cards", label: "Wedding Cards" },
   { id: "invitations", label: "Invitations" },
   { id: "business-cards", label: "Business Cards" },
@@ -19,6 +20,8 @@ export const designCategories = [
   { id: "banners", label: "Banners" },
   { id: "event-designs", label: "Event Designs" },
   { id: "print-designs", label: "Print Designs" },
+  { id: "tshirt-designs", label: "T-Shirt Designs" },
+  { id: "menu-designs", label: "Menu Designs" },
   { id: "other", label: "Other" },
 ] satisfies DesignCategory[];
 

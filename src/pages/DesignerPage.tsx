@@ -19,7 +19,7 @@ function DesignerHero() {
 
 function DesignerProfileSection() {
   return (
-    <section id="designer-profile" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
+    <section id="designer-profile" className="section-pad relative overflow-hidden bg-carbon">
       <GradientBlob
         className="-right-24 top-24 size-[26rem]"
         colors="from-wine/22 via-ember/18 to-transparent"
@@ -59,7 +59,7 @@ function DesignerProfileSection() {
 
 function DesignerExperienceSection() {
   return (
-    <section id="designer-experience" className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section id="designer-experience" className="section-pad relative overflow-hidden bg-obsidian">
       <Container>
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.055] p-6 backdrop-blur-sm sm:p-9 lg:p-12">
           <div className="absolute -right-20 -top-20 size-72 rounded-full bg-gradient-to-br from-wine/30 via-ember/18 to-transparent blur-3xl" />
@@ -69,7 +69,7 @@ function DesignerExperienceSection() {
               <p className="mt-7 font-mono text-xs uppercase tracking-[0.24em] text-ember/72">
                 {designerExperience.period}
               </p>
-              <h2 className="mt-4 font-display text-4xl font-black leading-none text-platinum sm:text-5xl">
+              <h2 className="mt-4 font-display text-3xl font-black leading-tight text-platinum sm:text-5xl sm:leading-none">
                 {designerExperience.role}
               </h2>
             </div>
@@ -97,14 +97,14 @@ function DesignerExperienceSection() {
 
 function DesignCategoriesSection() {
   return (
-    <section className="relative overflow-hidden bg-carbon py-24 sm:py-32">
+    <section className="section-pad relative overflow-hidden bg-carbon">
       <Container>
         <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.34em] text-wine/78">
               Design Categories
             </p>
-            <h2 className="mt-5 max-w-3xl font-display text-4xl font-black leading-[0.95] text-platinum sm:text-6xl">
+            <h2 className="mt-5 max-w-3xl font-display text-4xl font-black leading-[0.95] tracking-normal text-platinum sm:text-6xl">
               A flexible category system for growing work.
             </h2>
           </div>
@@ -130,7 +130,7 @@ function DesignCategoriesSection() {
 
 function DesignWorkSection() {
   return (
-    <section id="design-work" className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section id="design-work" className="section-pad relative overflow-hidden bg-obsidian">
       <GradientBlob
         className="left-1/2 top-20 size-[34rem] -translate-x-1/2"
         colors="from-wine/24 via-ember/18 to-arctic/12"
@@ -146,7 +146,7 @@ function DesignWorkSection() {
             }}
           />
           <p className="text-sm leading-7 text-platinum/58 sm:text-base sm:leading-8">
-            Real artwork has not been added yet, so this section intentionally shows an empty state instead of fictional portfolio pieces.
+            Browse selected identity, print, social, event, motion, and layout work. The gallery loads in controlled batches so the page stays fast while the collection grows.
           </p>
         </div>
         <DesignGallery categories={designCategories} items={designItems} />
@@ -159,11 +159,11 @@ function DesignerContactSection({ onNavigate }: { onNavigate: (to: string) => vo
   const href = "/contact?from=designer";
 
   return (
-    <section id="designer-contact" className="relative overflow-hidden bg-carbon py-24 sm:py-32">
+    <section id="designer-contact" className="section-pad relative overflow-hidden bg-carbon">
       <Container>
         <div className="relative overflow-hidden rounded-[2.4rem] border border-white/10 bg-white/[0.055] p-7 text-center backdrop-blur-sm sm:p-12">
           <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-ember/70 to-transparent" />
-          <h2 className="relative z-10 mx-auto max-w-3xl font-display text-4xl font-black leading-[0.95] text-platinum sm:text-6xl">
+          <h2 className="relative z-10 mx-auto max-w-3xl font-display text-4xl font-black leading-[0.95] tracking-normal text-platinum sm:text-6xl">
             Need design work with clean visual direction?
           </h2>
           <p className="relative z-10 mx-auto mt-6 max-w-2xl text-base leading-8 text-platinum/64">
@@ -175,7 +175,7 @@ function DesignerContactSection({ onNavigate }: { onNavigate: (to: string) => vo
               event.preventDefault();
               onNavigate(href);
             }}
-            className="relative z-10 mt-9 inline-flex h-14 items-center justify-center gap-2 rounded-full border border-transparent bg-platinum px-7 text-sm font-black uppercase tracking-[0.16em] text-obsidian transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
+            className="relative z-10 mt-9 inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-transparent bg-platinum px-6 text-center text-sm font-black uppercase tracking-[0.16em] text-obsidian transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic sm:px-7"
           >
             Start a Design Project
             <ArrowUpRight className="size-4" aria-hidden="true" />
