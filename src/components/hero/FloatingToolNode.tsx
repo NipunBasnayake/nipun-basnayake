@@ -3,7 +3,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import type { HeroFloatingTool, HeroVariant } from "../../data/heroTools";
 import { cn } from "../../lib/utils";
 
@@ -38,69 +38,101 @@ export function FloatingToolNode({
   const parallaxY = useTransform(pointerY, (val) => val * pY);
 
   // Depth styling configuration
-  const depthConfig = {
+  const developerDepthConfig = {
     far: {
       zIndex: 12,
-      opacity: isDeveloper ? 0.42 : 0.38,
+      opacity: 0.42,
       blur: 4.5,
       scale: 0.86,
-      border: isDeveloper
-        ? "border-arctic/10 bg-[#06101c]/40"
-        : "border-white/10 bg-[#160a18]/40",
+      border: "border-arctic/10 bg-[#06101c]/40",
       glow: "drop-shadow(0 10px 24px rgba(0,0,0,0.3))",
       sheen: "rgba(255,255,255,0.03)",
     },
     middle: {
       zIndex: 28,
-      opacity: isDeveloper ? 0.82 : 0.78,
+      opacity: 0.82,
       blur: 0,
       scale: 0.98,
-      border: isDeveloper
-        ? "border-arctic/25 bg-[#071322]/65 shadow-[0_0_20px_rgba(134,244,255,0.12),inset_0_1px_0_rgba(255,255,255,0.12)]"
-        : "border-wine/25 bg-[#1a0c1e]/65 shadow-[0_0_20px_rgba(162,41,255,0.12),inset_0_1px_0_rgba(255,255,255,0.12)]",
-      glow: isDeveloper
-        ? "drop-shadow(0 0 16px rgba(134,244,255,0.18)) drop-shadow(0 12px 28px rgba(0,0,0,0.35))"
-        : "drop-shadow(0 0 16px rgba(162,41,255,0.18)) drop-shadow(0 12px 28px rgba(0,0,0,0.35))",
-      sheen: isDeveloper
-        ? "linear-gradient(135deg, rgba(134,244,255,0.12) 0%, transparent 45%)"
-        : "linear-gradient(135deg, rgba(255,90,61,0.12) 0%, transparent 45%)",
+      border: "border-arctic/25 bg-[#071322]/65 shadow-[0_0_20px_rgba(134,244,255,0.12),inset_0_1px_0_rgba(255,255,255,0.12)]",
+      glow: "drop-shadow(0 0 16px rgba(134,244,255,0.18)) drop-shadow(0 12px 28px rgba(0,0,0,0.35))",
+      sheen: "linear-gradient(135deg, rgba(134,244,255,0.12) 0%, transparent 45%)",
     },
     near: {
       zIndex: 48,
       opacity: 1,
       blur: 0,
       scale: 1.1,
-      border: isDeveloper
-        ? "border-arctic/40 bg-[#08182c]/80 shadow-[0_0_36px_rgba(134,244,255,0.22),inset_0_1px_0_rgba(255,255,255,0.22),0_20px_45px_rgba(0,0,0,0.45)]"
-        : "border-wine/35 bg-[#200e26]/80 shadow-[0_0_36px_rgba(162,41,255,0.22),0_0_18px_rgba(255,90,61,0.12),inset_0_1px_0_rgba(255,255,255,0.2),0_20px_45px_rgba(0,0,0,0.45)]",
-      glow: isDeveloper
-        ? "drop-shadow(0 0 28px rgba(134,244,255,0.32)) drop-shadow(0 16px 36px rgba(0,0,0,0.45))"
-        : "drop-shadow(0 0 28px rgba(162,41,255,0.28)) drop-shadow(0 0 16px rgba(255,90,61,0.2)) drop-shadow(0 16px 36px rgba(0,0,0,0.45))",
-      sheen: isDeveloper
-        ? "linear-gradient(135deg, rgba(134,244,255,0.18) 0%, rgba(255,255,255,0.08) 25%, transparent 55%)"
-        : "linear-gradient(135deg, rgba(255,90,61,0.18) 0%, rgba(162,41,255,0.12) 30%, transparent 55%)",
+      border: "border-arctic/40 bg-[#08182c]/80 shadow-[0_0_36px_rgba(134,244,255,0.22),inset_0_1px_0_rgba(255,255,255,0.22),0_20px_45px_rgba(0,0,0,0.45)]",
+      glow: "drop-shadow(0 0 28px rgba(134,244,255,0.32)) drop-shadow(0 16px 36px rgba(0,0,0,0.45))",
+      sheen: "linear-gradient(135deg, rgba(134,244,255,0.18) 0%, rgba(255,255,255,0.08) 25%, transparent 55%)",
     },
   }[depth];
 
-  // Priority-based responsive visibility classes
+  const designerDepthConfig = {
+    far: {
+      zIndex: 12,
+      opacity: 0.34,
+      blur: 3,
+      scale: 0.86,
+      border: "border-white/10 bg-[#160a18]/38 shadow-[0_12px_28px_rgba(0,0,0,0.22)]",
+      glow: "drop-shadow(0 10px 22px rgba(0,0,0,0.26))",
+      sheen: "linear-gradient(135deg, rgba(255,255,255,0.04), transparent 48%)",
+    },
+    middle: {
+      zIndex: 28,
+      opacity: 0.82,
+      blur: 0,
+      scale: 0.96,
+      border: "border-wine/18 bg-[#1b0b20]/72 shadow-[0_0_18px_rgba(162,41,255,0.12),0_14px_32px_rgba(0,0,0,0.32)]",
+      glow: "drop-shadow(0 0 14px rgba(162,41,255,0.16)) drop-shadow(0 12px 24px rgba(0,0,0,0.34))",
+      sheen: "linear-gradient(135deg, rgba(255,90,61,0.08), transparent 52%)",
+    },
+    near: {
+      zIndex: 48,
+      opacity: 0.96,
+      blur: 0,
+      scale: 1.04,
+      border: "border-wine/24 bg-[#211026]/78 shadow-[0_0_24px_rgba(162,41,255,0.16),0_0_12px_rgba(255,90,61,0.08),0_18px_36px_rgba(0,0,0,0.38)]",
+      glow: "drop-shadow(0 0 18px rgba(162,41,255,0.2)) drop-shadow(0 14px 28px rgba(0,0,0,0.38))",
+      sheen: "linear-gradient(135deg, rgba(255,90,61,0.1), rgba(162,41,255,0.07) 34%, transparent 58%)",
+    },
+  }[depth];
+
+  const depthConfig = isDeveloper ? developerDepthConfig : designerDepthConfig;
+
+  // Priority-based responsive visibility classes (Show 4 tools on mobile for both developer & designer)
   const visibilityClass = (() => {
-    if (tool.mobilePriority <= 2) return "block";
-    if (tool.mobilePriority <= 4) return "hidden sm:block";
-    if (tool.mobilePriority <= 6) return "hidden md:block";
+    if (tool.mobilePriority <= 4) return "block";
+    if (tool.mobilePriority <= 6) return "hidden sm:block";
     return "hidden lg:block";
   })();
 
   const baseSize = tool.size;
-  const responsiveSize = `clamp(${Math.round(baseSize * 0.65)}px, ${(baseSize * 0.075).toFixed(2)}vw, ${baseSize}px)`;
+  const mobileScale = isDeveloper ? 0.44 : 0.42;
+  const viewportScale = isDeveloper ? 0.065 : 0.06;
+  const responsiveSize = `clamp(${Math.round(baseSize * mobileScale)}px, ${(baseSize * viewportScale).toFixed(2)}vw, ${baseSize}px)`;
+  const positionStyle = {
+    "--tool-top": tool.position.top ?? "auto",
+    "--tool-right": tool.position.right ?? "auto",
+    "--tool-bottom": tool.position.bottom ?? "auto",
+    "--tool-left": tool.position.left ?? "auto",
+    "--tool-mobile-top": tool.mobilePosition?.top ?? tool.position.top ?? "auto",
+    "--tool-mobile-right": tool.mobilePosition?.right ?? tool.position.right ?? "auto",
+    "--tool-mobile-bottom": tool.mobilePosition?.bottom ?? tool.position.bottom ?? "auto",
+    "--tool-mobile-left": tool.mobilePosition?.left ?? tool.position.left ?? "auto",
+  } as CSSProperties;
 
   return (
     <motion.div
-      className={cn("pointer-events-none absolute select-none", visibilityClass)}
+      className={cn(
+        "pointer-events-none absolute select-none bottom-[var(--tool-mobile-bottom)] left-[var(--tool-mobile-left)] right-[var(--tool-mobile-right)] top-[var(--tool-mobile-top)] sm:bottom-[var(--tool-bottom)] sm:left-[var(--tool-left)] sm:right-[var(--tool-right)] sm:top-[var(--tool-top)]",
+        visibilityClass,
+      )}
       style={{
         zIndex: depthConfig.zIndex,
         width: responsiveSize,
         height: responsiveSize,
-        ...tool.position,
+        ...positionStyle,
       }}
       initial={reduceMotion ? false : { opacity: 0, scale: 0.8, y: 18 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -142,44 +174,27 @@ export function FloatingToolNode({
             willChange: reduceMotion ? "auto" : "transform",
           }}
         >
-          {/* Glass Card Surface */}
+          {/* Clean Glass Card Surface with Rounded Corners */}
           <div
             className={cn(
-              "relative grid h-full w-full place-items-center overflow-hidden rounded-2xl border p-2 backdrop-blur-md transition-all duration-300 sm:rounded-[1.4rem] sm:p-2.5",
+              "relative grid h-full w-full place-items-center overflow-hidden rounded-[1.15rem] border backdrop-blur-md transition-all duration-300 sm:rounded-[1.5rem]",
+              isDeveloper ? "p-1.5 sm:p-2" : "p-2 sm:p-2.5",
               depthConfig.border,
             )}
           >
-            {/* Tech / Craft Corner Mark for Near and Middle Tools */}
-            {depth === "near" && (
-              <>
-                <span
-                  className={cn(
-                    "absolute left-1.5 top-1.5 size-1 rounded-full",
-                    isDeveloper ? "bg-arctic" : "bg-ember",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "absolute right-1.5 bottom-1.5 size-1 rounded-full",
-                    isDeveloper ? "bg-arctic/50" : "bg-wine/60",
-                  )}
-                />
-              </>
-            )}
-
-            {/* Logo Image */}
+            {/* Logo Image with Rounded Corners */}
             {tool.image && !imageFailed ? (
               <img
                 src={tool.image}
                 alt=""
-                className="h-full w-full object-contain p-1"
+                className="h-full w-full rounded-lg object-contain p-0.5 sm:rounded-xl sm:p-1"
                 draggable={false}
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageFailed(true)}
               />
             ) : (
-              <span className="font-mono text-[0.65rem] font-bold uppercase tracking-wider text-platinum/70 sm:text-xs">
+              <span className="font-mono text-[0.55rem] font-bold uppercase tracking-wider text-platinum/70 sm:text-xs">
                 {tool.shortLabel}
               </span>
             )}
@@ -190,20 +205,6 @@ export function FloatingToolNode({
               style={{ background: depthConfig.sheen }}
             />
           </div>
-
-          {/* Type B / Node Technical Label Fragment (For Developer Middle tools) */}
-          {isDeveloper && depth === "middle" && (
-            <span className="pointer-events-none absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded border border-arctic/15 bg-obsidian/80 px-1.5 py-0.5 font-mono text-[0.55rem] tracking-widest text-arctic/60 backdrop-blur-sm">
-              {tool.shortLabel.toLowerCase()}.node
-            </span>
-          )}
-
-          {/* Type A / Creative Badge (For Designer Near tools) */}
-          {!isDeveloper && depth === "near" && (
-            <span className="pointer-events-none absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-wine/20 bg-obsidian/80 px-2 py-0.5 font-mono text-[0.52rem] uppercase tracking-widest text-platinum/60 backdrop-blur-sm">
-              {tool.shortLabel}
-            </span>
-          )}
         </motion.div>
       </motion.div>
     </motion.div>

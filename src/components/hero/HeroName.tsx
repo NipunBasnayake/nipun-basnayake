@@ -22,7 +22,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
   return (
     <>
       {/* Top Name: NIPUN (Behind Portrait, z-20) */}
-      <div className="pointer-events-none absolute inset-x-0 top-[17%] z-20 select-none text-center sm:top-[16%] md:top-[15%] lg:top-[26%]">
+      <div className="pointer-events-none absolute inset-x-0 top-[34%] z-20 select-none text-center sm:top-[16%] md:top-[15%] lg:top-[26%]">
         {/* Desktop / Tablet */}
         <motion.div
           className="hidden sm:block"
@@ -51,7 +51,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[4rem] font-black leading-[0.78] tracking-normal text-transparent min-[390px]:text-[4.8rem]",
+              "bg-gradient-to-r bg-clip-text font-display text-[6rem] font-black leading-[0.78] tracking-normal text-transparent min-[390px]:text-[4.8rem]",
               topGradient,
             )}
           >
@@ -61,7 +61,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
       </div>
 
       {/* Bottom Name: BASNAYAKA (Foreground in front of Portrait base, z-40) */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[13%] z-40 select-none text-center sm:bottom-[15%] md:bottom-[16%] lg:bottom-[11%]">
+      <div className="pointer-events-none absolute inset-x-0 z-40 select-none text-center bottom-[23%] sm:bottom-[15%] md:bottom-[16%] lg:bottom-[11%]">
         {/* Desktop / Tablet */}
         <motion.div
           className="hidden sm:block"
@@ -90,7 +90,7 @@ export function HeroName({ variant, reduceMotion }: HeroNameProps) {
         >
           <h1
             className={cn(
-              "bg-gradient-to-r bg-clip-text font-display text-[2.9rem] font-black leading-[0.82] tracking-normal text-transparent min-[390px]:text-[3.45rem]",
+              "bg-gradient-to-r bg-clip-text font-display text-[3.5rem] font-black leading-[0.82] tracking-normal text-transparent min-[390px]:text-[3.45rem]",
               bottomGradient,
             )}
           >

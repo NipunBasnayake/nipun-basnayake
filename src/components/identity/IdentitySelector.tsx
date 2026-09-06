@@ -227,7 +227,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
         <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
           <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_42%,rgba(244,240,232,0.08),transparent_22%),linear-gradient(90deg,rgba(134,244,255,0.08),transparent_44%,rgba(162,41,255,0.1))]" />
 
-          <div className="absolute left-5 top-[14%] z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-left backdrop-blur-[2px] md:hidden">
+          <div className="absolute left-5 top-[3%] sm:top-[8%] z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-left backdrop-blur-[2px] md:hidden">
             <p className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-arctic/70">
               Systems / APIs / Products
             </p>
@@ -240,7 +240,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             </p>
           </div>
 
-          <div className="absolute bottom-[6%] right-5 z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-right backdrop-blur-[2px] md:hidden">
+          <div className="absolute bottom-[3%] sm:bottom-[8%] right-5 z-50 max-w-[10.5rem] rounded-xl bg-obsidian/36 p-3 text-right backdrop-blur-[2px] md:hidden">
             <p className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-ember/70">
               Brand / Print / Visual Design
             </p>
@@ -254,7 +254,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
           </div>
 
           <motion.div
-            className="absolute inset-x-0 top-[15%] z-20 text-center sm:top-[14%] md:top-[35%]"
+            className="absolute inset-x-0 z-20 text-center top-[35%] sm:top-[14%] md:top-[35%]"
             animate={{
               x: reduceMotion
                 ? 0
@@ -267,13 +267,13 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display text-[5rem] font-black leading-[0.74] tracking-normal text-transparent min-[390px]:text-8xl sm:text-[8rem] md:text-[12rem] lg:text-[15rem] 2xl:text-[18rem]">
+            <h1 className="bg-gradient-to-r from-platinum via-arctic to-wine bg-clip-text font-display font-black leading-[0.74] tracking-normal text-transparent min-[390px]:text-8xl text-[6.5rem] sm:text-[8rem] md:text-[12rem] lg:text-[15rem] 2xl:text-[18rem]">
               {heroData.nameLines[0]}
             </h1>
           </motion.div>
 
           <motion.div
-            className="absolute inset-x-0 bottom-[18%] z-40 text-center sm:bottom-[16%] md:bottom-[11%]"
+            className="absolute inset-x-0 z-40 text-center bottom-[28%] sm:bottom-[16%] md:bottom-[11%]"
             animate={{
               x: reduceMotion
                 ? 0
@@ -286,7 +286,7 @@ export function IdentitySelector({ onNavigate }: IdentitySelectorProps) {
             }}
             transition={{ duration: 0.45 }}
           >
-            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display text-[3.4rem] font-black leading-[0.8] tracking-normal text-transparent min-[390px]:text-[4rem] sm:text-[5.8rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[9.5rem]">
+            <h1 className="bg-gradient-to-r from-ember via-platinum to-arctic bg-clip-text font-display font-black leading-[0.8] tracking-normal text-transparent min-[390px]:text-[4rem] text-[3.6rem] sm:text-[5.8rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[9.5rem]">
               {heroData.nameLines[1]}
             </h1>
           </motion.div>

@@ -16,6 +16,12 @@ export interface HeroFloatingTool {
     bottom?: string;
     left?: string;
   };
+  mobilePosition?: {
+    top?: string;
+    right?: string;
+    bottom?: string;
+    left?: string;
+  };
   motion: {
     x: number;
     y: number;
@@ -43,6 +49,7 @@ export const developerHeroTools: HeroFloatingTool[] = [
     size: 130,
     mobilePriority: 1,
     position: { right: "7%", top: "27%" },
+    mobilePosition: { right: "5%", top: "25%" },
     motion: { x: -6, y: 7, rotate: 1.2, duration: 8.4, delay: 0.2 },
     parallax: { x: 18, y: 12 },
   },
@@ -56,6 +63,7 @@ export const developerHeroTools: HeroFloatingTool[] = [
     size: 134,
     mobilePriority: 2,
     position: { left: "6%", bottom: "24%" },
+    mobilePosition: { left: "5%", top: "48%" },
     motion: { x: -7, y: 8, rotate: -1.5, duration: 9.0, delay: 0.5 },
     parallax: { x: 18, y: 12 },
   },
@@ -69,6 +77,7 @@ export const developerHeroTools: HeroFloatingTool[] = [
     size: 104,
     mobilePriority: 3,
     position: { right: "13%", top: "53%" },
+    mobilePosition: { right: "7%", top: "54%" },
     motion: { x: 5, y: -6, rotate: -1.4, duration: 8.6, delay: 0.3 },
     parallax: { x: 10, y: 7 },
   },
@@ -82,6 +91,7 @@ export const developerHeroTools: HeroFloatingTool[] = [
     size: 98,
     mobilePriority: 4,
     position: { left: "12%", top: "33%" },
+    mobilePosition: { left: "8%", top: "25%" },
     motion: { x: 5, y: -6, rotate: 1.2, duration: 9.2, delay: 0.1 },
     parallax: { x: 10, y: 7 },
   },
@@ -149,6 +159,7 @@ export const designerHeroTools: HeroFloatingTool[] = [
     size: 128,
     mobilePriority: 1,
     position: { left: "6%", top: "48%" },
+    mobilePosition: { left: "5%", top: "48%" },
     motion: { x: -7, y: 7, rotate: -1.4, duration: 8.8, delay: 0.1 },
     parallax: { x: 18, y: 12 },
   },
@@ -161,6 +172,7 @@ export const designerHeroTools: HeroFloatingTool[] = [
     size: 130,
     mobilePriority: 2,
     position: { right: "7%", top: "28%" },
+    mobilePosition: { right: "5%", top: "25%" },
     motion: { x: -6, y: 7, rotate: 1.5, duration: 9.2, delay: 0.35 },
     parallax: { x: 18, y: 12 },
   },
@@ -173,6 +185,7 @@ export const designerHeroTools: HeroFloatingTool[] = [
     size: 114,
     mobilePriority: 3,
     position: { right: "16%", bottom: "18%" },
+    mobilePosition: { left: "8%", top: "25%" },
     motion: { x: 6, y: -7, rotate: -1.2, duration: 8.4, delay: 0.75 },
     parallax: { x: 16, y: 10 },
   },
@@ -183,7 +196,7 @@ export const designerHeroTools: HeroFloatingTool[] = [
     image: `${designerToolImageBase}/premierpro.png`,
     depth: "middle",
     size: 100,
-    mobilePriority: 4,
+    mobilePriority: 5,
     position: { left: "13%", top: "28%" },
     motion: { x: 5, y: -6, rotate: 1.3, duration: 9.5, delay: 0.2 },
     parallax: { x: 10, y: 7 },
@@ -195,8 +208,9 @@ export const designerHeroTools: HeroFloatingTool[] = [
     image: `${designerToolImageBase}/aftereffect.png`,
     depth: "middle",
     size: 96,
-    mobilePriority: 5,
+    mobilePriority: 4,
     position: { right: "10%", top: "56%" },
+    mobilePosition: { right: "7%", top: "54%" },
     motion: { x: 6, y: 5, rotate: -1.5, duration: 10.2, delay: 0.5 },
     parallax: { x: 10, y: 7 },
   },

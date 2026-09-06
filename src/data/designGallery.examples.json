@@ -262,8 +262,8 @@
   {
     "id": "your-other-creative-work",
     "title": "Your Experimental Creative Artwork",
-    "categoryId": "other",
-    "image": "/assets/gallery/other/your-other-creative-work.webp",
+    "categoryId": "print-designs",
+    "image": "/assets/gallery/print-designs/your-other-creative-work.webp",
     "thumbnail": "/assets/gallery/thumbs/your-other-creative-work.webp",
     "alt": "Experimental 3D rendering and abstract graphic composition.",
     "width": 1080,

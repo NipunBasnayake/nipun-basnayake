@@ -22,7 +22,6 @@ export const designCategories = [
   { id: "print-designs", label: "Print Designs" },
   { id: "tshirt-designs", label: "T-Shirt Designs" },
   { id: "menu-designs", label: "Menu Designs" },
-  { id: "other", label: "Other" },
 ] satisfies DesignCategory[];
 
 export type DesignCategoryId = (typeof designCategories)[number]["id"];

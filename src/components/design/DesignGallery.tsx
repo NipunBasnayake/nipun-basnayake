@@ -96,11 +96,13 @@ export function DesignGallery({ categories, items }: DesignGalleryProps) {
 
   return (
     <div className="relative">
-      <DesignCategoryFilters
-        categories={visibleCategories}
-        activeCategory={activeCategory}
-        onChange={changeCategory}
-      />
+      <div className="sticky top-[4.75rem] z-30 -mx-5 px-5 py-3 sm:-mx-6 sm:px-6 sm:top-[5.25rem] lg:-mx-8 lg:px-8 bg-obsidian/90 backdrop-blur-xl border-y border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.5)]">
+        <DesignCategoryFilters
+          categories={visibleCategories}
+          activeCategory={activeCategory}
+          onChange={changeCategory}
+        />
+      </div>
 
       {filteredItems.length > 0 ? (
         <>
@@ -108,7 +110,7 @@ export function DesignGallery({ categories, items }: DesignGalleryProps) {
             Showing {renderedItems.length} of {filteredItems.length}
           </p>
 
-          <div className="mt-8 columns-1 gap-5 min-[480px]:columns-2 md:columns-3 min-[1200px]:columns-4">
+          <div className="mt-8 columns-2 gap-3 sm:gap-5 md:columns-3 min-[1200px]:columns-4">
             {renderedItems.map((item) => (
               <DesignGalleryItem
                 key={item.id}

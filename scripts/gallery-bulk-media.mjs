@@ -29,7 +29,6 @@ const categoryIds = [
   "motion-graphics",
   "tshirt-designs",
   "menu-designs",
-  "other",
 ];
 
 const categoryBaseSort = new Map(categoryIds.map((categoryId, index) => [categoryId, (index + 1) * 10000]));
@@ -359,7 +358,7 @@ function categoryFromPath(relPath, tokens) {
   if (normalizedTop === "invitations" && tokens.includes("wedding")) return "wedding-cards";
   if (categoryIds.includes(normalizedTop)) return normalizedTop;
 
-  return "other";
+  return "print-designs";
 }
 
 function altFor(categoryId, title, mediaType) {

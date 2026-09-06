@@ -114,7 +114,7 @@ function getGlow(variant: HeroVariant, depth: HeroToolDepth) {
 }
 
 function getResponsiveSize(size: number) {
-  return `clamp(${Math.round(size * 0.68)}px, ${(size * 0.08).toFixed(2)}vw, ${size}px)`;
+  return `clamp(${Math.round(size * 0.44)}px, ${(size * 0.065).toFixed(2)}vw, ${size}px)`;
 }
 
 function getSurfaceStyle(variant: HeroVariant, depth: HeroToolDepth) {
