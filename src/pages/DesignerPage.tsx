@@ -113,13 +113,13 @@ function DesignCategoriesSection() {
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {designCategories.map((category) => (
             <div
               key={category.id}
-              className="rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-4 py-4"
+              className="rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-3.5 py-3.5 sm:px-4 sm:py-4"
             >
-              <p className="font-semibold text-platinum/78">{category.label}</p>
+              <p className="text-sm font-semibold text-platinum/78 sm:text-base">{category.label}</p>
             </div>
           ))}
         </div>
@@ -130,7 +130,7 @@ function DesignCategoriesSection() {
 
 function DesignWorkSection() {
   return (
-    <section id="design-work" className="section-pad relative overflow-hidden bg-obsidian">
+    <section id="design-work" className="section-pad relative overflow-clip bg-obsidian">
       <GradientBlob
         className="left-1/2 top-20 size-[34rem] -translate-x-1/2"
         colors="from-wine/24 via-ember/18 to-arctic/12"

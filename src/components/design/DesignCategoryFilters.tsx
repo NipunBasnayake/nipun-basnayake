@@ -14,19 +14,19 @@ export function DesignCategoryFilters({
 }: DesignCategoryFiltersProps) {
   return (
     <div
-      className="-mx-5 overflow-x-auto px-5 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+      className="overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:overflow-visible [&::-webkit-scrollbar]:hidden"
       aria-label="Filter design portfolio"
     >
-      <div className="flex w-max gap-2.5 sm:w-full sm:flex-wrap">
+      <div className="flex w-max gap-2 sm:w-full sm:flex-wrap">
         <button
           type="button"
           onClick={() => onChange("all")}
           aria-pressed={activeCategory === "all"}
           className={cn(
-            "min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic",
+            "min-h-10 shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic sm:min-h-11 sm:px-4 sm:py-2 sm:text-sm",
             activeCategory === "all"
-              ? "border-platinum bg-platinum text-obsidian"
-              : "border-white/10 bg-white/[0.055] text-platinum/62 hover:border-arctic/35 hover:text-platinum",
+              ? "border-platinum bg-platinum text-obsidian shadow-[0_0_16px_rgba(255,255,255,0.22)]"
+              : "border-white/10 bg-white/[0.055] text-platinum/65 hover:border-arctic/35 hover:text-platinum",
           )}
         >
           All
@@ -39,10 +39,10 @@ export function DesignCategoryFilters({
             onClick={() => onChange(category.id)}
             aria-pressed={activeCategory === category.id}
             className={cn(
-              "min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic",
+              "min-h-10 shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic sm:min-h-11 sm:px-4 sm:py-2 sm:text-sm",
               activeCategory === category.id
-                ? "border-wine bg-wine text-platinum"
-                : "border-white/10 bg-white/[0.055] text-platinum/62 hover:border-wine/45 hover:text-platinum",
+                ? "border-wine bg-wine text-platinum shadow-[0_0_16px_rgba(162,41,255,0.28)]"
+                : "border-white/10 bg-white/[0.055] text-platinum/65 hover:border-wine/45 hover:text-platinum",
             )}
           >
             {category.label}

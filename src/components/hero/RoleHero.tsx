@@ -21,6 +21,8 @@ interface RoleHeroProps {
 
 const variantCopy = {
   developer: {
+    topBadge: "Software Developer Portfolio",
+    topTagline: "Spring Boot / React / APIs / Distributed Systems",
     eyebrow: "Full Stack Software Engineer / Product Engineer",
     tone: "Spring Boot / React / APIs / Distributed Systems",
     background:
@@ -28,8 +30,12 @@ const variantCopy = {
     glowLeft: "bg-arctic/10",
     glowRight: "bg-wine/10",
     labelColor: "text-arctic/85",
+    accentDot: "bg-arctic shadow-[0_0_8px_#86f4ff]",
+    badgeBorder: "border-arctic/20 bg-arctic/[0.04]",
   },
   designer: {
+    topBadge: "Graphic Designer Portfolio",
+    topTagline: "Brand Identity / Social Media / Print / Motion",
     eyebrow: "Freelance Graphic Designer / Since 2019",
     tone: "Brand Identity / Print / Motion / Visual Systems",
     background:
@@ -37,16 +43,22 @@ const variantCopy = {
     glowLeft: "bg-wine/10",
     glowRight: "bg-ember/10",
     labelColor: "text-ember/85",
+    accentDot: "bg-ember shadow-[0_0_8px_#ff5a3d]",
+    badgeBorder: "border-wine/25 bg-wine/[0.04]",
   },
 } satisfies Record<
   HeroVariant,
   {
+    topBadge: string;
+    topTagline: string;
     eyebrow: string;
     tone: string;
     background: string;
     glowLeft: string;
     glowRight: string;
     labelColor: string;
+    accentDot: string;
+    badgeBorder: string;
   }
 >;
 
@@ -157,6 +169,33 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
       {/* 5. Central Hero Composition */}
       <Container className="relative z-20">
         <div className="app-screen-minus-nav relative">
+          {/* Top Role Header & Status Pill (z-50) */}
+          <div className="pointer-events-none absolute inset-x-0 top-2 z-50 mx-auto max-w-xl px-4 text-center sm:top-5 lg:top-7">
+            <motion.div
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border px-3 py-1 shadow-lg backdrop-blur-md sm:px-4 sm:py-1.5",
+                copy.badgeBorder,
+              )}
+              initial={reduceMotion ? false : { opacity: 0, y: -14, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className={cn("size-1.5 rounded-full animate-pulse", copy.accentDot)} />
+              <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.24em] text-platinum/85 sm:text-[0.68rem]">
+                {copy.topBadge}
+              </span>
+            </motion.div>
+
+            <motion.p
+              className="mt-1.5 font-mono text-[0.56rem] uppercase tracking-[0.18em] text-platinum/50 sm:mt-2 sm:text-[0.66rem] sm:tracking-[0.22em]"
+              initial={reduceMotion ? false : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {copy.topTagline}
+            </motion.p>
+          </div>
+
           {/* Layered Typography: NIPUN (Behind, z-20) & BASNAYAKA (Front, z-40) */}
           <HeroName variant={variant} reduceMotion={reduceMotion} />
 
@@ -164,7 +203,14 @@ export function RoleHero({ variant, tools }: RoleHeroProps) {
           <HeroPortrait composition="role" variant={variant} />
 
           {/* Bottom Role Eyebrow & Tone (z-50) */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-5 z-50 mx-auto max-w-xl px-4 text-center [bottom:max(1.25rem,env(safe-area-inset-bottom))] sm:bottom-10 sm:px-6">
+          <div
+            className={cn(
+              "pointer-events-none absolute inset-x-0 bottom-10 z-50 mx-auto max-w-xl px-4 text-center sm:bottom-10 sm:px-6",
+              variant === "designer"
+                ? "[bottom:max(1.25rem,env(safe-area-inset-bottom))]"
+                : "[bottom:max(4rem,env(safe-area-inset-bottom))]",
+            )}
+          >
             <motion.p
               className={cn(
                 "font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] sm:text-xs",
