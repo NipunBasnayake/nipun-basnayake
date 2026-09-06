@@ -7,7 +7,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <article className="group relative h-full min-h-[34rem] overflow-hidden rounded-[2.4rem_0.9rem_2.4rem_0.9rem] border border-white/10 bg-white/[0.045] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm sm:p-8 lg:p-10">
+    <article className="group relative h-full min-h-[29rem] overflow-hidden rounded-[1.6rem_0.8rem_1.6rem_0.8rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm sm:min-h-[34rem] sm:rounded-[2.4rem_0.9rem_2.4rem_0.9rem] sm:p-8 lg:p-10">
       <div className="absolute -right-20 -top-24 size-72 rounded-full bg-gradient-to-br from-arctic/55 via-wine/30 to-ember/35 blur-3xl transition duration-700 group-hover:scale-125" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-platinum/40 to-transparent" />
 
@@ -19,11 +19,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </span>
         </div>
 
-        <h3 className="mt-10 max-w-2xl font-display text-4xl font-black leading-[0.9] text-platinum sm:text-6xl">
+        <h3 className="mt-7 max-w-2xl font-display text-3xl font-black leading-[0.95] text-platinum sm:mt-10 sm:text-6xl sm:leading-[0.9]">
           {project.title}
         </h3>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-7 grid gap-5 sm:mt-10 lg:grid-cols-2">
           <div>
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-platinum/34">Problem</p>
             <p className="mt-3 text-sm leading-7 text-platinum/66 sm:text-base sm:leading-8">
@@ -38,7 +38,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        <div className="mt-auto flex flex-wrap gap-2.5 pt-10">
+        <div className="mt-auto flex flex-wrap gap-2.5 pt-7 sm:pt-10">
           {project.stack.map((tag) => (
             <span
               key={tag}

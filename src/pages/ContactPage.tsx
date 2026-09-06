@@ -254,7 +254,7 @@ export function ContactPage({ search }: ContactPageProps) {
     "mt-2 min-h-36 w-full resize-y rounded-[0.85rem] border border-white/10 bg-black/30 px-4 py-3 text-base leading-7 text-platinum outline-none transition placeholder:text-platinum/30 focus:border-arctic/55 focus:bg-black/40";
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-obsidian pt-20">
+    <main className="app-screen relative overflow-hidden bg-obsidian pt-20">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#050505_0%,#0a090f_52%,#050505_100%)]" />
       <GradientBlob
         className="left-[-12rem] top-24 size-[32rem]"
@@ -266,7 +266,7 @@ export function ContactPage({ search }: ContactPageProps) {
         delay={0.7}
       />
 
-      <Container className="relative z-10 py-16 sm:py-24">
+      <Container className="relative z-10 py-12 sm:py-24">
         <motion.div
           className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -284,7 +284,7 @@ export function ContactPage({ search }: ContactPageProps) {
             </p>
             <h1
               id="contact-heading"
-              className="mt-6 font-display text-5xl font-black uppercase leading-[0.9] tracking-[-0.02em] text-platinum sm:text-7xl lg:text-8xl"
+              className="mt-6 font-display text-4xl font-black uppercase leading-[0.92] tracking-normal text-platinum min-[390px]:text-5xl sm:text-7xl sm:leading-[0.9] lg:text-8xl"
             >
               <span className="block">{context.title[0]}</span>
               <span className="block">{context.title[1]}</span>
@@ -391,6 +391,7 @@ export function ContactPage({ search }: ContactPageProps) {
                       id="contact-email"
                       name="email"
                       type="email"
+                      inputMode="email"
                       value={form.email}
                       onChange={updateField}
                       className={fieldClass}
@@ -445,6 +446,8 @@ export function ContactPage({ search }: ContactPageProps) {
                     <input
                       id="contact-phone"
                       name="phone"
+                      type="tel"
+                      inputMode="tel"
                       value={form.phone}
                       onChange={updateField}
                       className={fieldClass}
@@ -460,9 +463,11 @@ export function ContactPage({ search }: ContactPageProps) {
                   <input
                     id="contact-subject"
                     name="subject"
+                    type="text"
                     value={form.subject}
                     onChange={updateField}
                     className={fieldClass}
+                    autoComplete="off"
                     aria-invalid={Boolean(errors.subject)}
                     aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                   />
@@ -483,6 +488,7 @@ export function ContactPage({ search }: ContactPageProps) {
                     value={form.message}
                     onChange={updateField}
                     className={textareaClass}
+                    autoComplete="off"
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? "contact-message-error" : undefined}
                   />

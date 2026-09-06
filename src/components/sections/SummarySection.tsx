@@ -6,7 +6,7 @@ import { GradientBlob } from "../ui/GradientBlob";
 
 export function SummarySection() {
   return (
-    <section id="summary" className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section id="summary" className="section-pad relative overflow-hidden bg-obsidian">
       <GradientBlob className="right-[-12rem] top-20 size-[28rem]" colors="from-wine/25 via-ember/20 to-transparent" />
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1fr_0.95fr] lg:items-start">

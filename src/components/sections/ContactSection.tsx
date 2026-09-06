@@ -12,7 +12,7 @@ export function ContactSection({ onNavigate }: ContactSectionProps) {
   const href = "/contact?from=developer";
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section id="contact" className="section-pad relative overflow-hidden bg-obsidian">
       <GradientBlob
         className="left-1/2 top-10 size-[34rem] -translate-x-1/2"
         colors="from-ember/24 via-arctic/20 to-wine/18"
@@ -41,7 +41,7 @@ export function ContactSection({ onNavigate }: ContactSectionProps) {
               event.preventDefault();
               onNavigate(href);
             }}
-            className="relative z-10 mt-9 inline-flex h-14 items-center justify-center gap-2 rounded-full border border-transparent bg-platinum px-7 text-sm font-black uppercase tracking-[0.16em] text-obsidian transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
+            className="relative z-10 mt-9 inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-transparent bg-platinum px-6 text-center text-sm font-black uppercase tracking-[0.16em] text-obsidian transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic sm:px-7"
           >
             Contact Me
             <ArrowUpRight className="size-4" aria-hidden="true" />

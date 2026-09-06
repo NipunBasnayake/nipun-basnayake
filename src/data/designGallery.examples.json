@@ -1,0 +1,343 @@
+[
+  {
+    "id": "your-logo-design",
+    "title": "Your Logo Design Project",
+    "categoryId": "logo-design",
+    "image": "/assets/gallery/logo-design/your-logo-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-logo-design.webp",
+    "alt": "Logo design presentation showcase.",
+    "width": 1080,
+    "height": 1080,
+    "sortOrder": 10,
+    "description": "Minimalist brand mark and icon design.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": true,
+    "client": "Brand Studio",
+    "format": "square"
+  },
+  {
+    "id": "your-branding-project",
+    "title": "Your Complete Branding Project",
+    "categoryId": "branding",
+    "image": "/assets/gallery/branding/your-branding-project.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-branding-project.webp",
+    "alt": "Comprehensive visual identity and brand guidelines presentation.",
+    "width": 1920,
+    "height": 1080,
+    "sortOrder": 20,
+    "description": "Full brand identity suite including color palettes, typography, and visual assets.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe InDesign",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": true,
+    "client": "Horizon Ventures",
+    "format": "landscape"
+  },
+  {
+    "id": "your-poster-design",
+    "title": "Your Creative Poster Design",
+    "categoryId": "posters",
+    "image": "/assets/gallery/posters/your-poster-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-poster-design.webp",
+    "alt": "High-impact typographic event poster artwork.",
+    "width": 1080,
+    "height": 1350,
+    "sortOrder": 30,
+    "description": "Bold editorial and exhibition poster layout.",
+    "tools": [
+      "Adobe Photoshop",
+      "Adobe Illustrator"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "ArtFest 2026",
+    "format": "portrait"
+  },
+  {
+    "id": "your-flyer-design",
+    "title": "Your Promotional Flyer Design",
+    "categoryId": "flyers",
+    "image": "/assets/gallery/flyers/your-flyer-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-flyer-design.webp",
+    "alt": "Marketing flyer layout with clean promotional hierarchy.",
+    "width": 2480,
+    "height": 3508,
+    "sortOrder": 40,
+    "description": "A4 promotional flyer for product launch event.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "Nova Retail",
+    "format": "a4-portrait"
+  },
+  {
+    "id": "your-social-media-post",
+    "title": "Your Social Media Campaign Visual",
+    "categoryId": "social-media",
+    "image": "/assets/gallery/social-media/your-social-media-post.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-social-media-post.webp",
+    "alt": "Engaging social media post graphic with vibrant gradients.",
+    "width": 1080,
+    "height": 1350,
+    "sortOrder": 50,
+    "description": "Instagram portrait post design for marketing campaign.",
+    "tools": [
+      "Adobe Photoshop",
+      "Figma"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Digital Wave Media",
+    "format": "portrait"
+  },
+  {
+    "id": "your-wedding-card",
+    "title": "Your Elegant Wedding Invitation Card",
+    "categoryId": "wedding-cards",
+    "image": "/assets/gallery/wedding-cards/your-wedding-card.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-wedding-card.webp",
+    "alt": "Elegant luxury wedding invitation card design with floral motifs.",
+    "width": 1500,
+    "height": 2100,
+    "sortOrder": 60,
+    "description": "Custom luxury wedding invitation suite with bespoke typography.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "Private Client",
+    "format": "portrait"
+  },
+  {
+    "id": "your-event-invitation",
+    "title": "Your Event Invitation Card",
+    "categoryId": "invitations",
+    "image": "/assets/gallery/invitations/your-event-invitation.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-event-invitation.webp",
+    "alt": "Modern gala invitation card layout.",
+    "width": 1800,
+    "height": 1200,
+    "sortOrder": 70,
+    "description": "Formal evening gala and anniversary invitation card.",
+    "tools": [
+      "Adobe Illustrator"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "Global Tech Summit",
+    "format": "landscape"
+  },
+  {
+    "id": "your-business-card",
+    "title": "Your Premium Business Card Design",
+    "categoryId": "business-cards",
+    "image": "/assets/gallery/business-cards/your-business-card.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-business-card.webp",
+    "alt": "Double-sided modern corporate business card design.",
+    "width": 1050,
+    "height": 600,
+    "sortOrder": 80,
+    "description": "3.5x2 inch print-ready business card with foil accent guides.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe InDesign"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Apex Consulting",
+    "format": "card-landscape"
+  },
+  {
+    "id": "your-certificate-design",
+    "title": "Your Certificate of Excellence",
+    "categoryId": "certificates",
+    "image": "/assets/gallery/certificates/your-certificate-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-certificate-design.webp",
+    "alt": "Formal award and achievement certificate with decorative guilloche borders.",
+    "width": 3508,
+    "height": 2480,
+    "sortOrder": 90,
+    "description": "Print-ready A4 landscape certificate of completion and honor.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "Academy of Design",
+    "format": "a4-landscape"
+  },
+  {
+    "id": "your-brochure-design",
+    "title": "Your Tri-Fold Corporate Brochure",
+    "categoryId": "brochures",
+    "image": "/assets/gallery/brochures/your-brochure-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-brochure-design.webp",
+    "alt": "Modern tri-fold brochure spread with structured grid layout.",
+    "width": 3508,
+    "height": 2480,
+    "sortOrder": 100,
+    "description": "Tri-fold A4 corporate brochure showcasing services and portfolio.",
+    "tools": [
+      "Adobe InDesign",
+      "Adobe Illustrator"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "Urban Architecture Studio",
+    "format": "a4-landscape"
+  },
+  {
+    "id": "your-banner-design",
+    "title": "Your Roll-Up Exhibition Banner",
+    "categoryId": "banners",
+    "image": "/assets/gallery/banners/your-banner-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-banner-design.webp",
+    "alt": "Tall standee roll-up exhibition banner for trade shows.",
+    "width": 1200,
+    "height": 3000,
+    "sortOrder": 110,
+    "description": "High-resolution 85x200cm roll-up banner for conference booths.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "TechCon Expo",
+    "format": "standee-banner"
+  },
+  {
+    "id": "your-event-branding",
+    "title": "Your Event Stage & Backstage Visuals",
+    "categoryId": "event-designs",
+    "image": "/assets/gallery/event-designs/your-event-branding.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-event-branding.webp",
+    "alt": "Comprehensive stage backdrop, lanyard, and badge branding package.",
+    "width": 1920,
+    "height": 1080,
+    "sortOrder": 120,
+    "description": "Event identity package including stage screens, attendee badges, and signage.",
+    "tools": [
+      "Adobe Photoshop",
+      "Adobe Illustrator"
+    ],
+    "year": "2025",
+    "featured": false,
+    "client": "MusicFest Live",
+    "format": "landscape"
+  },
+  {
+    "id": "your-print-design",
+    "title": "Your Print Packaging & Merchandise",
+    "categoryId": "print-designs",
+    "image": "/assets/gallery/print-designs/your-print-design.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-print-design.webp",
+    "alt": "Custom product packaging box mockup with die-cut lines.",
+    "width": 2400,
+    "height": 1800,
+    "sortOrder": 130,
+    "description": "Print-ready packaging box and merchandise apparel design.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Organics Co.",
+    "format": "landscape"
+  },
+  {
+    "id": "your-other-creative-work",
+    "title": "Your Experimental Creative Artwork",
+    "categoryId": "other",
+    "image": "/assets/gallery/other/your-other-creative-work.webp",
+    "thumbnail": "/assets/gallery/thumbs/your-other-creative-work.webp",
+    "alt": "Experimental 3D rendering and abstract graphic composition.",
+    "width": 1080,
+    "height": 1920,
+    "sortOrder": 140,
+    "description": "Abstract visual experimentation combining typography and 3D textures.",
+    "tools": [
+      "Adobe Photoshop",
+      "Blender"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Personal Project",
+    "format": "story"
+  },
+  {
+    "id": "your-motion-graphic",
+    "title": "Your Promotional Motion Graphic",
+    "categoryId": "motion-graphics",
+    "mediaType": "video",
+    "image": "/assets/gallery/motion-graphics/your-motion-graphic.mp4",
+    "thumbnail": "/assets/gallery/thumbs/your-motion-graphic.webp",
+    "alt": "Motion graphic project preview for Your Promotional Motion Graphic.",
+    "width": 1080,
+    "height": 1080,
+    "sortOrder": 150,
+    "description": "Short promotional animation designed for social platforms.",
+    "tools": [
+      "Adobe After Effects",
+      "Adobe Premiere Pro"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Motion Client",
+    "format": "video-square"
+  },
+  {
+    "id": "your-tshirt-design",
+    "title": "Your T-Shirt Design Mockup",
+    "categoryId": "tshirt-designs",
+    "mediaType": "image",
+    "image": "/assets/gallery/tshirt-designs/your-tshirt-design.webp",
+    "alt": "T-shirt design mockup for Your T-Shirt Design Mockup.",
+    "width": 2000,
+    "height": 2000,
+    "sortOrder": 160,
+    "description": "Apparel artwork and mockup presentation.",
+    "tools": [
+      "Adobe Illustrator",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Apparel Client",
+    "format": "square"
+  },
+  {
+    "id": "your-menu-design",
+    "title": "Your Menu Design",
+    "categoryId": "menu-designs",
+    "mediaType": "image",
+    "image": "/assets/gallery/menu-designs/your-menu-design.webp",
+    "alt": "Menu design artwork for Your Menu Design.",
+    "width": 1800,
+    "height": 2400,
+    "sortOrder": 170,
+    "description": "Restaurant or salon menu layout design.",
+    "tools": [
+      "Adobe InDesign",
+      "Adobe Photoshop"
+    ],
+    "year": "2026",
+    "featured": false,
+    "client": "Hospitality Client",
+    "format": "portrait"
+  }
+]

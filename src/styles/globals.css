@@ -13,6 +13,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(5.75rem + env(safe-area-inset-top));
   background: #050505;
 }
 
@@ -20,11 +21,20 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   overflow-x: hidden;
   background:
     linear-gradient(90deg, rgba(255, 90, 61, 0.02), transparent 26%, rgba(134, 244, 255, 0.025)),
     #050505;
   font-family: Inter, system-ui, sans-serif;
+}
+
+body.nav-scroll-locked,
+body.lightbox-scroll-locked,
+html.lightbox-scroll-locked {
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 body::before {
@@ -75,6 +85,97 @@ a {
 
 img {
   max-width: 100%;
+}
+
+section[id] {
+  scroll-margin-top: calc(5.75rem + env(safe-area-inset-top));
+}
+
+.app-screen {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+.app-screen-minus-nav {
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100svh - 5rem);
+  min-height: calc(100dvh - 5rem);
+}
+
+.section-pad {
+  padding-block: 4rem;
+}
+
+@media (min-width: 640px) {
+  .section-pad {
+    padding-block: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-pad {
+    padding-block: 8rem;
+  }
+}
+
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.landing-split-surface,
+.landing-split-inner {
+  min-height: calc((100vh - 5rem) / 2);
+  min-height: calc((100svh - 5rem) / 2);
+  min-height: calc((100dvh - 5rem) / 2);
+}
+
+.hero-portrait {
+  --hero-portrait-x: 50%;
+  --hero-portrait-y: 48%;
+  --hero-portrait-width: clamp(19rem, 38vw, 29rem);
+  --hero-portrait-translate-y: -48%;
+  left: calc(var(--hero-portrait-x) + var(--portrait-visual-offset-x));
+  top: var(--hero-portrait-y);
+  width: var(--hero-portrait-width);
+  transform: translate(-50%, var(--hero-portrait-translate-y));
+}
+
+.hero-portrait--landing {
+  --hero-portrait-width: clamp(17rem, 72vw, 25rem);
+}
+
+.hero-portrait--role {
+  --hero-portrait-width: clamp(17rem, 70vw, 25rem);
+}
+
+@media (min-width: 640px) {
+  .hero-portrait--landing,
+  .hero-portrait--role {
+    --hero-portrait-width: clamp(19rem, 38vw, 29rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .landing-split-surface,
+  .landing-split-inner {
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    min-height: calc(100dvh - 5rem);
+  }
+}
+
+@media (max-width: 430px) and (max-height: 680px) {
+  .hero-portrait--landing {
+    --hero-portrait-width: clamp(14.5rem, 62vw, 19rem);
+    --hero-portrait-y: 50%;
+  }
+
+  .hero-portrait--role {
+    --hero-portrait-width: clamp(15.5rem, 64vw, 20rem);
+    --hero-portrait-y: 47%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

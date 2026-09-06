@@ -5,7 +5,7 @@ import { SectionHeader } from "../common/SectionHeader";
 
 export function EducationSection() {
   return (
-    <section id="education" className="relative bg-carbon py-24 sm:py-32">
+    <section id="education" className="section-pad relative bg-carbon">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <SectionHeader copy={educationSection} className="lg:sticky lg:top-28" />
@@ -29,7 +29,7 @@ export function EducationSection() {
                       {item.location}
                     </span>
                   </div>
-                  <h3 className="mt-6 font-display text-3xl font-black leading-none text-platinum">
+                  <h3 className="mt-6 break-words font-display text-2xl font-black leading-tight text-platinum sm:text-3xl sm:leading-none">
                     {item.program}
                   </h3>
                   <p className="mt-3 font-semibold text-platinum/72">{item.institution}</p>

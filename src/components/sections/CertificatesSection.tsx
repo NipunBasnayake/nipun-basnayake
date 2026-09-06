@@ -36,7 +36,7 @@ function CertificateCard({
   const isLinked = Boolean(certificate.referenceUrl);
 
   return (
-    <article className="relative z-10 h-full min-h-[30rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_12px_40px_rgba(0,0,0,0.2)] backdrop-blur-sm transition duration-300 hover:border-arctic/30">
+    <article className="relative z-10 h-full min-h-[27rem] overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_12px_40px_rgba(0,0,0,0.2)] backdrop-blur-sm transition duration-300 hover:border-arctic/30 sm:min-h-[30rem] sm:rounded-[2rem]">
       <div className="absolute -right-20 -top-20 size-56 rounded-full bg-gradient-to-br from-arctic/25 via-wine/25 to-ember/20 blur-3xl" />
 
       <div className="relative z-10 flex h-full flex-col">
@@ -85,7 +85,7 @@ function CertificateCard({
             </span>
           </div>
 
-          <h3 className="mt-5 font-display text-2xl font-black leading-[0.95] text-platinum">
+          <h3 className="mt-5 font-display text-xl font-black leading-[0.95] text-platinum sm:text-2xl">
             {certificate.title}
           </h3>
 
@@ -186,7 +186,7 @@ export function CertificatesSection() {
   return (
     <section
       id="certificates"
-      className="relative overflow-hidden bg-obsidian py-24 sm:py-32"
+      className="section-pad relative overflow-hidden bg-obsidian"
     >
       <GradientBlob
         className="left-1/2 top-16 size-[34rem] -translate-x-1/2"
@@ -202,7 +202,7 @@ export function CertificatesSection() {
               type="button"
               onClick={() => goTo(activeIndex - 1)}
               disabled={activeIndex === 0}
-              className="grid size-14 place-items-center rounded-full border border-white/18 bg-platinum text-obsidian shadow-[0_12px_40px_rgba(244,240,232,0.12)] transition hover:border-arctic/45 hover:bg-arctic disabled:cursor-not-allowed disabled:bg-white/[0.08] disabled:text-platinum disabled:opacity-35"
+              className="tap-target grid size-14 place-items-center rounded-full border border-white/18 bg-platinum text-obsidian shadow-[0_12px_40px_rgba(244,240,232,0.12)] transition hover:border-arctic/45 hover:bg-arctic disabled:cursor-not-allowed disabled:bg-white/[0.08] disabled:text-platinum disabled:opacity-35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
               aria-label="Previous certificate"
             >
               <ArrowLeft className="size-5" />
@@ -212,7 +212,7 @@ export function CertificatesSection() {
               type="button"
               onClick={() => goTo(activeIndex + 1)}
               disabled={activeIndex === maxIndex}
-              className="grid size-14 place-items-center rounded-full border border-white/18 bg-platinum text-obsidian shadow-[0_12px_40px_rgba(244,240,232,0.12)] transition hover:border-arctic/45 hover:bg-arctic disabled:cursor-not-allowed disabled:bg-white/[0.08] disabled:text-platinum disabled:opacity-35"
+              className="tap-target grid size-14 place-items-center rounded-full border border-white/18 bg-platinum text-obsidian shadow-[0_12px_40px_rgba(244,240,232,0.12)] transition hover:border-arctic/45 hover:bg-arctic disabled:cursor-not-allowed disabled:bg-white/[0.08] disabled:text-platinum disabled:opacity-35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
               aria-label="Next certificate"
             >
               <ArrowRight className="size-5" />
@@ -223,7 +223,7 @@ export function CertificatesSection() {
         {/* SLIDER */}
         <div
           ref={viewportRef}
-          className="relative mt-14 overflow-hidden py-4 touch-pan-y"
+          className="relative mt-10 overflow-hidden py-4 touch-pan-y sm:mt-14"
         >
           <motion.div
             className="flex gap-4 cursor-grab active:cursor-grabbing"
@@ -288,13 +288,17 @@ export function CertificatesSection() {
                 type="button"
                 onClick={() => goTo(index)}
                 aria-label={`Go to ${certificate.title}`}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  index === activeIndex
-                    ? "w-10 bg-arctic"
-                    : "w-2 bg-white/20 hover:bg-white/40",
-                )}
-              />
+                className="tap-target grid size-11 place-items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-arctic"
+              >
+                <span
+                  className={cn(
+                    "h-2 rounded-full transition-all duration-300",
+                    index === activeIndex
+                      ? "w-10 bg-arctic"
+                      : "w-2 bg-white/20 hover:bg-white/40",
+                  )}
+                />
+              </button>
             ))}
           </AnimatePresence>
         </div>

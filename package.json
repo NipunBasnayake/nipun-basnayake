@@ -17,6 +17,7 @@
     "lucide-react": "^0.561.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "sharp": "^0.35.4",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

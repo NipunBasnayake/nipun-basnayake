@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AppRoute } from "../../hooks/useRouteNavigation";
 import { siteData } from "../../data/portfolio";
 import { cn } from "../../lib/utils";
@@ -70,8 +70,27 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    document.body.classList.toggle("nav-scroll-locked", isOpen);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.body.classList.remove("nav-scroll-locked");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
   return (
-    <header className="pointer-events-none fixed left-0 right-0 top-3 z-50 px-3">
+    <header className="pointer-events-none fixed left-0 right-0 top-3 z-50 px-3 [top:max(0.75rem,env(safe-area-inset-top))]">
       <Container className="pointer-events-auto">
         <div className="flex h-16 items-center justify-between rounded-full border border-white/10 bg-obsidian/70 px-3 shadow-[0_18px_60px_rgba(0,0,0,0.26)] backdrop-blur-xl sm:px-4">
           <a
@@ -145,10 +164,11 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
 
           <button
             type="button"
-            className="grid size-11 place-items-center rounded-full border border-white/12 bg-white/[0.06] text-platinum md:hidden"
+            className="tap-target grid size-11 place-items-center rounded-full border border-white/12 bg-white/[0.06] text-platinum transition hover:border-white/20 hover:bg-white/[0.09] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic md:hidden"
             onClick={() => setIsOpen((current) => !current)}
             aria-label={isOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={isOpen}
+            aria-controls="mobile-primary-navigation"
           >
             {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -156,8 +176,10 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
       </Container>
 
       <motion.div
+        id="mobile-primary-navigation"
+        aria-hidden={!isOpen}
         className={cn(
-          "pointer-events-auto absolute left-3 right-3 top-[4.75rem] mx-auto max-w-7xl rounded-[1.35rem] border border-white/10 bg-obsidian/90 p-3 shadow-[0_18px_60px_rgba(0,0,0,0.32)] backdrop-blur-xl md:hidden",
+          "pointer-events-auto absolute left-3 right-3 top-[4.75rem] mx-auto max-h-[calc(100dvh-6rem)] max-w-7xl overflow-y-auto overscroll-contain rounded-[1.35rem] border border-white/10 bg-obsidian/95 p-3 shadow-[0_18px_60px_rgba(0,0,0,0.32)] backdrop-blur-xl md:hidden",
           !isOpen && "pointer-events-none",
         )}
         initial={false}
@@ -177,7 +199,7 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
                   handleNavigate("/developer");
                 }}
                 className={cn(
-                  "rounded-full border px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] transition",
+                  "tap-target rounded-full border px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic",
                   route === "/developer"
                     ? "border-arctic/40 bg-arctic text-obsidian"
                     : "border-white/10 bg-black/40 text-platinum/70",
@@ -192,7 +214,7 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
                   handleNavigate("/designer");
                 }}
                 className={cn(
-                  "rounded-full border px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] transition",
+                  "tap-target rounded-full border px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic",
                   route === "/designer"
                     ? "border-wine/50 bg-wine text-platinum"
                     : "border-white/10 bg-black/40 text-platinum/70",
@@ -211,7 +233,7 @@ export function Navbar({ route, onNavigate }: NavbarProps) {
                 event.preventDefault();
                 handleNavigate(item.href);
               }}
-              className="rounded-full border border-white/10 bg-black/40 px-5 py-3 text-center text-sm font-bold text-platinum/80 transition hover:border-white/20 hover:bg-black/60"
+              className="tap-target rounded-full border border-white/10 bg-black/40 px-5 py-3 text-center text-sm font-bold text-platinum/80 transition hover:border-white/20 hover:bg-black/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-arctic"
             >
               {item.label}
             </a>
